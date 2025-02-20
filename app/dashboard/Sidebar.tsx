@@ -96,7 +96,7 @@ const Sidebar = () => {
                
                <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 hidden sm:flex">
                {/* Tooltip Component */}
-               <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
+              
             
                <Link
                  href="/admin"
@@ -128,6 +128,7 @@ const Sidebar = () => {
                      d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z"
                    />
                  </svg>
+                 <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                </Link>
          
                {/* Admission */}
@@ -269,12 +270,15 @@ const Sidebar = () => {
               ) : data?.user_type === "staff" ? (
                 //  {/* staff */}
                 <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 hidden sm:flex">
-                  <Link
-                    href="/staff"
-                    data-tooltip="Dashboards"
-                    data-placement="right"
-                    className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-                  >
+                {/* Tooltip Component */}
+                
+                <Link
+                  href="/staff"
+                  data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Dashboards"
+                  className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+                >
+                  
                     <svg
                       className="size-7"
                       xmlns="http://www.w3.org/2000/svg"
@@ -300,15 +304,16 @@ const Sidebar = () => {
                       />
                     </svg>
                     {/* </Link> */}
+                    <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                   </Link>
 
                   {/* Admission */}
                   <Link
-                    href="/staff/signup/admission"
-                    data-tooltip="Admission"
-                    data-placement="right"
-                    className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-                  >
+                  href="/staff/signup/admission"
+                  data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Admission"
+                  className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+                >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -330,8 +335,8 @@ const Sidebar = () => {
                   {/* Accounts */}
                   <Link
                     href="/staff/accounts/daily-accounts"
-                    data-tooltip="Accounts"
-                    data-placement="right"
+                    data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Accounts"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
                   >
                     <svg
@@ -351,8 +356,8 @@ const Sidebar = () => {
                   <Link
                     href="/staff/report/payment-history"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-                    data-tooltip="Report"
-                    data-placement="right"
+                      data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Payment"
                   >
                     <svg
                       className="size-7"
@@ -581,11 +586,13 @@ const Sidebar = () => {
                 </div>
               ) : data?.user_type === "staff" ? (
                 <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 xl:hidden">
+                {/* Tooltip Component */}
+                <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                   {/* Dashobards */}
                   <Link
                     href="/staff"
-                    data-tooltip="Dashboards"
-                    data-placement="right"
+                       data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Dashobards"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
                   >
                     <svg
@@ -619,8 +626,8 @@ const Sidebar = () => {
                   {/* Admission */}
                   <Link
                     href="/staff/signup/admission"
-                    data-tooltip="Admission"
-                    data-placement="right"
+                      data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Admission"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
                   >
                     <svg
@@ -644,8 +651,8 @@ const Sidebar = () => {
                   {/* Accounts */}
                   <Link
                     href="/staff/accounts/daily-accounts"
-                    data-tooltip="Accounts"
-                    data-placement="right"
+                     data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Accounts"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
                   >
                     <svg
@@ -665,8 +672,8 @@ const Sidebar = () => {
                   <Link
                     href="/staff/report/payment-history"
                     className="tooltip-main-sidebar flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-                    data-tooltip="Report"
-                    data-placement="right"
+                      data-tooltip-id="main-sidebar-tooltip"
+                  data-tooltip-content="Payment"
                   >
                     <svg
                       className="size-7"
@@ -984,45 +991,11 @@ const Sidebar = () => {
                               data-active-class="font-medium text-primary dark:text-accent-light"
                             >
                               <div className="flex items-center space-x-2">
-                                <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                <span className="font-bold">Admission</span>
+                               
+                                <span className="font-bold" >Admission</span>
                               </div>
                             </Link>
                           </li>
-
-                          {/* scanner
-                         <li>
-                        <Link
-                          href="/staff/Scanner"
-                          className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
-                          data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
-                          data-active-class="font-medium text-primary dark:text-accent-light"
-                        >
-                         
-                          <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Scanner</span>
-                          </div>
-                         
-                        </Link>
-                      </li>
-
-                      {/* Qr code */}
-                          {/* <li>
-                        <Link
-                          href="/staff/Qr"
-                          className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
-                          data-default-class="text-slate-600 hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
-                          data-active-class="font-medium text-primary dark:text-accent-light"
-                        >
-                         
-                          <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Qr code</span>
-                          </div>
-                         
-                        </Link>
-                      </li>  */}
 
                           {/* accounts */}
                           <li>
@@ -1033,8 +1006,8 @@ const Sidebar = () => {
                               data-active-class="font-medium text-primary dark:text-accent-light"
                             >
                               <div className="flex items-center space-x-2">
-                                <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                <span>Accounts</span>
+                                
+                                <span className="font-bold">Accounts</span>
                               </div>
                             </Link>
                           </li>
@@ -1045,7 +1018,7 @@ const Sidebar = () => {
                               onClick={handleDropdownToggles} // Toggle the dropdown on button click
                               className="ac-trigger flex w-full items-center justify-between py-2 text-xs+ tracking-wide text-slate-600 outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
                             >
-                              <span>Reports</span>
+                              <span className="font-bold ml-2">Reports</span>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className={`size-4 text-slate-400 transition-transform ease-in-out ${
@@ -1341,7 +1314,7 @@ const Sidebar = () => {
                             >
                               <div className="flex items-center space-x-2">
                                 <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                <span>Admission</span>
+                                <span onClick={toggleDrawer}>Admission</span>
                               </div>
                             </Link>
                           </li>
@@ -1398,7 +1371,7 @@ const Sidebar = () => {
                                 >
                                   <div className="flex items-center space-x-2">
                                     <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                    <span>Payment History</span>
+                                    <span onClick={toggleDrawer}>Payment History</span>
                                   </div>
                                 </Link>
                               </li>
