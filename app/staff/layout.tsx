@@ -131,13 +131,13 @@ export default function DashboardLayout({
       <Topbar />
 
       {/* Layout excluding Topbar */}
-      <div className="dashboard-layout flex">
+      {/* <div className="dashboard-layout flex">
         <Sidebar />
         <MobileSearchbar />
 
-        {/* Main Content */}
+      
         <div className="content-area relative w-full min-h-screen bg-slate-50 dark:bg-navy-900">
-          {/* Show loader only over the inner content */}
+         
          
           {loading && (
             <div className="loader-overlay absolute inset-0 z-50 grid place-content-center bg-white/70 dark:bg-navy-900/70">
@@ -151,6 +151,33 @@ export default function DashboardLayout({
             }`}
           >
             {children}
+          </main>
+        </div>
+      </div> */}
+
+<div className="dashboard-layout flex">
+        <Sidebar />
+        {/* <MobileSearchbar /> */}
+
+        {/* Main Content */}
+        <div className="content-area relative w-full min-h-screen bg-slate-50 dark:bg-navy-900">
+          {/* Show loader only over the inner content */}
+         
+          {loading && (
+            <div className="app-preloader loader-overlay absolute inset-0 z-50 grid place-content-center bg-white/70 dark:bg-navy-900/70">
+             <div className="app-preloader-inner relative inline-block size-48"></div> 
+            </div>
+
+          )}
+
+          <main
+            className={`main-content px-[var(--margin-x)] pb-8 transition-opacity duration-300 ${
+              loading ? "pointer-events-none opacity-50" : "opacity-100"
+            }`}
+          >
+             {/* <div className="app-preloader-inner"> */}
+            {children}
+            {/* </div> */}
           </main>
         </div>
       </div>
