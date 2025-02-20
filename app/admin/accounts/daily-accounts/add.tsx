@@ -53,12 +53,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [expenseName, setExpenseName] = useState(formData?.expense_name || '');
 //  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-   // const[searchBranchData,setSearchBranchData] =useState("");
    const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
-    // const[filteredBranch,setFilteredBranch]=useState("");
     const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      // const dropdownRef = useRef(null);
+      
       const dropdownRef = useRef<HTMLDivElement>(null);
   const fetchBranchData = async () => {
     try {
@@ -194,9 +192,6 @@ const fetchSearchBranch = async () => {
       const searchData = searchBranchData.filter(
         (item) =>
           item.text.toLowerCase().includes(value.toLowerCase())
-          // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
-          // item.email.toLowerCase().includes(value.toLowerCase()) ||
-          // item.pay_status.toLowerCase().includes(value.toLowerCase())
       );
   
       setFilteredBranch(searchData);
@@ -211,16 +206,6 @@ const fetchSearchBranch = async () => {
       setIsDropdownOpen(false); 
     };
   
-    // Close dropdown when clicking outside
-    // useEffect(() => {
-    //   const handleClickOutside = (event) => {
-    //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-    //       setIsDropdownOpen(false);
-    //     }
-    //   };
-    //   document.addEventListener("mousedown", handleClickOutside);
-    //   return () => document.removeEventListener("mousedown", handleClickOutside);
-    // }, []);
   
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -335,7 +320,7 @@ const fetchSearchBranch = async () => {
           />
 
           {/* Dropdown Options */}
-          <ul className="max-h-48 overflow-y-auto">
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredBranch.length > 0 ? (
               filteredBranch.map((branch) => (
                 <li

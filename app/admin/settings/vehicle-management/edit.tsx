@@ -264,6 +264,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
               </label>
 
               <div className="ml-2">
+              <span>RC Upload</span>
                 {imagePreview ? (
                   // If an image is selected, show the preview
                   <div className="mb-2">

@@ -146,7 +146,8 @@ useEffect(() => {
           daily_status: formData.daily_status, 
           expense_name: formData.expense_name, 
           // branch_name: formData.branch_name,
-          branch_id: formData.branch_id,
+         // branch_id: formData.branch_id,
+         branch_id: branch_id || formData.branch_id,
           payment_method:formData. payment_method,
         };
     
@@ -277,29 +278,6 @@ const handleSelectBranch = (branch : Account) => {
     <span className="ml-2">Income</span>
   </label>
 </div>
-
-{/* <label className="block ">
-    <span>Branch Name</span>
-  
-           <select
-            id="branch_name"
-            value={formData.branch_name}
-            name="branch_name"
-            // value={selectedBranches}
-            // onChange={(e) => setSelectedBranches(e.target.value)}
-            
-     // onChange={(e) => setExpenseType(e.target.value)}
-     onChange={handleChange}
-            className=" block w-full rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a Branch</option>
-            {BranchData.map((branch) => (
-    <option key={branch.id} value={branch.branch_name}>
-      {branch.branch_name}
-    </option>
-  ))}
-          </select>
- </label> */}
 <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Branch Name
@@ -327,7 +305,7 @@ const handleSelectBranch = (branch : Account) => {
           />
 
           {/* Dropdown Options */}
-          <ul className="max-h-48 overflow-y-auto">
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredBranch.length > 0 ? (
               filteredBranch.map((branch) => (
                 <li

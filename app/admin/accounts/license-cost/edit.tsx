@@ -1,4 +1,5 @@
 import { useAuth } from "@/app/context/AuthContext";
+
 import React, { useEffect, useRef, useState } from "react";
 
 interface Cost {
@@ -121,7 +122,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
   };
   
 
-  if (!showModal || !formData) return null;
+
 
 
 
@@ -155,9 +156,9 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchSearchService();
-  // }, [state]);
+  useEffect(() => {
+    fetchSearchService();
+  }, [state]);
 
   const handleSearchService = (e : any) => {
     const value = e.target.value;
@@ -197,12 +198,14 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+
+  if (!showModal || !formData) return null;
  
   return (
     <div>
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" role="dialog">
         <div className="absolute inset-0 bg-slate-900/60 transition-opacity duration-300" onClick={togglemodal}></div>
-        <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+        <div className="relative flex w-full max-w-3xl origin-top flex-col rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
               Edit License Cost
@@ -255,7 +258,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {selectedService || "Select a service"}
+        {selectedService || formData.service_name|| "Select a service"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
@@ -294,34 +297,34 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 
               <label className="block">
                 <span>Vehicle Type</span>
-              <select name="vehicle_type" value={formData.vehicle_type} onChange={handleChange} 
+              <select name="vehicle_type" 
+              value={formData.vehicle_type} 
+              onChange={handleChange} 
               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
               >
                 <option value="">Please select vehicle type</option>
-               <option value="LMC">LMC</option>
-               <option value="MC">MC</option>
+               <option value="lmc">LMC</option>
+               <option value="mc">MC</option>
                <option value="Both">Both</option>
+               <option value="mc">auto rikshaw</option>
               </select>
               </label>
               <label className="block">
-                <span>Female cost</span>
+                <span>Cost</span>
             <input 
             name="f_cost"
              value={formData.f_cost}
               onChange={handleChange}
+              onKeyPress={(e) => {
+                // Allow only numbers, backspace, and dot
+                if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                  e.preventDefault();
+                }
+              }}
                type="text"
                 placeholder="Female cost" 
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
-            <label className="block">
-              <span>Male Cost</span>
-            <input name="m_cost"
-             value={formData.m_cost}
-              onChange={handleChange}
-               type="text"
-                placeholder="Male cost"
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
-           </label>
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
               Update
@@ -334,3 +337,18 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 };
 
 export default Edit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

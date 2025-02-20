@@ -1666,6 +1666,8 @@ fill="currentColor"
 
       {/* Toggle visibility of dropdown list */}
       <ul className={`ac-panel ${isDropdownOpen ? 'block' : 'hidden'}`}>
+        {/* service */}
+    
         <li>
           <Link href="/admin/settings/service-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
@@ -1674,15 +1676,8 @@ fill="currentColor"
             </div>
           </Link>
         </li>
-        <li>
-          <Link href="/admin/settings/driver-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-            <div className="flex items-center space-x-2">
-              <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Driver</span>
-            </div>
-          </Link>
-        </li>
-        <li>
+          {/* vehicle */}
+          <li>
           <Link href="/admin/settings/vehicle-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
@@ -1690,7 +1685,8 @@ fill="currentColor"
             </div>
           </Link>
         </li>
-        <li>
+         {/* Branch */}
+         <li>
           <Link href="/admin/settings/branch-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
@@ -1698,6 +1694,25 @@ fill="currentColor"
             </div>
           </Link>
         </li>
+          {/* License Cost */}
+          <li>
+          <Link href="/admin/accounts/license-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+            <div className="flex items-center space-x-2">
+              <div className="size-1.5 rounded-full border border-current opacity-40" />
+              <span>License Cost</span>
+            </div>
+          </Link>
+        </li>
+         {/* fresh License Cost */}
+         <li>
+          <Link href="/admin/accounts/fresh-licence-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+            <div className="flex items-center space-x-2">
+              <div className="size-1.5 rounded-full border border-current opacity-40" />
+              <span>Fresh Licence cost</span>
+            </div>
+          </Link>
+        </li>
+        {/* staff */}
         <li>
           <Link href="/admin/settings/staff-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
@@ -1706,19 +1721,12 @@ fill="currentColor"
             </div>
           </Link>
         </li>
+        {/* driver */}
         <li>
-          <Link href="/admin/accounts/license-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+          <Link href="/admin/settings/driver-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>License Cost</span>
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link href="/admin/accounts/fresh-licence-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-            <div className="flex items-center space-x-2">
-              <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Fresh Licence cost</span>
+              <span>Driver</span>
             </div>
           </Link>
         </li>

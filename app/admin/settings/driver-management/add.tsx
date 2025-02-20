@@ -220,7 +220,11 @@ if (response.ok){
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                      setPassword(newValue);
+                    }}
                   />
                   <span
                     className="absolute right-3 flex items-center justify-center text-slate-400 cursor-pointer mt-3"

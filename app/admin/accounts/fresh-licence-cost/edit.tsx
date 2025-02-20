@@ -134,78 +134,6 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
   
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   try {
-  //     if (!formData) return;
-  
-  //     const transformedData = {
-  //       id: formData.id,
-  //       type: 'cost',
-  //       study_cost: formData.study_cost,
-  //       licence_cost: formData.licence_cost,
-  //       cost: formData.cost,
-  //       vehicle_type: formData.vehicle_type,
-  //     };
-  
-  //     console.log('Transformed Data:', transformedData);
-  
-  //     const response = await fetch(`/api/admin/accounts/update_fresh_licence_cost`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         authorizations: state?.accessToken ?? '',
-  //         api_key: '10f052463f485938d04ac7300de7ec2b',
-  //       },
-  //       body: JSON.stringify(transformedData),
-  //     });
-  
-  //     console.log('Response Status:', response.status);
-  
-  //     // ✅ Read response as text first
-  //     const responseText = await response.text();
-  //     console.log('Raw Response:', responseText || '(empty)');
-  
-  //     let data: any = {};
-  //     if (responseText.trim()) {
-  //       try {
-  //         data = JSON.parse(responseText);
-  //       } catch (jsonError) {
-  //         console.error('JSON Parse Error:', jsonError);
-  //         throw new Error('Invalid JSON response from server');
-  //       }
-  //     }
-  
-  //     console.log('Response Data:', data);
-  
-  //     // ✅ Handle truly empty responses (assume success on status 200)
-  //     if (response.status === 200 && Object.keys(data).length === 0) {
-  //       toast.success('License Class updated successfully');
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       togglemodal();
-  //       return;
-  //     }
-  
-  //     if (data.success) {
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       toast.success('License Class updated successfully');
-  //       togglemodal();
-  //     } else {
-  //       setError(data.msg || 'Failed to update driver');
-  //       console.log('Error Messages:', data.error_msgs || 'No error messages provided');
-  //     }
-  //   } catch (err: any) {
-  //     console.error('Error during API call:', err);
-  //     toast.error(err.message || 'An error occurred while updating the License class.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
-  
   
   if (!showModal || !formData) return null;
 
@@ -247,15 +175,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
           
               <label className="block">
                 <span>Vehicle Type</span>
-              {/* <select name="vehicle_type" value={formData.vehicle_type} onChange={handleChange} 
-              className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-              >
-                <option value="">Please select vehicle type</option>
-               <option value="LMC">LMV</option>
-               <option value="MC">MV</option>
-               <option value="Both">Both</option>
-               <option value="Auto rickshaw">Auto rickshaw</option>
-              </select> */}
+            
 
 <input name="vehicle_type"
              value={formData.vehicle_type}
@@ -270,13 +190,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 
                <label className="block">
                 <span>Gender</span>
-              {/* <select name="vehicle_type" value={formData.gender} onChange={handleChange} 
-              className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-              >
-                <option value="">Please select Gender</option>
-                <option value="Female">Female</option>
-               <option value="Male">Male</option>
-              </select> */}
+             
               <input name="gender"
              value={formData.gender}
               onChange={handleChange}
@@ -342,6 +256,12 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
   name="study_cost"
    value={formData.study_cost}
     onChange={handleChange}
+    onKeyPress={(e) => {
+      // Allow only numbers, backspace, and dot
+      if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+        e.preventDefault();
+      }
+    }}
      type="text"
       placeholder="study cost" 
       className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
@@ -351,6 +271,12 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
 <input name="licence_cost"
  value={formData.licence_cost}
   onChange={handleChange}
+  onKeyPress={(e) => {
+    // Allow only numbers, backspace, and dot
+    if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
+  }}
    type="text"
     placeholder="licence cost"
     className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
@@ -384,6 +310,12 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
             <input name="cost"
              value={formData.cost}
               onChange={handleChange}
+              onKeyPress={(e) => {
+                // Allow only numbers, backspace, and dot
+                if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                  e.preventDefault();
+                }
+              }}
                type="text"
                 placeholder="Cost"
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />

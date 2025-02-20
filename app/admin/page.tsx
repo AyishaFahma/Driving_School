@@ -360,12 +360,23 @@
 //         </div>
 //       </div>
 
-//       <div className="card mt-4 p-4">
+//       <div className="flex items-center justify-between">
+//       <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full">
+//       <div className="card mt-4 p-4 w-full">
 //         <h6 className="text-xl font-medium text-slate-700 dark:text-navy-100">
 //           Accounts Overview
 //         </h6>
 
 //         {graphData && <Chart data={graphData} />}
+//       </div>
+//       <div className="card mt-4 p-4 w-full">
+//         <h6 className="text-xl font-medium text-slate-700 dark:text-navy-100">
+//           Accounts Overview
+//         </h6>
+
+//         {graphData && <Chart data={graphData} />}
+//       </div>
+//       </div>
 //       </div>
 //     </>
 //   );
@@ -714,15 +725,29 @@ useEffect(() => {
         </div>
       </div>
 
-
+      <div className="flex items-center justify-between">
+      <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full">
 <div className="card mt-4 p-4">
    <h6 className="text-xl font-medium text-slate-700 dark:text-navy-100">Accounts Overview</h6>
   
-  {data.graph &&(
+  {/* {data.graph &&(
  
     <Chart data={data.graph} />
   
-  )}
+  )} */}
+  <Chart data={data.graph || []}/>
+</div>
+<div className="card mt-4 p-4">
+   <h6 className="text-xl font-medium text-slate-700 dark:text-navy-100">Accounts Overview</h6>
+  
+  {/* {data.graph &&(
+ 
+    <Chart data={data.graph} />
+  
+  )} */}
+  <Chart data={data.graph || []} />
+</div>
+</div>
 </div>
 </>
 )}

@@ -801,11 +801,11 @@ const AdminProfile = () => {
               hideProgressBar
               style={{
                 width: "100%",
-                padding: "0 20px", // Optional, to give some padding on the sides
+                padding: "0 20px",
               }}
               toastStyle={{
-                width: "100%", // Make each toast full width
-                marginBottom: "10px", // Optional, adds spacing between toasts
+                width: "100%", 
+                marginBottom: "10px",
               }}
             />
           </div>

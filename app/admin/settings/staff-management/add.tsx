@@ -100,6 +100,9 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
   const { name, value } = e.target;
   if (name === "password") {
+    if (/\s/.test(value)) {
+      return; // Prevent spaces from being added
+    }
     setPassword(value); 
   } else {
     setLocalFormData({ ...localFormData, [name]: value });
@@ -109,7 +112,19 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
- 
+
+
+  console.log("Form Data Before Submission:", localFormData);
+  console.log("Branch ID:", branch_id);
+  // if (!localFormData || !localFormData.branch_id.trim() || !branch_id) {
+    if (!branch_id) {
+    setError("All fields are required.");
+    return;
+  }
+  // if (!localFormData.branch_id || !localFormData.name || !localFormData.mobile || !localFormData.place || localFormData.email) {
+  //   setError("All fields are required");
+  //   return;
+  // }
   if (!localFormData.mobile || !/^\d{10}$/.test(localFormData.mobile)) {
     setError("Mobile number must be a valid 10-digit number.");
     return;
@@ -122,10 +137,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setError ("password must be at least 6 characters long");
     return;
   }
-  if (!localFormData.branch_id.trim() || !branch_id) {
-    setError("All fields are required.");
-    return;
-  }
+  
   const formDataToSend = { ...localFormData, branch_id: branch_id, };
   try {
     const response = await fetch("/api/admin/settings/add_staff", {
@@ -221,7 +233,24 @@ const fetchSearchBranch = async () => {
       setSelectedBranch(branch.text);
       setSearchBranch("");
       setIsDropdownOpen(false); 
+
+
+      // setLocalFormData((prevData) => ({
+      //   ...prevData,
+      //   branch_id: branch.id ?? "", 
+      // }));
+
     };
+
+
+    // useEffect(() => {
+    //   setLocalFormData((prevData) => ({
+    //     ...prevData,
+    //     branch_id: branch_id,
+    //   }));
+    // }, [branch_id]);
+    
+
   
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -274,7 +303,8 @@ const fetchSearchBranch = async () => {
             <span>Staff Name</span>
     <span className="relative mt-1.5 flex">
      
-            <input name="name" 
+            <input 
+            name="name" 
             value={ localFormData.name}
              onChange={handleChange} type="text"
               placeholder="Staff Name" 

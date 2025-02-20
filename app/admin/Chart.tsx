@@ -312,7 +312,9 @@ export default function Chart({ data }: { data: any }) {
   };
 
   return (
-    <div className="card-body">
+    <div 
+    className="card-body"
+    >
       <Bar data={chartData} options={options} height={100} />
     </div>
   );

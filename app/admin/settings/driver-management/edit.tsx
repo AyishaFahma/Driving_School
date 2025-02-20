@@ -45,6 +45,13 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+  // Prevent spaces in the password field
+  if (name === "password" && value.includes(" ")) {
+    return;
+}
+
+
     setFormData((prevData) =>
       prevData ? { ...prevData, [name]: value } : null
     );
@@ -65,7 +72,8 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
           mobile: formData.mobile,
           place: formData.address,
           driving_licence_no: formData.driving_licence_no,
-          password: formData.password,
+          // password: formData.password,
+          password: formData.password.trim().replace(/\s/g, ""),
         };
         console.log("formData:", formData);
        // console.log("Address value:", formData.address);

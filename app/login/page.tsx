@@ -47,6 +47,7 @@ const handleLogin = async (e: React.FormEvent) => {
     }
 
     const data = await response.json();
+    console.log('logindata',data)
     const { token, user_type: role } = data?.data || {};
 
     if (!role || !token) {

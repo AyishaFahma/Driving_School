@@ -205,7 +205,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
               </label>
 
               <div className="block">
-                <span>RC Document</span>
+                <span>RC Upload</span>
                 <div className="mt-2">
                   <div
                     className={`w-32 h-32 border rounded ${

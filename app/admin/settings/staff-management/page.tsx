@@ -660,15 +660,26 @@ onChange={handleSearchChange}
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {filteredData.map((item, index) => ( */}
-                  {currentEntries.map((item, index) => {
+                
+                  {/* {currentEntries.map((item, index) => {
+             
     const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
     });
 
-    return (
+    return ( */}
+    {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>{
+  const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  return ( 
+  
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -717,9 +728,18 @@ onChange={handleSearchChange}
                         </span>
                       </td>
                     </tr>
-                  // ))}
+                 
                 );
-              })}
+              // })}
+           
+})
+          ):(
+            <tr>
+              <td colSpan={7} className="text-center py-4 text-gray-500">
+                No data available
+              </td>
+            </tr>
+          )}
                 </tbody>
               </table>
             </div>

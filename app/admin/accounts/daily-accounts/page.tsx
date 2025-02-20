@@ -1099,7 +1099,7 @@ const fetchSearchBranch = async () => {
   </div>
 
 
-<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-4">
+{/* <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-4">
 
   <div className="col-span-4 sm:col-span-3 card px-4 pb-4 sm:px-5 pt-4">
   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
@@ -1158,46 +1158,24 @@ const fetchSearchBranch = async () => {
     </div>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
-      {/* <div className='flex-1'>
-          <label
-            htmlFor="serviceName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-           Branch Name
-          </label>
-          <select
-            id="branch_name"
-            name="branch_name"
-            value={selectedBranches}
-            onChange={(e) => setSelectedBranches(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a Branch</option>
-            {BranchData.map((branch) => (
-    <option key={branch.id} value={branch.branch_name}>
-      {branch.branch_name}
-    </option>
-  ))}
-          </select>
-        </div> */}
+      
           <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Branch Name
       </label>
 
-      {/* Dropdown Button */}
       <div
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedBranch || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2">&#9662;</span> 
       </div>
 
-      {/* Dropdown Content */}
+   
       {isDropdownOpen && (
         <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-          {/* Search Bar Inside Dropdown */}
+        
           <input
             type="text"
             value={searchBranch}
@@ -1206,7 +1184,7 @@ const fetchSearchBranch = async () => {
             className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
           />
 
-          {/* Dropdown Options */}
+      
           <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredBranch.length > 0 ? (
               filteredBranch.map((branch) => (
@@ -1277,6 +1255,150 @@ const fetchSearchBranch = async () => {
       </div>
     </div>
   </div>
+</div> */}
+<div className="flex flex-col sm:flex-row gap-4 mb-4">
+
+<div className="flex-1 sm:w-4/7 card px-4 pb-4 sm:px-5 pt-4">
+  <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
+    <form>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div>
+          <label
+            htmlFor="status"
+            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+          >
+            Accounts Type
+          </label>
+          <select
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+            value={dailystatusselected}
+            onChange={(e) => setdailystatusselected(e.target.value)}
+          >
+            <option value="">Please select Account Type</option>
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="status"
+            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+          >
+            Status
+          </label>
+          <select
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="date"
+            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+          >
+            Date
+          </label>
+          <input
+            type="date"
+            id="date"
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+        <div className="relative w-full" ref={dropdownRef}>
+          <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+            Branch Name
+          </label>
+          <div
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          >
+            {selectedBranch || "Select a Branch"}
+            <span className="ml-2">&#9662;</span>
+          </div>
+          {isDropdownOpen && (
+            <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+              <input
+                type="text"
+                value={searchBranch}
+                onChange={handleSearchBranch}
+                placeholder="Search..."
+                className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+              />
+              <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                {filteredBranch.length > 0 ? (
+                  filteredBranch.map((branch) => (
+<li
+                      key={branch.id}
+                      onClick={() => handleSelectBranch(branch)}
+                      className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                    >
+                      {branch.text}
+                    </li>
+                  ))
+                ) : (
+                  <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4 flex space-x-4">
+          <button
+            type="submit"
+            className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={handleFilterSubmit}
+          >
+            <i
+              className="fa fa-filter"
+              style={{ marginTop: "3px", marginRight: "3px" }}
+            ></i>
+            Filter
+          </button>
+          <button
+            type="button"
+            className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={handleReset}
+          >
+            <i
+              className="fa fa-refresh"
+              style={{ marginTop: "3px", marginRight: "3px" }}
+            ></i>
+            Reset
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div className="sm:w-3/7 card px-4 pb-4 sm:px-5 pt-10">
+  <div className="p-3 rounded-lg bg-slate-100 dark:bg-navy-800">
+    <div className="card top-countries-card">
+      {expenseData && (
+        <div className="list-group border">
+          <div className="flex list-group-item border p-2">
+            <p className='mr-8'>Total Income </p>
+            <span className='font-bold'>{expenseData.total_income}</span>
+          </div>
+          <div className="flex list-group-item p-2">
+            <p className='mr-8'>Total Expense </p>
+            <span className='font-bold'> {expenseData.total_expense}</span>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
 </div>
 
 
@@ -1339,7 +1461,11 @@ const fetchSearchBranch = async () => {
               </tr>
             </thead>
             <tbody>
-            {currentEntries.map((item, index) => (
+            {/* {currentEntries.map((item, index) => ( */}
+            {currentEntries.length > 0 ?(
+              currentEntries.map((item, index) =>(
+
+             
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
                 {index +indexOfFirstEntry+1}
@@ -1393,7 +1519,16 @@ const fetchSearchBranch = async () => {
                 </td>
               </tr>
   
-               ))}
+              //  {/* ))} */}
+              ))
+            ):(
+              <tr>
+              <td colSpan={7} className="text-center py-4 text-gray-500">
+                No data available
+              </td>
+            </tr>
+            )
+          }
             </tbody>
           </table>
         </div>
