@@ -117,9 +117,9 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
    const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
    const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false);
-   const serviceDropdownRef = useRef(null);
-    const userDropdownRef = useRef(null);
-    const branchDropdownRef = useRef(null);
+   const serviceDropdownRef = useRef<HTMLDivElement>(null);
+    const userDropdownRef = useRef<HTMLDivElement>(null);
+    const branchDropdownRef = useRef<HTMLDivElement>(null);
 
     const [selectedDocuments, setSelectedDocuments] = useState([]);
 
@@ -470,12 +470,8 @@ const documentOptions = [
 
 
 
-
-
-
-
         // useEffect(() => {
-        //      const handleClickOutside = (event) => {
+        //      const handleClickOutside = (event : any) => {
         //        if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
         //          setIsDropdownOpen(false);
         //        }
@@ -483,7 +479,7 @@ const documentOptions = [
         //          setIsbranchDropdownOpen(false);
         //        }
         //        if (serviceDropdownRef.current && !serviceDropdownRef.current.contains(event.target)) {
-        //         setIsbranchDropdownOpen(false);
+        //         setIsserviceDropdownOpen(false);
         //       }
         //      };
            

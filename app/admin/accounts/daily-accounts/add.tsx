@@ -55,9 +55,23 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [searchBranch, setSearchBranch] = useState("");
    const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
     const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
+  const [staff_text, setstaff_text] = useState('');
+const [StaffData, setStaffData] = useState([]);
+ const [filteredStaff, setFilteredStaff] = useState<Account[]>([]);
+    const [searchStaff, setSearchStaff] = useState("");
+    const [selectedStaff, setSelectedStaff] = useState("");
+    const [driver_text, setdriver_text] = useState('');
+     const [selectedDriver, setSelectedDriver] = useState<string>("");
+      const [searchDriver, setSearchDriver] = useState("");
+      const[searchDriverData,setSearchDriverData] =useState<Account[]>([]);
+      const[filteredDriver,setFilteredDriver]=useState<Account[]>([]);
+    
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      
+       const [isstaffDropdownOpen, setIsstaffDropdownOpen] = useState(false);
+         const [isdriverDropdownOpen, setIsdriverDropdownOpen] = useState(false);
       const dropdownRef = useRef<HTMLDivElement>(null);
+      const staffdropdownRef = useRef<HTMLDivElement>(null);
+      const driverdropdownRef = useRef<HTMLDivElement>(null);
   const fetchBranchData = async () => {
     try {
 
@@ -107,10 +121,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
     //   toast.error("Please enter a valid amount.");
     //   return;
     // }
-  if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
-    setError("All fields are required");
-    return;
-  }
+  // if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
+  //   setError("All fields are required");
+  //   return;
+  // }
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount), 
@@ -170,7 +184,7 @@ const fetchSearchBranch = async () => {
         }
   
         const data = await response.json();
-      //  console.log("Search mobile data", data.data);
+       console.log("Search branch data", data.data);
   
         if (data.success) {
           setSearchBranchData(data.data.branch_details || []);
@@ -198,7 +212,7 @@ const fetchSearchBranch = async () => {
     };
   
     
-    const handleSelectBranch = (branch : Account) => {
+    const handleSelectBranch = (branch :any) => {
       // setSelectedBranch(branch.text);
       setbranch_text(branch.text);
       setbranch_id(branch.id ?? "");
@@ -206,22 +220,137 @@ const fetchSearchBranch = async () => {
       setIsDropdownOpen(false); 
     };
   
-  
+   const fetchSearchStaff = async (searchTerm = null) => {
+     try {
+     const response = await fetch("/api/admin/report/get_staff_autocomplete", {
+     method: "POST",
+     headers: {
+     authorizations: state?.accessToken ?? "",
+     api_key: "10f052463f485938d04ac7300de7ec2b",
+     },
+     body: JSON.stringify({ term: searchTerm }),
+     });
+    
+     if (!response.ok) {
+     const errorData = await response.json();
+     throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+     }
+    
+     const data = await response.json();
+     console.log("Search staff data", data.data);
+    
+     if (data.success) {
+     setStaffData(data.data.staff_details || []);
+     setFilteredStaff(data.data.staff_details || []);
+     }
+     } catch (error) {
+     console.error("Fetch error:", error);
+     }
+    };
+    
+    // Fetch default mobile data on load
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && event.target instanceof Node) {
-          if (!dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false);
-          }
-        }
-      };
+      fetchSearchStaff();
+    }, [state]);
     
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    // Handle search input change
+    const handleSearchStaff = (e:any) => {
+     const value = e.target.value;
+     setSearchStaff(value);
+     fetchSearchStaff(value); 
+    };
     
+    const handleSelectStaff = (staff:any) => {
+     setSelectedStaff(staff.text);
+     setIsstaffDropdownOpen(false);
+     setSearchStaff(""); 
+    };
+
+ const fetchSearchDriver = async () => {
+           try {
+             const response = await fetch("/api/admin/report/get_driver_autocomplete", {
+               method: "POST",
+               headers: {
+                 authorizations: state?.accessToken ?? "",
+                 api_key: "10f052463f485938d04ac7300de7ec2b",
+               },
+               body: JSON.stringify({}),
+             });
+       
+             if (!response.ok) {
+               const errorData = await response.json();
+               throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+             }
+       
+             const data = await response.json();
+             console.log("Search driver data", data.data);
+       
+             if (data.success) {
+               setSearchDriverData(data.data.driver_details || []);
+               setFilteredDriver(data.data.driver_details || []);
+             }
+           } catch (error) {
+             console.error("Fetch error:", error);
+           }
+         };
+       
+         useEffect(() => {
+           fetchSearchDriver();
+         }, [state]);
+       
+         const handleSearchDriver = (e : any) => {
+           const value = e.target.value;
+           setSearchDriver(value);
+       
+           const searchData = searchDriverData.filter(
+             (item) =>
+               item.text.toLowerCase().includes(value.toLowerCase())
+           );
+       
+           setFilteredDriver(searchData);
+         };
+       
+         
+         const handleSelectDriver = (driver:any) => {
+           setSelectedDriver(driver.text);
+          
+           setSearchDriver("");
+           setIsdriverDropdownOpen(false); 
+         };
 
 
+
+
+
+    // useEffect(() => {
+    //   const handleClickOutside = (event: MouseEvent) => {
+    //     if (dropdownRef.current && event.target instanceof Node) {
+    //       if (!dropdownRef.current.contains(event.target)) {
+    //         setIsDropdownOpen(false);
+    //       }
+    //     }
+    //   };
+    
+    //   document.addEventListener("mousedown", handleClickOutside);
+    //   return () => document.removeEventListener("mousedown", handleClickOutside);
+    // }, []);
+    
+    useEffect(() => {
+             const handleClickOutside = (event : any) => {
+               if (driverdropdownRef.current && !driverdropdownRef.current.contains(event.target)) {
+                 setIsDropdownOpen(false);
+               }
+               if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                 setIsdriverDropdownOpen(false);
+               }
+               if (staffdropdownRef.current && !staffdropdownRef.current.contains(event.target)) {
+                setIsstaffDropdownOpen(false);
+              }
+             };
+           
+             document.addEventListener("mousedown", handleClickOutside);
+             return () => document.removeEventListener("mousedown", handleClickOutside);
+           }, []);
 
   return (
     <div>
@@ -402,26 +531,104 @@ const fetchSearchBranch = async () => {
         className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
-    {/* <label className="block ">
-    <span>Branch Name</span>
-  
-           <select
-            id="branch_id"
-            name="branch_id"
-           value={branch_id}
-           onChange={(e) => setbranch_id(e.target.value)}
-            // onChange={(e) => setSelectedBranches(e.target.value)}
-            className=" block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a Branch</option>
-            {BranchData.map((branch) => (
-    <option key={branch.id} value={branch.branch_id}>
-      {branch.branch_name}
-    </option>
-  ))}
-          </select>
- </label> */}
+   
  
+{/* staff */}
+ <div className="relative w-full" ref={staffdropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Staff Name
+      </label>
+
+
+      <div
+        onClick={() => setIsstaffDropdownOpen(!isstaffDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        
+        {staff_text || "Select a Staff"}
+        <span className="ml-2">&#9662;</span> 
+      </div>
+
+     
+      {isstaffDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+    
+          <input
+            type="text"
+            value={searchStaff}
+            onChange={handleSearchStaff}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+         
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredStaff.length > 0 ? (
+              filteredStaff.map((staff) => (
+                <li
+                  key={staff.id}
+                  onClick={() => handleSelectStaff(staff)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {staff.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+{/* driver */}
+    <div className="relative w-full" ref={driverdropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Driver Name
+      </label>
+
+
+      <div
+        onClick={() => setIsdriverDropdownOpen(!isdriverDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        
+        {driver_text || "Select a Driver"}
+        <span className="ml-2">&#9662;</span> 
+      </div>
+
+     
+      {isdriverDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+    
+          <input
+            type="text"
+            value={searchDriver}
+            onChange={handleSearchDriver}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+         
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredDriver.length > 0 ? (
+              filteredDriver.map((driver) => (
+                <li
+                  key={driver.id}
+                  onClick={() => handleSelectDriver(driver)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {driver.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+
+
 
     <label className="block">
   <label>Payment Method</label>
@@ -468,43 +675,46 @@ const fetchSearchBranch = async () => {
       />
     </label>
 
-  {/* <div className="relative w-full" ref={dropdownRef}>
+  
+ 
+{/* staff */}
+<div className="relative w-full" ref={staffdropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
-       Branch Name
+       Staff Name
       </label>
 
 
       <div
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        onClick={() => setIsstaffDropdownOpen(!isstaffDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         
-        {branch_text || "Select a branch"}
+        {staff_text || "Select a Staff"}
         <span className="ml-2">&#9662;</span> 
       </div>
 
      
-      {isDropdownOpen && (
+      {isstaffDropdownOpen && (
         <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
     
           <input
             type="text"
-            value={searchBranch}
-            onChange={handleSearchBranch}
+            value={searchStaff}
+            onChange={handleSearchStaff}
             placeholder="Search..."
             className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
           />
 
          
           <ul className="max-h-48 overflow-y-auto">
-            {filteredBranch.length > 0 ? (
-              filteredBranch.map((branch) => (
+            {filteredStaff.length > 0 ? (
+              filteredStaff.map((staff) => (
                 <li
-                  key={branch.id}
-                  onClick={() => handleSelectBranch(branch)}
+                  key={staff.id}
+                  onClick={() => handleSelectStaff(staff)}
                   className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
                 >
-                   {branch.text}
+                   {staff.text}
                 </li>
               ))
             ) : (
@@ -513,7 +723,55 @@ const fetchSearchBranch = async () => {
           </ul>
         </div>
       )}
-    </div> */}
+    </div>
+{/* driver */}
+    <div className="relative w-full" ref={driverdropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Driver Name
+      </label>
+
+
+      <div
+        onClick={() => setIsdriverDropdownOpen(!isdriverDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        
+        {driver_text || "Select a Driver"}
+        <span className="ml-2">&#9662;</span> 
+      </div>
+
+     
+      {isdriverDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+    
+          <input
+            type="text"
+            value={searchDriver}
+            onChange={handleSearchDriver}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+         
+          <ul className="max-h-48 overflow-y-auto">
+            {filteredDriver.length > 0 ? (
+              filteredDriver.map((driver) => (
+                <li
+                  key={driver.id}
+                  onClick={() => handleSelectDriver(driver)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {driver.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+
 
     <label className="block">
   <label>Payment Method</label>
