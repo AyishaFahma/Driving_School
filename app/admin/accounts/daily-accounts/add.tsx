@@ -121,10 +121,10 @@ const [StaffData, setStaffData] = useState([]);
     //   toast.error("Please enter a valid amount.");
     //   return;
     // }
-  // if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
-  //   setError("All fields are required");
-  //   return;
-  // }
+  if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
+    setError("All fields are required");
+    return;
+  }
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount), 
@@ -323,34 +323,51 @@ const fetchSearchBranch = async () => {
 
 
     // useEffect(() => {
-    //   const handleClickOutside = (event: MouseEvent) => {
-    //     if (dropdownRef.current && event.target instanceof Node) {
-    //       if (!dropdownRef.current.contains(event.target)) {
-    //         setIsDropdownOpen(false);
-    //       }
-    //     }
-    //   };
-    
-    //   document.addEventListener("mousedown", handleClickOutside);
-    //   return () => document.removeEventListener("mousedown", handleClickOutside);
-    // }, []);
-    
-    useEffect(() => {
-             const handleClickOutside = (event : any) => {
-               if (driverdropdownRef.current && !driverdropdownRef.current.contains(event.target)) {
-                 setIsDropdownOpen(false);
-               }
-               if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                 setIsdriverDropdownOpen(false);
-               }
-               if (staffdropdownRef.current && !staffdropdownRef.current.contains(event.target)) {
-                setIsstaffDropdownOpen(false);
-              }
-             };
+    //          const handleClickOutside = (event :any) => {
+    //            if (driverdropdownRef.current && !driverdropdownRef.current.contains(event.target)) {
+    //              setIsDropdownOpen(false);
+    //            }
+    //            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    //              setIsdriverDropdownOpen(false);
+    //            }
+    //            if (staffdropdownRef.current && !staffdropdownRef.current.contains(event.target)) {
+    //             setIsstaffDropdownOpen(false);
+    //           }
+    //          };
            
-             document.addEventListener("mousedown", handleClickOutside);
-             return () => document.removeEventListener("mousedown", handleClickOutside);
-           }, []);
+    //          document.addEventListener("mousedown", handleClickOutside);
+    //          return () => document.removeEventListener("mousedown", handleClickOutside);
+    //        }, []);
+
+useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      
+      if (dropdownRef.current && event.target instanceof Node) {
+              if (!dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+              }
+            }
+
+
+      if (driverdropdownRef.current && event.target instanceof Node) {
+        if (!driverdropdownRef.current.contains(event.target)) {
+          setIsdriverDropdownOpen(false);
+        }
+      }
+
+      if (staffdropdownRef.current && event.target instanceof Node) {
+        if (!staffdropdownRef.current.contains(event.target)) {
+          setIsstaffDropdownOpen(false);
+        }
+      }
+
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
 
   return (
     <div>

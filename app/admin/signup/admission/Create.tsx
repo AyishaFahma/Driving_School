@@ -468,8 +468,6 @@ const documentOptions = [
   { value: "passport", label: "Passport" },
 ];
 
-
-
         // useEffect(() => {
         //      const handleClickOutside = (event : any) => {
         //        if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
@@ -486,6 +484,36 @@ const documentOptions = [
         //      document.addEventListener("mousedown", handleClickOutside);
         //      return () => document.removeEventListener("mousedown", handleClickOutside);
         //    }, []);
+
+
+
+        //  useEffect(() => {
+        //     const handleClickOutside = (event: MouseEvent) => {
+             
+        //       if (userDropdownRef.current && event.target instanceof Node) {
+        //               if (!userDropdownRef.current.contains(event.target)) {
+        //                 setIsDropdownOpen(false);
+        //               }
+        //             }
+        
+        //             if (branchDropdownRef.current && event.target instanceof Node) {
+        //               if (!branchDropdownRef.current.contains(event.target)) {
+        //                 setIsbranchDropdownOpen(false);
+        //               }
+        //             }
+
+        //       if (serviceDropdownRef.current && event.target instanceof Node) {
+        //         if (!serviceDropdownRef.current.contains(event.target)) {
+        //           setIsserviceDropdownOpen(false);
+        //         }
+        //       }
+        //     };
+        
+        //     document.addEventListener("mousedown", handleClickOutside);
+        //     return () => document.removeEventListener("mousedown", handleClickOutside);
+        //   }, []);
+        
+
 
   return (
     <div
