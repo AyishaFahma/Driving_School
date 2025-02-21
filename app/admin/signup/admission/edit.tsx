@@ -1,11 +1,9 @@
 
-
 // import { useAuth } from "@/app/context/AuthContext";
 // import React, { useEffect, useState } from "react";
 // import 'react-toastify/dist/ReactToastify.css';
 // import "./create.css";
 // import { toast } from "react-toastify";
-
 
 
 // interface Admission {
@@ -38,6 +36,8 @@
 //   pay_amount: string | undefined;
 //   total_amount: string | undefined;
 //   User_photo?: string;
+//   address:string;
+//   dob:string;
   
 // }
 
@@ -61,6 +61,9 @@
 
 //   const [documentchange, setDocumentchange] = useState(false);
 //   const [documentPreview, setDocumentPreview] = useState<string | null>(null);
+
+//   const [signaturechange, setSignaturechange] = useState(false);
+//   const [signaturePreview, setSignaturePreview] = useState<string | null>(null);
 
 //   const [userPreview, setUserPreview] = useState<string | null>(null);
 //   const [userchange, setUserchange] = useState(false);
@@ -189,11 +192,38 @@
 //   }, [AdmissionData]);
 
 // const handleChange = (
-//   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+//   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 // ) => {
 //   const { name, value } = e.target;
 //   setFormData((prevData) => (prevData ? { ...prevData, [name]: value } : null));
 // };
+
+// // const handleChange = (e: React.ChangeEvent<any>) => {
+// //   const { name, value } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+// //   setFormData((prevData) => ({
+// //     ...prevData,
+// //     [name]: value,
+// //   }));
+// // };
+
+
+// const handleSignaturechange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const file = e.target.files?.[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//       setSignaturePreview(reader.result as string);
+//     };
+//     reader.readAsDataURL(file);
+//     setFormData((prevData) => (prevData ? { ...prevData, document: file } : null)); 
+//     setSignaturechange(true); 
+//   }
+// };
+// const handleRemovesignature = () => {
+//   setSignaturePreview(null); 
+//   setFormData((prevData) => (prevData ? { ...prevData, document: null } : null)); 
+// };
+
 
 
 // const handleDocumentchange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -374,12 +404,6 @@
 //   }
 // };
 
-
-
-
-
-
-
 // const handleSelect = (service: { id: string; service_name: string; amount: string | undefined }) => {
 //   setFormData((prev) => {
 //     if (!prev) return null; 
@@ -408,12 +432,9 @@
 // };
 
 
-
-
 //   const filteredServices = service.filter((service) =>
 //     service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
 //   );
-
 
 
 //   if (!showmodal) return null;
@@ -459,7 +480,7 @@
 
 //         {/* Modal Body */}
 //         <form onSubmit={handleSubmit}>
-//           <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8">
+//           <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 ">
 //             <div className="flex-1  p-4">
 //               <label className="block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
 //                 Profile Information
@@ -469,7 +490,38 @@
 //                 <div className="flex-1 ">
 //                   {/* Profile Information */}
 //                   <div className="mb-4 mt-4 ">
-//                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+//                   {/* Admission No */}
+//                   <label className="block">
+//                         <span>Admission No</span>
+//                         <span className="relative mt-1.5 flex">
+//                           <input
+//                             name="first_name"
+//                           //  value={formData.name}
+//                           value={formData?.first_name|| ""}
+//                             onChange={handleChange}
+//                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                             placeholder="name"
+//                             type="text"
+//                           />
+//                         </span>
+//                       </label>
+//                           {/* Application No */}
+//                   <label className="block mt-1.5">
+//                         <span>Application No</span>
+//                         <span className="relative mt-1.5 flex">
+//                           <input
+//                             name="first_name"
+//                           //  value={formData.name}
+//                           value={formData?.first_name|| ""}
+//                             onChange={handleChange}
+//                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                             placeholder="name"
+//                             type="text"
+//                           />
+//                         </span>
+//                       </label>
+//                         {/* name */}
+//                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
 //                       <label className="block">
 //                         <span>Name</span>
 //                         <span className="relative mt-1.5 flex">
@@ -499,9 +551,40 @@
 //                         </span>
 //                       </label>
 //                     </div>
-
+//                 {/* dob,address */}
+//                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+//                       <label className="block">
+//                         <span>D-O-B</span>
+//                         <span className="relative mt-1.5 flex">
+//                           <input
+//                             name="dob"
+//                           //  value={formData.name}
+//                           value={formData?.dob|| ""}
+//                             onChange={handleChange}
+//                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                             placeholder="name"
+//                             type="date"
+//                           />
+//                         </span>
+//                       </label>
+//                       <label className="block">
+//                         <span>Address</span>
+//                         <span className="relative mt-1.5 flex">
+                       
+//                           <textarea
+//   name="mobile"
+//   rows={2}
+//   value={formData?.mobile || ""}
+//   onChange={handleChange}
+//   className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//   placeholder="mobile"
+// />
+//                         </span>
+//                       </label>
+//                     </div>
 //                     {/* Additional Fields */}
 //                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+//                           {/* Email*/}
 //                       <label className="block">
 //                         <span>Email</span>
 //                         <span className="relative mt-1.5 flex">
@@ -516,20 +599,22 @@
 //                           />
 //                         </span>
 //                       </label>
+//                        {/* Blood Group*/}
 //                       <label className="block ">
 //                         <span>Blood Group</span>
 //                         <span className="relative mt-1.5 flex">
 //                           <select
 //                           name="blood_group"
-//                           value={formData?.blood_group || ""}
+//                           value={formData?.blood_group|| ""}
 //                           onChange={handleChange}
-//                           className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                           className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 //                           >
 //                             <option value="">Select Blood Group</option>
 //                             <option value="A+">A+ve</option>
 //                             <option value="O+">O+ve</option>
 //                             <option value="B+">B+ve</option>
 //                             <option value="AB+">AB+ve</option>
+//                             <option value="AB-">AB-ve</option>
 //                             <option value="B-">B-ve</option>
 //                             <option value="A-">A-ve</option>
 //                             <option value="O-">O-ve</option>
@@ -537,7 +622,9 @@
 //                         </span>
 //                       </label>
 //                     </div>
+                    
 //                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+//                       {/* gender*/}
 //                       <label className="block ">
 //                         <span>Gender</span>
 //                         <span className="relative mt-1.5 flex">
@@ -553,7 +640,7 @@
 //                           </select>
 //                         </span>
 //                       </label>
-
+//                      {/* Branch Name */}
 //                       <label className="block ">
 //                         <span>Branch Name</span>
 //                         <span className="relative mt-1.5 flex">
@@ -573,7 +660,7 @@
 //                         </span>
 //                       </label>
 //                     </div>
-
+//                       {/* Document */}
 //                     <label className="block mt-2">
 //                       <span>Choose Document</span>
 //                       <span className="relative mt-1.5 flex">
@@ -737,7 +824,76 @@
 //                         </div>
 
             
-                       
+//                         {/* Upload signature */}
+//                         <div>
+//                           <label className="block mb-2 mt-4">
+//                           Signature
+//                           </label>
+
+                         
+//                           <div className="ml-2">
+               
+//                {signaturePreview? (
+       
+//        <div className="mb-2">
+//          <img
+//            src={signaturePreview}
+//            alt="Selected"
+//            className="w-32 h-32 object-cover border rounded"
+//          />
+//        </div>
+//      ) : (
+      
+//        <div className="mb-2">
+//          <img
+//   src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
+//            alt="RC Document"
+//            className="w-32 h-32 object-cover border rounded"
+//          />
+//        </div>
+//      )}
+               
+//                 {!signaturePreview && (
+//                <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+//                  Select Image
+//                  <input
+//                    type="file"
+//                    accept="image/*"
+//                    onChange={handleSignaturechange}
+//                    className="hidden"
+//                  />
+//                </label>
+//              )}
+
+//              {signaturePreview  && (
+//                <div className="mt-2 flex">
+                 
+
+//                  <label
+//                        className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+//                        htmlFor="imageUpload"
+//                      >
+//                        Change
+//                      </label>
+//                      <input
+//                        id="imageUpload"
+//                        type="file"
+//                        accept="image/*"
+//                        onChange={handleSignaturechange}
+//                        className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+//                      />
+
+// <button
+//                    type="button"
+//                    onClick={handleRemovesignature}
+//                   className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
+//                  >
+//                    Remove
+//                  </button>
+//                </div>
+//              )}
+//              </div>
+//                         </div>
 //                       </div>
 //                     </div>
 //                   </div>
@@ -746,15 +902,17 @@
 //             </div>
 //             {/* Right Section: Service Information */}
 //             <div className="flex-1 mt-4 sm:mt-0  p-4">
+           
 //               <label className="block mb-2 text-lg  font-medium text-slate-700 dark:text-navy-100 mt-4">
 //                 Service Information
 //               </label>
 //               <div className="space-y-5 p-4 sm:p-5">
-               
+//                 {/* service and billno */}
 //                    <div className="flex">
 //               <div className="relative flex-1 w-full">
+//               <span>Service</span>
 //     <div
-//       className="form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9"
+//       className="form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9"
 //       onClick={() => setIsOpen(!isOpen)} 
       
 //     >
@@ -770,7 +928,7 @@
 //           value={searchTerm}
 //           onChange={(e) => setSearchTerm(e.target.value)}
 //         />
-//         <div className="max-h-60 overflow-y-auto">
+//         <div className="max-h-60 overflow-y-auto hide-scrollbar">
 //           {filteredServices.length > 0 ? (
 //             filteredServices.map((service) => (
 //               <div
@@ -789,10 +947,69 @@
 //     )}
 //   </div>
 
+
+
 // <label className="block ml-3 flex-1">
+// <span>Bill No:</span>
+//                       <span className="relative mt-1.5 flex">
+//                         <input
+//                            value={formData?.tax || ""}
+//                            onChange={handleChange}
+//                           type="text"
+//                           placeholder="Bill no:"
+//                           className="form-input peer  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                         />
+//                       </span>
                  
-//                  <span className="relative  flex">
-//                    <input
+//                </label>
+//               </div>
+
+//  {/* Type,Both type */}
+            
+//                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+//                     {(formData?.service_name === "licence fresh" ||
+//                   formData?.service_name === "renewal licence" ||
+//                   formData?.service_name === "duplicate licence" ||
+//                   formData?.service_name === "licence reentry" ||
+//                   formData?.service_name === "rc transfer" ||
+//                    formData?.service_name === "Re test" ||
+//                    formData?.service_name === "LMV Trial" ) && (
+// <label className="block">
+//   <span>Type</span>
+//   <span className="relative mt-1.5 flex">
+//                          <select 
+//                          value={formData?.type || ""}
+//                         onChange={handleChange}
+//                         name="type"
+//                         className="dark:bg-navy-700 form-input peer mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+//                           <option value=''>Select Type</option>
+//                           <option value="lmc">LMC</option>
+//                           <option value="mc">MC</option>
+//                           <option value="both">BOTH</option>
+//                         </select>
+//                       </span>
+// </label>
+//    )}
+// <label className="block">
+//   <span>Both Type</span>
+//   <span className="relative mt-1 flex">
+//                          <select 
+//                          value={formData?.type || ""}
+//                         onChange={handleChange}
+//                         name="type"
+//                         className="dark:bg-navy-700 form-input peer mt-1  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+//                           <option value=''>Select Type</option>
+//                           <option value="lmc">LMC</option>
+//                           <option value="mc">MC</option>
+//                           <option value="both">BOTH</option>
+//                         </select>
+//                       </span>
+// </label>
+// {/* total amount */}
+// <label className="block">
+//                   <span>Total amount</span>
+//                 <span className="relative  flex">
+//                     <input
 //                      name="amount"
 //                      // value={formData?.amount || ""}
 //                      //   onChange={handleChange}
@@ -804,15 +1021,11 @@
 //                      className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 //                    />
 //                  </span>
-//                </label>
-               
-//               </div>
-//                 {/* Additional Fields */}
-//                 {/* Common Fields */}
-//                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-//                   <label className="block">
+// </label>
+// {/* paid amount */}
+// <label className="block">
 //                     <span>Paid Amount</span>
-//                     <span className="relative mt-1.5 flex">
+//                     <span className="relative flex">
 //                       <input
 //                         name="pay_amount"
 //                         value={formData?.pay_amount || ""}
@@ -824,10 +1037,10 @@
 //                       />
 //                     </span>
 //                   </label>
-
+// {/* due amount */}
 //                   <label className="block">
 //                     <span>Due Amount</span>
-//                     <span className="relative mt-1.5 flex">
+//                     <span className="relative mt-1 flex">
 //                       <input
 //                        name="due_amount"
 //                        value={formData?.due_amount || ""}
@@ -835,41 +1048,19 @@
 //                         //  onChange={handleChange}
 //                         type="text"
 //                         placeholder="Due Amount"
-//                         className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                         className="form-input peer mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 //                       />
 //                     </span>
 //                   </label>
-//                 </div>
-
-//                 {(formData?.service_name === "licence fresh" ||
-//                   formData?.service_name === "renewal licence" ||
-//                   formData?.service_name === "duplicate licence" ||
-//                   formData?.service_name === "licence reentry" ||
-//                   formData?.service_name === "rc transfer") && (
-//                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-//                     <label className="block ">
-//                       <span className="relative mt-1.5 flex">
-//                         <select 
-//                          value={formData?.type || ""}
-//                         onChange={handleChange}
-//                         name="type"
-//                         className="form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-//                           <option value=''>Select Type</option>
-//                           <option value="lmc">LMC</option>
-//                           <option value="mc">MC</option>
-//                           <option value="both">BOTH</option>
-//                         </select>
-//                       </span>
-//                     </label>
-//                   </div>
-//                 )}
-
+// </div>
+//                 {/* Additional Fields */}
 //                 {(formData?.service_name === "rc transfer" ||
 //                   formData?.service_name === "cf" ||
 //                   formData?.service_name === "cf renewal" ||
 //                   formData?.service_name === "rc renewal" ||
 //                   formData?.service_name === "sfds") && (
 //                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+//                     {/* tax */}
 //                     <label className="block ">
 //                       <span className="relative mt-1.5 flex">
 //                         <input
@@ -881,6 +1072,7 @@
 //                         />
 //                       </span>
 //                     </label>
+//                     {/* pucc */}
 //                     <label className="block ">
 //                       <span className="relative mt-1.5 flex">
 //                         <input
@@ -1111,7 +1303,7 @@
 //               type="submit"
 //               className="bg-primary text-white rounded p-2"
 //             >
-//            {loading ? 'Updating...' : 'Update'}
+//           Update
 //             </button>
 //               </div>
 //             </div>
@@ -1127,15 +1319,11 @@
 
 
 
-
-
-
 import { useAuth } from "@/app/context/AuthContext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import "./create.css";
 import { toast } from "react-toastify";
-
 
 
 interface Admission {
@@ -1154,6 +1342,7 @@ interface Admission {
   tax:string;
   pucc:string;
   branch_id:string;
+  branch_name:string;
   first_name:string;
   userfile: File | null;
   document:File | null;
@@ -1170,6 +1359,9 @@ interface Admission {
   User_photo?: string;
   address:string;
   dob:string;
+  text:string;
+  admission_no:string;
+  app_no:string;
   
 }
 
@@ -1193,6 +1385,9 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
 
   const [documentchange, setDocumentchange] = useState(false);
   const [documentPreview, setDocumentPreview] = useState<string | null>(null);
+
+  const [signaturechange, setSignaturechange] = useState(false);
+  const [signaturePreview, setSignaturePreview] = useState<string | null>(null);
 
   const [userPreview, setUserPreview] = useState<string | null>(null);
   const [userchange, setUserchange] = useState(false);
@@ -1226,6 +1421,17 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   // const [imageChanged, setImageChanged] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageChanged, setImageChanged] = useState(false);
+
+
+  const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
+  const [branch_text, setbranch_text] = useState('');
+  const [filteredBranch, setFilteredBranch] = useState<Admission []>([]);
+  const[searchBranchData,setSearchBranchData] =useState<Admission[]>([]);
+  const [selectedBranch, setSelectedBranch] = useState<string>("");
+ const [searchBranch, setSearchBranch] = useState("");
+  const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
+  const branchDropdownRef = useRef<HTMLDivElement>(null);
+  const serviceDropdownRef = useRef<HTMLDivElement>(null);
 ////
   const fetchbranchData = async () => {
     try {
@@ -1334,6 +1540,27 @@ const handleChange = (
 //     [name]: value,
 //   }));
 // };
+
+
+const handleSignaturechange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSignaturePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+    setFormData((prevData) => (prevData ? { ...prevData, document: file } : null)); 
+    setSignaturechange(true); 
+  }
+};
+const handleRemovesignature = () => {
+  setSignaturePreview(null); 
+  setFormData((prevData) => (prevData ? { ...prevData, document: null } : null)); 
+};
+
+
+
 const handleDocumentchange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
   if (file) {
@@ -1512,12 +1739,6 @@ if (response.ok){
   }
 };
 
-
-
-
-
-
-
 const handleSelect = (service: { id: string; service_name: string; amount: string | undefined }) => {
   setFormData((prev) => {
     if (!prev) return null; 
@@ -1546,13 +1767,89 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 };
 
 
-
-
   const filteredServices = service.filter((service) =>
     service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+    const fetchSearchBranch = async () => {
+         try {
+           const response = await fetch("/api/admin/report/get_branch_autocomplete", {
+             method: "POST",
+             headers: {
+               authorizations: state?.accessToken ?? "",
+               api_key: "10f052463f485938d04ac7300de7ec2b",
+             },
+             body: JSON.stringify({}),
+           });
+     
+           if (!response.ok) {
+             const errorData = await response.json();
+             throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+           }
+     
+           const data = await response.json();
+           console.log("Search mobile data", data.data);
+     
+           if (data.success) {
+             setSearchBranchData(data.data.branch_details || []);
+             setFilteredBranch(data.data.branch_details || []);
+           }
+         } catch (error) {
+           console.error("Fetch error:", error);
+         }
+       };
+     
+       useEffect(() => {
+         fetchSearchBranch();
+       }, [state]);
 
+       const handleSelectBranch = (branch:Admission) => {
+        // const handleSelectBranch = (branch : Account) => {
+        //   // setSelectedBranch(branch.text);
+        //   setbranch_text(branch.text);
+        //   // setbranch_id(branch.id);
+        //   setbranch_id(branch.id ?? "");
+        //   setSearchBranch("");
+        //   setIsDropdownOpen(false); 
+        // };
+        setbranch_text(branch.text);
+        setbranch_id(branch.id ?? "");
+        setSelectedBranch(branch.text);
+        setSearchBranch("");
+        // setIsDropdownOpen(false); 
+      };
+  const handleSearchBranch = (e : any) => {
+    const value = e.target.value;
+    setSearchBranch(value);
 
+    const searchData = searchBranchData.filter(
+      (item) =>
+        item.text.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredBranch(searchData);
+  };
+
+  // click to hide
+  useEffect(() => {
+    if (typeof window !== "undefined" && globalThis.document) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (serviceDropdownRef.current && event.target instanceof Node) {
+          if (!serviceDropdownRef.current.contains(event.target)) {
+            setIsOpen(false);
+          }
+        }
+  
+        if (branchDropdownRef.current && event.target instanceof Node) {
+          if (!branchDropdownRef.current.contains(event.target)) {
+            setIsbranchDropdownOpen(false);
+          }
+        }
+      };
+  
+      globalThis.document.addEventListener("mousedown", handleClickOutside);
+      return () => globalThis.document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, []);
 
   if (!showmodal) return null;
 
@@ -1598,32 +1895,52 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         {/* Modal Body */}
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 ">
-            <div className="flex-1  p-4">
-              <label className="block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+            <div className="flex-1 p-4">
+             
+
+              <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
+                <div className="flex-1 p-4 border border-gray-300 shadow-md rounded-lg ">
+                <label className="p-4 block mb-2 mt-2 text-lg font-medium text-slate-700 dark:text-navy-100">
                 Profile Information
               </label>
-
-              <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2">
-                <div className="flex-1 ">
                   {/* Profile Information */}
-                  <div className="mb-4 mt-4 ">
+                  <div className="mb-4 mt-4 p-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                  {/* Admission No */}
+                  <label className="block">
+                        <span>Admission No</span>
+                        <span className="relative mt-1.5 flex">
+                          <input
+                            name="admission_no"
+                          //  value={formData.name}
+                          value={formData?.admission_no|| ""}
+                            onChange={handleChange}
+                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            placeholder="Admission No"
+                            type="text"
+                          />
+                        </span>
+                      </label>
+                          {/* Application No */}
                   <label className="block">
                         <span>Application No</span>
                         <span className="relative mt-1.5 flex">
                           <input
-                            name="first_name"
+                            name="app_no"
                           //  value={formData.name}
-                          value={formData?.first_name|| ""}
+                          value={formData?.app_no|| ""}
                             onChange={handleChange}
                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            placeholder="name"
+                            placeholder="Application No"
                             type="text"
                           />
                         </span>
                       </label>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+
+                        {/* name */}
+                    {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2"> */}
                       <label className="block">
-                        <span>Name</span>
+                        <span>Name*</span>
                         <span className="relative mt-1.5 flex">
                           <input
                             name="first_name"
@@ -1636,8 +1953,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           />
                         </span>
                       </label>
+                      {/* mobile*/}
                       <label className="block">
-                        <span>Mobile</span>
+                        <span>Mobile*</span>
                         <span className="relative mt-1.5 flex">
                           <input
                            name="mobile"
@@ -1672,19 +1990,20 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         <span className="relative mt-1.5 flex">
                        
                           <textarea
-  name="mobile"
+  name="address"
   rows={2}
-  value={formData?.mobile || ""}
+  value={formData?.address || ""}
   onChange={handleChange}
   className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-  placeholder="mobile"
+  placeholder="Address"
 />
                         </span>
                       </label>
                     </div>
                     {/* Additional Fields */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                      <label className="block">
+                          {/* Email*/}
+                      {/* <label className="block">
                         <span>Email</span>
                         <span className="relative mt-1.5 flex">
                           <input
@@ -1697,7 +2016,23 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                             className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           />
                         </span>
+                      </label> */}
+ {/*DL No:*/}
+<label className="block">
+                        <span>DL No:</span>
+                        <span className="relative mt-1.5 flex">
+                          <input
+                            name="first_name"
+                          //  value={formData.name}
+                          value={formData?.first_name|| ""}
+                            onChange={handleChange}
+                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            placeholder="DL No:"
+                            type="text"
+                          />
+                        </span>
                       </label>
+                       {/* Blood Group*/}
                       <label className="block ">
                         <span>Blood Group</span>
                         <span className="relative mt-1.5 flex">
@@ -1705,7 +2040,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           name="blood_group"
                           value={formData?.blood_group|| ""}
                           onChange={handleChange}
-                          className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
                             <option value="">Select Blood Group</option>
                             <option value="A+">A+ve</option>
@@ -1720,7 +2055,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </span>
                       </label>
                     </div>
+                    
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                      {/* gender*/}
                       <label className="block ">
                         <span>Gender</span>
                         <span className="relative mt-1.5 flex">
@@ -1736,43 +2073,56 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           </select>
                         </span>
                       </label>
+{/* branch name */}
+<div className="relative w-full" ref={branchDropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Branch Name
+      </label>
 
-                      <label className="block ">
-                        <span>Branch Name</span>
-                        <span className="relative mt-1.5 flex">
-                          <select
-                          name="branch_id"
-                          value={formData?.branch_id || ""}
-                          onChange={handleChange}
-                            className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          >
-                            <option>Select a Branch</option>
-                            {branch.map((branch) => (
-                              <option key={branch.id} value={branch.id}>
-                                {branch.branch_name}
-                              </option>
-                            ))}
-                          </select>
-                        </span>
-                      </label>
+      {/* Dropdown Button */}
+      <div
+        onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
+        className="mt-3 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {/* {selectedBranch || "Select a branch"} */}
+        {branch_text || formData?.branch_name || "Select a branch"}
+        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      </div>
+
+      {/* Dropdown Content */}
+      {isbranchDropdownOpen && (
+        <div className="absolute z-10 mt-1.5 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+          {/* Search Bar Inside Dropdown */}
+          <input
+            type="text"
+            value={searchBranch}
+            onChange={handleSearchBranch}
+            placeholder="Search..."
+            className=" w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+          {/* Dropdown Options */}
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredBranch.length > 0 ? (
+              filteredBranch.map((branch) => (
+                <li
+                  key={branch.id}
+                  onClick={() => handleSelectBranch(branch)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {branch.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+
                     </div>
-
-                    <label className="block mt-2">
-                      <span>Choose Document</span>
-                      <span className="relative mt-1.5 flex">
-                        <select        
-                        name="document_type"               
-                        value={formData?. document_type|| ""}
-                        onChange={handleChange}
-                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value="">Choose Document Type</option>
-                          <option value="sslc">SSLC</option>
-                          <option value="aadhaar">Aadhaar</option>
-                          <option value="birth_certificate">Birth Certificate</option>
-                          <option value="passport">Passport</option>
-                        </select>
-                      </span>
-                    </label>
+                 
 
                     <div className="w-full max-w-3xl mx-auto space-y-6">
                       {/* Grid Container */}
@@ -1806,9 +2156,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
          />
        </div>
      )}
-               
+                <div className="mt-4 flex space-x-2">
                 {!userPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1824,7 +2174,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                  
 
                  <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
                        htmlFor="imageUpload"
                      >
                        Change
@@ -1847,7 +2197,100 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </div>
              )}
              </div>
+             </div>
                         </div>
+                           {/* Upload signature */}
+                           <div>
+                          <label className="block mb-2 mt-4">
+                          Signature
+                          </label>
+
+                         
+                          <div className="ml-2">
+               
+               {signaturePreview? (
+       
+       <div className="mb-2">
+         <img
+           src={signaturePreview}
+           alt="Selected"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     ) : (
+      
+       <div className="mb-2">
+         <img
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
+           alt="RC Document"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     )}
+                <div className="mt-4 flex space-x-2">
+                {!signaturePreview && (
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+                 Select Image
+                 <input
+                   type="file"
+                   accept="image/*"
+                   onChange={handleSignaturechange}
+                   className="hidden"
+                 />
+               </label>
+             )}
+
+             {signaturePreview  && (
+               <div className="mt-2 flex">
+                 
+
+                 <label
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
+                       htmlFor="imageUpload"
+                     >
+                       Change
+                     </label>
+                     <input
+                       id="imageUpload"
+                       type="file"
+                       accept="image/*"
+                       onChange={handleSignaturechange}
+                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                     />
+
+<button
+                   type="button"
+                   onClick={handleRemovesignature}
+                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
+                 >
+                   Remove
+                 </button>
+               </div>
+             )}
+             </div>
+             </div>
+
+                        </div>
+
+
+                             {/* Document */}
+                             <div>
+                    <label className="block mt-2">
+                      <span>Choose Document</span>
+                      <span className="relative mt-1.5 flex">
+                        <select        
+                        name="document_type"               
+                        value={formData?. document_type|| ""}
+                        onChange={handleChange}
+                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="">Choose Document</option>
+                          <option value="sslc">SSLC</option>
+                          <option value="aadhaar">Aadhaar</option>
+                          <option value="birth_certificate">Birth Certificate</option>
+                          <option value="passport">Passport</option>
+                        </select>
+                      </span>
+                    </label>
                         {/* Upload Document Proof Image Section */}
                         <div>
                           <label className="block mb-2 mt-4">
@@ -1876,9 +2319,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
          />
        </div>
      )}
-               
+                   <div className="mt-4 flex space-x-2">
                 {!documentPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1894,7 +2337,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                  
 
                  <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
                        htmlFor="imageUpload"
                      >
                        Change
@@ -1917,25 +2360,120 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </div>
              )}
              </div>
-                        </div>
-
+             </div>
+               </div>
+               </div>
             
-                       
+                                   {/* Document 2 */}
+                                   <div>
+                    <label className="block mt-2">
+                      <span>Choose Document</span>
+                      <span className="relative mt-1.5 flex">
+                        <select        
+                        name="document_type"               
+                        value={formData?. document_type|| ""}
+                        onChange={handleChange}
+                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="">Choose Document</option>
+                          <option value="sslc">SSLC</option>
+                          <option value="aadhaar">Aadhaar</option>
+                          <option value="birth_certificate">Birth Certificate</option>
+                          <option value="passport">Passport</option>
+                        </select>
+                      </span>
+                    </label>
+                        {/* Upload Document Proof Image Section */}
+                        <div>
+                          <label className="block mb-2 mt-4">
+                          Document Upload
+                          </label>
+
+                         
+                          <div className="ml-2">
+               
+               {documentPreview? (
+       
+       <div className="mb-2">
+         <img
+           src={documentPreview}
+           alt="Selected"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     ) : (
+      
+       <div className="mb-2">
+         <img
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
+           alt="RC Document"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     )}
+                   <div className="mt-4 flex space-x-2">
+                {!documentPreview && (
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+                 Select Image
+                 <input
+                   type="file"
+                   accept="image/*"
+                   onChange={handleDocumentchange}
+                   className="hidden"
+                 />
+               </label>
+             )}
+
+             {documentPreview  && (
+               <div className="mt-2 flex">
+                 
+
+                 <label
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
+                       htmlFor="imageUpload"
+                     >
+                       Change
+                     </label>
+                     <input
+                       id="imageUpload"
+                       type="file"
+                       accept="image/*"
+                       onChange={handleDocumentchange}
+                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                     />
+
+<button
+                   type="button"
+                   onClick={handleRemovedocument}
+                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
+                 >
+                   Remove
+                 </button>
+               </div>
+             )}
+             </div>
+             </div>
+               </div>
+               </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+
+
             {/* Right Section: Service Information */}
-            <div className="flex-1 mt-4 sm:mt-0  p-4">
-           
+            <div className="flex-1 mt-4 sm:mt-0 p-4">
+           <div className="p-4 border border-gray-300 shadow-md rounded-lg ">
               <label className="block mb-2 text-lg  font-medium text-slate-700 dark:text-navy-100 mt-4">
                 Service Information
               </label>
               <div className="space-y-5 p-4 sm:p-5">
                 {/* service and billno */}
                    <div className="flex">
+
+
               <div className="relative flex-1 w-full">
               <span>Service</span>
     <div
@@ -1947,6 +2485,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
     </div>
 
     {isOpen && (
+      // hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500
       <div className="dark:bg-navy-700 absolute z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
         <input
           type="text"
@@ -1955,12 +2494,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="max-h-60 overflow-y-auto">
+        <div className="max-h-60 overflow-y-auto hide-scrollbar">
           {filteredServices.length > 0 ? (
             filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="cursor-pointer px-3 py-2 hover:bg-gray-200 "
+                // className="cursor-pointer px-3 py-2 hover:bg-gray-700 "
+                 className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
                 onClick={() => handleSelect(service)}
               >
                 {service.service_name}
@@ -2008,7 +2548,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                          value={formData?.type || ""}
                         onChange={handleChange}
                         name="type"
-                        className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                        className="dark:bg-navy-700 form-input peer mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value=''>Select Type</option>
                           <option value="lmc">LMC</option>
                           <option value="mc">MC</option>
@@ -2024,14 +2564,17 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                          value={formData?.type || ""}
                         onChange={handleChange}
                         name="type"
-                        className="dark:bg-navy-700 form-input peer mt-1  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value=''>Select Type</option>
-                          <option value="lmc">LMC</option>
-                          <option value="mc">MC</option>
-                          <option value="both">BOTH</option>
+                        className="dark:bg-navy-700 form-input peer mt-1  w-full rounded-lg border border-slate-300 bg-transparent px-1 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value=''>Choose Type</option>
+                          <option value="lmc">LMV MC both Study</option>
+                          <option value="mc">LMV MC both Licence</option>
+                          <option value="both">LMV Study MC Licence </option>
+                          <option value="both">LMV Licence MC Study</option>
+                          <option value="both">Both Licence Study</option>
                         </select>
                       </span>
 </label>
+{/* total amount */}
 <label className="block">
                   <span>Total amount</span>
                 <span className="relative  flex">
@@ -2048,6 +2591,38 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                    />
                  </span>
 </label>
+{/* Discount */}
+<label className="block">
+                    <span>Discount</span>
+                    <span className="relative flex">
+                      <input
+                        name="pay_amount"
+                        value={formData?.pay_amount || ""}
+                        readOnly
+                          // onChange={handleChange}
+                        type="text"
+                        placeholder="Paid Amount"
+                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label>
+
+                 {/* Pay Amount */}
+<label className="block">
+                    <span>Pay Amount</span>
+                    <span className="relative flex">
+                      <input
+                        name="pay_amount"
+                        value={formData?.pay_amount || ""}
+                        readOnly
+                          // onChange={handleChange}
+                        type="text"
+                        placeholder="Paid Amount"
+                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label> 
+{/* paid amount */}
 <label className="block">
                     <span>Paid Amount</span>
                     <span className="relative flex">
@@ -2062,7 +2637,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       />
                     </span>
                   </label>
-
+{/* due amount */}
                   <label className="block">
                     <span>Due Amount</span>
                     <span className="relative mt-1 flex">
@@ -2077,30 +2652,11 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       />
                     </span>
                   </label>
-</div>
-                {/* Additional Fields */}
-                {/* Common Fields */}
-                   {/* total,paid and due amount */}
-                {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-                <label className="block">
-                  <span>Total amount</span>
-                <span className="relative  flex">
-                    <input
-                     name="amount"
-                     // value={formData?.amount || ""}
-                     //   onChange={handleChange}
-                    //  value={formData?.amount || selectedAmount || ""}
-                    value={selectedAmount || formData?.amount}
-                     readOnly
-                     type="text"
-                     placeholder="Total Amount"
-                     className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                   />
-                 </span>
-</label>
-                  <label className="block">
-                    <span>Paid Amount</span>
+
+                                   {/* Trial Amount */}
+<label className="block">
+                    <span>Trial Amount</span>
                     <span className="relative flex">
                       <input
                         name="pay_amount"
@@ -2112,94 +2668,16 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
-                  </label>
-
-                  <label className="block">
-                    <span>Due Amount</span>
-                    <span className="relative mt-1.5 flex">
-                      <input
-                       name="due_amount"
-                       value={formData?.due_amount || ""}
-                       readOnly
-                        //  onChange={handleChange}
-                        type="text"
-                        placeholder="Due Amount"
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                      />
-                    </span>
-                  </label>
-                </div> */}
-
-
-                {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                    <label className="block ">
-                    <span>Bill No:</span>
-                      <span className="relative mt-1.5 flex">
-                        <input
-                           value={formData?.tax || ""}
-                           onChange={handleChange}
-                          type="text"
-                          placeholder="Bill no:"
-                          className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        />
-                      </span>
-                    </label>
-
-               <div className="block space-x-4 mt-8 ">
-                 <label className="inline-flex items-center space-x-2">
-  <input className="form-checkbox is-basic size-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" type="checkbox" />
-  <span>LMV Study</span>
-</label>
-<label className="inline-flex items-center space-x-2">
-  <input className="form-checkbox is-basic size-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" type="checkbox" />
-  <span>LMV Licence</span>
-</label>
+                  </label> 
 </div>
-    </div>
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                   
-               <div className="block space-x-4 mt-4">
-                 <label className="inline-flex items-center space-x-2">
-  <input className="form-checkbox is-basic size-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" type="checkbox" />
-  <span>Mc Study</span>
-</label>
-<label className="inline-flex items-center space-x-2">
-  <input className="form-checkbox is-basic size-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" type="checkbox" />
-  <span>Mc Licence</span>
-</label>
-</div>
-{(formData?.service_name === "licence fresh" ||
-                  formData?.service_name === "renewal licence" ||
-                  formData?.service_name === "duplicate licence" ||
-                  formData?.service_name === "licence reentry" ||
-                  formData?.service_name === "rc transfer") && (
-
-                     <label className="block">
-                       <span className="relative mt-1.5 flex">
-                         <select 
-                         value={formData?.type || ""}
-                        onChange={handleChange}
-                        name="type"
-                        className="form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value=''>Select Type</option>
-                          <option value="lmc">LMC</option>
-                          <option value="mc">MC</option>
-                          <option value="both">BOTH</option>
-                        </select>
-                      </span>
-                    </label>
-                   
-                 
-                )}
-    </div> */}
-   
-
+                {/* Additional Fields */}
                 {(formData?.service_name === "rc transfer" ||
                   formData?.service_name === "cf" ||
                   formData?.service_name === "cf renewal" ||
                   formData?.service_name === "rc renewal" ||
                   formData?.service_name === "sfds") && (
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {/* tax */}
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2211,6 +2689,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         />
                       </span>
                     </label>
+                    {/* pucc */}
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2443,6 +2922,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
             >
           Update
             </button>
+              </div>
               </div>
             </div>
           </div>
