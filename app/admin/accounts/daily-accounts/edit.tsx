@@ -13,7 +13,10 @@ interface Account {
    branch_id: string;
    branch_name:string;
    added_date:string;
+   staff_id:string;
    staff_name:string;
+   driver_id:string;
+   driver_name:string;
    amount:string;
    total_income:string;
    total_expense:string;
@@ -42,9 +45,28 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
   const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
   const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
   // const[filteredBranch,setFilteredBranch]=useState("");
-   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
 
+  const [staff_id, setstaff_id] = useState(formData?.staff_id || '');
+ 
+  // const [staff_text, setstaff_text] = useState('');
+const [StaffData, setStaffData] = useState([]);
+ const [filteredStaff, setFilteredStaff] = useState<Account[]>([]);
+    const [searchStaff, setSearchStaff] = useState("");
+    const [selectedStaff, setSelectedStaff] = useState("");
+    // const [driver_text, setdriver_text] = useState('');
+    const [driver_id, setdriver_id] = useState(formData?.driver_id || '');
+     const [selectedDriver, setSelectedDriver] = useState<string>("");
+      const [searchDriver, setSearchDriver] = useState("");
+      const[searchDriverData,setSearchDriverData] =useState<Account[]>([]);
+      const[filteredDriver,setFilteredDriver]=useState<Account[]>([]);
+
+
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+   const [isstaffDropdownOpen, setIsstaffDropdownOpen] = useState(false);
+   const [isdriverDropdownOpen, setIsdriverDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const staffdropdownRef = useRef<HTMLDivElement>(null);
+    const driverdropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (AccountData) {
@@ -148,6 +170,8 @@ useEffect(() => {
           // branch_name: formData.branch_name,
          // branch_id: formData.branch_id,
          branch_id: branch_id || formData.branch_id,
+         staff_id: staff_id || formData.staff_id,
+         driver_id: driver_id || formData.driver_id,
           payment_method:formData. payment_method,
         };
     
@@ -187,7 +211,7 @@ useEffect(() => {
   };
 
 
-if (!showModal || !formData) return null;
+
 
 
 
@@ -218,6 +242,136 @@ const handleSelectBranch = (branch : Account) => {
   setSearchBranch("");
   setIsDropdownOpen(false); 
 };
+
+  const fetchSearchStaff = async (searchTerm = null) => {
+     try {
+     const response = await fetch("/api/admin/report/get_staff_autocomplete", {
+     method: "POST",
+     headers: {
+     authorizations: state?.accessToken ?? "",
+     api_key: "10f052463f485938d04ac7300de7ec2b",
+     },
+     body: JSON.stringify({ term: searchTerm }),
+     });
+    
+     if (!response.ok) {
+     const errorData = await response.json();
+     throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+     }
+    
+     const data = await response.json();
+     console.log("Search staff data", data.data);
+    
+     if (data.success) {
+     setStaffData(data.data.staff_details || []);
+     setFilteredStaff(data.data.staff_details || []);
+     }
+     } catch (error) {
+     console.error("Fetch error:", error);
+     }
+    };
+    
+    // Fetch default mobile data on load
+    useEffect(() => {
+      fetchSearchStaff();
+    }, [state]);
+    
+    // Handle search input change
+    const handleSearchStaff = (e:any) => {
+     const value = e.target.value;
+     setSearchStaff(value);
+     fetchSearchStaff(value); 
+    };
+    
+    const handleSelectStaff = (staff:any) => {
+     setSelectedStaff(staff.text);
+     setstaff_id(staff.id ?? "");
+     setIsstaffDropdownOpen(false);
+     setSearchStaff(""); 
+    };
+
+ const fetchSearchDriver = async () => {
+           try {
+             const response = await fetch("/api/admin/report/get_driver_autocomplete", {
+               method: "POST",
+               headers: {
+                 authorizations: state?.accessToken ?? "",
+                 api_key: "10f052463f485938d04ac7300de7ec2b",
+               },
+               body: JSON.stringify({}),
+             });
+       
+             if (!response.ok) {
+               const errorData = await response.json();
+               throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+             }
+       
+             const data = await response.json();
+             console.log("Search driver data", data.data);
+       
+             if (data.success) {
+               setSearchDriverData(data.data.driver_details || []);
+               setFilteredDriver(data.data.driver_details || []);
+             }
+           } catch (error) {
+             console.error("Fetch error:", error);
+           }
+         };
+       
+         useEffect(() => {
+           fetchSearchDriver();
+         }, [state]);
+       
+         const handleSearchDriver = (e : any) => {
+           const value = e.target.value;
+           setSearchDriver(value);
+       
+           const searchData = searchDriverData.filter(
+             (item) =>
+               item.text.toLowerCase().includes(value.toLowerCase())
+           );
+       
+           setFilteredDriver(searchData);
+         };
+       
+         
+         const handleSelectDriver = (driver:any) => {
+           setSelectedDriver(driver.text);
+           setdriver_id(driver.id ?? "");
+           setSearchDriver("");
+           setIsdriverDropdownOpen(false); 
+         };
+
+         useEffect(() => {
+             const handleClickOutside = (event: MouseEvent) => {
+               
+               if (dropdownRef.current && event.target instanceof Node) {
+                       if (!dropdownRef.current.contains(event.target)) {
+                         setIsDropdownOpen(false);
+                       }
+                     }
+         
+         
+               if (driverdropdownRef.current && event.target instanceof Node) {
+                 if (!driverdropdownRef.current.contains(event.target)) {
+                   setIsdriverDropdownOpen(false);
+                 }
+               }
+         
+               if (staffdropdownRef.current && event.target instanceof Node) {
+                 if (!staffdropdownRef.current.contains(event.target)) {
+                   setIsstaffDropdownOpen(false);
+                 }
+               }
+         
+             };
+         
+             document.addEventListener("mousedown", handleClickOutside);
+             return () => document.removeEventListener("mousedown", handleClickOutside);
+           }, []);
+
+
+           if (!showModal || !formData) return null;
   return (
     <div>
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" role="dialog"
@@ -382,6 +536,102 @@ const handleSelectBranch = (branch : Account) => {
       />
     </label>
 
+
+{/* staff */}
+<div className="relative w-full" ref={staffdropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Staff Name
+      </label>
+
+
+      <div
+        onClick={() => setIsstaffDropdownOpen(!isstaffDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {/* {staff_text || "Select a Staff"} */}
+        {selectedStaff || formData.staff_name ||"Select a Staff"}
+        
+        <span className="ml-2">&#9662;</span> 
+      </div>
+
+     
+      {isstaffDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+    
+          <input
+            type="text"
+            value={searchStaff}
+            onChange={handleSearchStaff}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+         
+          <ul className="max-h-48 overflow-y-auto">
+            {filteredStaff.length > 0 ? (
+              filteredStaff.map((staff) => (
+                <li
+                  key={staff.id}
+                  onClick={() => handleSelectStaff(staff)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {staff.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+{/* driver */}
+    <div className="relative w-full" ref={driverdropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Driver Name
+      </label>
+
+
+      <div
+        onClick={() => setIsdriverDropdownOpen(!isdriverDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        
+        {selectedDriver || formData.driver_name|| "Select a Driver"}
+        <span className="ml-2">&#9662;</span> 
+      </div>
+
+     
+      {isdriverDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+    
+          <input
+            type="text"
+            value={searchDriver}
+            onChange={handleSearchDriver}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+         
+          <ul className="max-h-48 overflow-y-auto">
+            {filteredDriver.length > 0 ? (
+              filteredDriver.map((driver) => (
+                <li
+                  key={driver.id}
+                  onClick={() => handleSelectDriver(driver)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {driver.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
 
 
     <label className="block">

@@ -1044,7 +1044,7 @@ const Admission = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
-  const userDropdownRef = useRef<HTMLDivElement>(null);
+  const admissionDropdownRef = useRef<HTMLDivElement>(null);
   const branchDropdownRef = useRef<HTMLDivElement>(null);
    const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -1334,7 +1334,7 @@ const Admission = () => {
     setSelectedBranch(branch.text);
     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
     setSearchBranch("");
-    setIsDropdownOpen(false); // Close dropdown after selection
+    setIsbranchDropdownOpen(false); // Close dropdown after selection
   };
 
 
@@ -1358,15 +1358,15 @@ const Admission = () => {
       // ) {
       //   setIsDropdownOpen(false);
       // }
-      if (userDropdownRef.current && event.target instanceof Node) {
-              if (!userDropdownRef.current.contains(event.target)) {
+      if (dropdownRef.current && event.target instanceof Node) {
+              if (!dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
               }
             }
 
-            if (dropdownRef.current && event.target instanceof Node) {
-              if (!dropdownRef.current.contains(event.target)) {
-                setIsbranchDropdownOpen(false);
+            if (admissionDropdownRef.current && event.target instanceof Node) {
+              if (!admissionDropdownRef.current.contains(event.target)) {
+                setIsadmissionDropdownOpen(false);
               }
             }
     
@@ -1425,7 +1425,7 @@ const Admission = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {/* mobile Select */}
 
-                <div className="relative w-full" ref={userDropdownRef}>
+                <div className="relative w-full" ref={dropdownRef}>
                   <label
                     htmlFor="mobile"
                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
@@ -1476,7 +1476,7 @@ const Admission = () => {
                   )}
                 </div>
 {/* Admission No:Select */}
-                <div className="relative w-full" ref={dropdownRef}>
+                <div className="relative w-full" ref={admissionDropdownRef}>
                   <label
                     htmlFor="mobile"
                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"

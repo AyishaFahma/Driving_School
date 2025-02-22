@@ -16,7 +16,10 @@ type Account = {
   branch_id: string;
   branch_name:string;
   added_date:string;
+  staff_id: string;
   staff_name:string;
+  driver_id:string;
+  driver_name:string;
   amount:string;
   total_income:string;
   total_expense:string;
@@ -32,6 +35,8 @@ type CreateProps = {
     type: string;
     expense_name: string;
     branch_id:string;
+    driver_id:string;
+    staff_id:string;
     id?: string; 
     payment_method:string;
   };
@@ -49,18 +54,20 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [amount, setAmount] = useState(formData?.amount || '');
   const [ BranchData,  setBranchData] = useState<Account []>([]);
   const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
+  const [staff_id, setstaff_id] = useState(formData?.staff_id || '');
+  const [driver_id, setdriver_id] = useState(formData?.driver_id || '');
   const [branch_text, setbranch_text] = useState('');
   const [expenseName, setExpenseName] = useState(formData?.expense_name || '');
 //  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
    const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
     const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
-  const [staff_text, setstaff_text] = useState('');
+  
 const [StaffData, setStaffData] = useState([]);
  const [filteredStaff, setFilteredStaff] = useState<Account[]>([]);
     const [searchStaff, setSearchStaff] = useState("");
     const [selectedStaff, setSelectedStaff] = useState("");
-    const [driver_text, setdriver_text] = useState('');
+   
      const [selectedDriver, setSelectedDriver] = useState<string>("");
       const [searchDriver, setSearchDriver] = useState("");
       const[searchDriverData,setSearchDriverData] =useState<Account[]>([]);
@@ -121,16 +128,18 @@ const [StaffData, setStaffData] = useState([]);
     //   toast.error("Please enter a valid amount.");
     //   return;
     // }
-  if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
-    setError("All fields are required");
-    return;
-  }
+  // if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
+  //   setError("All fields are required");
+  //   return;
+  // }
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount), 
       type: expenseType || 'general',
       expense_name: expenseType === 'others' ? expenseName : expenseType, // Ensuring correct name
       branch_id: branch_id,
+      staff_id: staff_id,
+      driver_id: driver_id,
        payment_method: payment_method,
     };
   
@@ -262,6 +271,7 @@ const fetchSearchBranch = async () => {
     
     const handleSelectStaff = (staff:any) => {
      setSelectedStaff(staff.text);
+     setstaff_id(staff.id ?? "");
      setIsstaffDropdownOpen(false);
      setSearchStaff(""); 
     };
@@ -313,7 +323,7 @@ const fetchSearchBranch = async () => {
          
          const handleSelectDriver = (driver:any) => {
            setSelectedDriver(driver.text);
-          
+           setdriver_id(driver.id ?? "");
            setSearchDriver("");
            setIsdriverDropdownOpen(false); 
          };
@@ -562,7 +572,7 @@ useEffect(() => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         
-        {staff_text || "Select a Staff"}
+        {selectedStaff || "Select a Staff"}
         <span className="ml-2">&#9662;</span> 
       </div>
 
@@ -609,7 +619,7 @@ useEffect(() => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         
-        {driver_text || "Select a Driver"}
+        {selectedDriver || "Select a Driver"}
         <span className="ml-2">&#9662;</span> 
       </div>
 
@@ -706,7 +716,7 @@ useEffect(() => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         
-        {staff_text || "Select a Staff"}
+        {selectedStaff || "Select a Staff"}
         <span className="ml-2">&#9662;</span> 
       </div>
 
@@ -753,7 +763,7 @@ useEffect(() => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         
-        {driver_text || "Select a Driver"}
+        {selectedDriver || "Select a Driver"}
         <span className="ml-2">&#9662;</span> 
       </div>
 
