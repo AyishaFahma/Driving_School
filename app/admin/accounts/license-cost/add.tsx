@@ -327,14 +327,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 placeholder="cost" 
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
-            {/* <label className="block">
-            <input name="m_cost"
-             value={localFormData.m_cost}
-              onChange={handleChange}
-               type="text"
-                placeholder="Male cost"
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
-           </label> */}
+           
             </div>
             {error && (
               <div className="text-red-500 text-sm mt-2">{error}</div>

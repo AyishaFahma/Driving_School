@@ -1338,18 +1338,7 @@ const Admission = () => {
   };
 
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (dropdownRef.current && event.target instanceof Node) {
-  //       if (!dropdownRef.current.contains(event.target)) {
-  //         setIsDropdownOpen(false);
-  //       }
-  //     }
-  //   };
   
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // if (
