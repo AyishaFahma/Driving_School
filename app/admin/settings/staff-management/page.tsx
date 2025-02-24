@@ -4,7 +4,7 @@ import withAuth from "@/hoc/withAuth";
 import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { FaRegCheckCircle, FaSpinner } from "react-icons/fa";
 import Edit from "./edit";
 type Staff = {
   id?: string;
@@ -28,7 +28,7 @@ const page = () => {
   const { state } = useAuth();
 
 
-
+  const [isLoading, setIsLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -185,18 +185,31 @@ const page = () => {
   
     setFilteredData(searchFilteredData); 
   };
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); 
-    const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData); 
-  };
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault(); 
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData); 
+  // };
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true); // Start loading
   
-  const handleReset = () => {
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const newFilteredData = applyFilters();
+    setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
+  };
+
+  const handleReset = async () => {
+    setIsLoading(true); 
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedStaff("");
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(staffData); 
+    setIsLoading(false);
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -661,15 +674,14 @@ onChange={handleSearchChange}
                 </thead>
                 <tbody>
                 
-                  {/* {currentEntries.map((item, index) => {
-             
-    const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    });
-
-    return ( */}
+                  {isLoading ? (
+                                       <tr>
+                                         <td colSpan={7} className="text-center py-10">
+                                           <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+                                         </td>
+                                       </tr>
+                                     ) : (
+                                       <>
     {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>{
   const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
@@ -740,6 +752,8 @@ currentEntries.map((item,index) =>{
               </td>
             </tr>
           )}
+          </>
+                                     )}
                 </tbody>
               </table>
             </div>

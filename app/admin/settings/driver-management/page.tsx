@@ -3,7 +3,7 @@
 "use client";
 import withAuth from "@/hoc/withAuth";
 import React, { useEffect, useRef, useState } from "react";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaSpinner } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { LuRefreshCw } from "react-icons/lu";
 import Add from "./add";
@@ -47,6 +47,7 @@ const page = () => {
    const[searchDriverData,setSearchDriverData] =useState<Driver []>([]);
   const[filteredDriver,setFilteredDriver]=useState<Driver []>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
    const dropdownRef = useRef<HTMLDivElement>(null);
 
 
@@ -146,18 +147,31 @@ const page = () => {
     setFilteredData(searchFilteredData);
 };
   
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData);
-  };
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
+  // };
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+                e.preventDefault();
+                setIsLoading(true); // Start loading
+              
+                // Simulate a delay to show the loader (you can remove this in production)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const newFilteredData = applyFilters();
+                setFilteredData(newFilteredData);
+                setIsLoading(false); // Stop loading
+              };
 
-  const handleReset = () => {
+              const handleReset = async () => {
+                setIsLoading(true); 
+                 await new Promise(resolve => setTimeout(resolve, 1000));
     setFilters({ driverName: "", status: "" });
     setFilteredData(driverData);
     setSelectedDriver("");
     setSelectedStatus("");
     setCurrentPage(1);
+    setIsLoading(false);
   };
 
   // Calculate pagination
@@ -521,6 +535,15 @@ const page = () => {
                 </thead>
                 <tbody>
                   {/* {currentEntries.map((item, index) => ( */}
+ {isLoading ? (
+                      <tr>
+                        <td colSpan={7} className="text-center py-10">
+                          <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+                        </td>
+                      </tr>
+                    ) : (
+                      <>
+
                   {currentEntries.length > 0 ? (
     currentEntries.map((item, index) => {
 
@@ -606,6 +629,8 @@ const page = () => {
                 </td>
               </tr>
             )}
+            </>
+                    )}
                 </tbody>
               </table>
             </div>

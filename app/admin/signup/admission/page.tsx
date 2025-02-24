@@ -948,7 +948,7 @@
 
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaSpinner } from "react-icons/fa";
 import Create from "./Create";
 
 import { useAuth } from "@/app/context/AuthContext";
@@ -1027,7 +1027,7 @@ const Admission = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   //const [filterStatus,setFilterStatus] = useState("all");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
   const [mobileData, setMobileData] = useState([]);
@@ -1251,15 +1251,28 @@ const Admission = () => {
     setFilteredData(searchFilteredData); // Update filtered data in real-time
   };
 
-  const handleFilterSubmit = (e: React.FormEvent) => {
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
+
+  //   setCurrentPage(1);
+  // };
+  const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+  
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
-
-    setCurrentPage(1);
+    setIsLoading(false); // Stop loading
   };
 
-  const handleReset = () => {
+
+  const handleReset = async () => {
+    setIsLoading(true); 
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
 
     setSelectedBranch("");
@@ -1267,6 +1280,7 @@ const Admission = () => {
     setFilteredData(AdmissionData);
     setSelectedMobile("");
     setCurrentPage(1);
+    setIsLoading(false);
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -1657,7 +1671,17 @@ const Admission = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentEntries.map((item, index) => (
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+                  {/* {currentEntries.map((item, index) => ( */}
+                  {currentEntries.length > 0 ?(
+              currentEntries.map((item, index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -1783,7 +1807,18 @@ const Admission = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                     ))
+                    ):(
+                      <tr>
+                      <td colSpan={7} className="text-center py-4 text-gray-500">
+                        No data available
+                      </td>
+                    </tr>
+                    )
+                  }
+                 
+                  </>
+  )}
                 </tbody>
               </table>
             </div>

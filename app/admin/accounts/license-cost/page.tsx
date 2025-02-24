@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
+import { FaSpinner } from 'react-icons/fa';
 
 type Cost = {
   id?: string;
@@ -21,6 +22,7 @@ type Cost = {
 };
 const page = () => {
   const { state } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [showmodal,setShowmodal]=useState(false);
   const [costData, setCostData] = useState<Cost[]>([]);
   const [filteredData, setFilteredData] = useState<Cost[]>([]);
@@ -205,17 +207,32 @@ const page = () => {
     };
     
     // Handle form submit for additional filters
-    const handleFilterSubmit = (e: React.FormEvent) => {
-      e.preventDefault(); // Prevent page reload
-      const newFilteredData = applyFilters();
-      setFilteredData(newFilteredData); // Update filtered data
-    };
+    // const handleFilterSubmit = (e: React.FormEvent) => {
+    //   e.preventDefault(); // Prevent page reload
+    //   const newFilteredData = applyFilters();
+    //   setFilteredData(newFilteredData); // Update filtered data
+    // };
     
-    const handleReset = () => {
+      const handleFilterSubmit = async (e: React.FormEvent) => {
+              e.preventDefault();
+              setIsLoading(true); // Start loading
+            
+              // Simulate a delay to show the loader (you can remove this in production)
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              const newFilteredData = applyFilters();
+              setFilteredData(newFilteredData);
+              setIsLoading(false); // Stop loading
+            };
+
+    // const handleReset = () => {
+      const handleReset = async () => {
+        setIsLoading(true); 
+         await new Promise(resolve => setTimeout(resolve, 1000));
       setSearchTerm("");
       setSelectedService("");
       setSelectedStatus("");
       setFilteredData(costData); // Reset to original data
+      setIsLoading(false);
     };
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -507,6 +524,15 @@ onChange={handleSearchChange}
             </thead>
             <tbody>
             {/* {currentEntries.map((item, index) => ( */}
+  {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+
             {currentEntries.length > 0 ? (
     currentEntries.map((item, index) => (
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -596,6 +622,8 @@ onChange={handleSearchChange}
     </td>
   </tr>
 )}
+</>
+  )}
             </tbody>
           </table>
         </div>

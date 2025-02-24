@@ -4,6 +4,7 @@
 import { useAuth } from '@/app/context/AuthContext';
 import React, { useEffect, useState } from 'react';
 import { CgNotes } from 'react-icons/cg';
+import { FaSpinner } from 'react-icons/fa';
 import { FiClock } from 'react-icons/fi';
 import { IoMdCheckmark } from 'react-icons/io';
 import { RiBillFill } from 'react-icons/ri';
@@ -28,6 +29,8 @@ const Page = () => {
   const [entriesPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('');
+ const [isLoading, setIsLoading] = useState(false);
+
 
   const fetchPaymentHistory = async () => {
     try {
@@ -94,16 +97,31 @@ const Page = () => {
     setFilteredData(searchFilteredData);
   };
 
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData);
-  };
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
+  // };
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+              e.preventDefault();
+              setIsLoading(true); // Start loading
+            
+              // Simulate a delay to show the loader (you can remove this in production)
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              const newFilteredData = applyFilters();
+              setFilteredData(newFilteredData);
+              setIsLoading(false); // Stop loading
+            };
 
-  const handleReset = () => {
+
+  // const handleReset = () => {
+    const handleReset = async () => {
+      setIsLoading(true); 
+       await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm('');
     setSelectedStatus('');
     setFilteredData(paymentData);
+    setIsLoading(false);
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -113,103 +131,7 @@ const Page = () => {
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
   return (
-    // <div className="w-full pb-8">
-    //   <div className="flex items-center space-x-4 py-5 lg:py-6">
-    //     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
-    //       Payment History
-    //     </h2>
-    //   </div>
-
-    //   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 mb-4">
-    //     <div className="card px-4 pb-4 sm:px-5 pt-4">
-    //       <form>
-    //         <div className="sm:col-span-2 flex flex-col sm:flex-row gap-4">
-    //           <div className="flex-1">
-    //             <label htmlFor="status" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
-    //               Status
-    //             </label>
-    //             <select
-    //               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm"
-    //               value={selectedStatus}
-    //               onChange={(e) => setSelectedStatus(e.target.value)}
-    //             >
-    //               <option value="">Select Status</option>
-    //               <option value="pending">Pending</option>
-    //               <option value="remaining">Partially Paid</option>
-    //               <option value="completed">Fully Paid</option>
-    //             </select>
-    //           </div>
-    //           <div className="flex-1">
-    //             <button
-    //               onClick={handleFilterSubmit}
-    //               type="submit"
-    //               className="mt-5 h-10 bg-primary text-white px-4 rounded-md"
-    //             >
-    //               Filter
-    //             </button>
-    //             <button
-    //               onClick={handleReset}
-    //               type="button"
-    //               className="ml-4 mt-5 h-10 bg-warning text-white px-4 rounded-md"
-    //             >
-    //               Reset
-    //             </button>
-    //           </div>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </div>
-
-    //   <div className="overflow-x-auto w-full">
-    //     <table className="is-hoverable w-full text-left">
-    //       <thead>
-    //         <tr>
-    //           <th>SL No</th>
-    //           <th>Mobile</th>
-    //           <th>Service Name</th>
-    //           <th>Amount</th>
-    //           <th>Status</th>
-    //           <th>Date</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {currentEntries.map((item, index) => (
-    //           <tr key={item.id}>
-    //             <td>{index + 1 + indexOfFirstEntry}</td>
-    //             <td>{item.mobile}</td>
-    //             <td>{item.service_name}</td>
-    //             <td>{item.amount}</td>
-    //             <td>{item.payment_status}</td>
-    //             <td>{item.added_date}</td>
-    //           </tr>
-    //         ))}
-    //       </tbody>
-    //     </table>
-    //   </div>
-
-    //   <div className="flex justify-between mt-4">
-    //     <button
-    //       onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-    //       disabled={currentPage === 1}
-    //     >
-    //       Previous
-    //     </button>
-    //     <span>
-    //       Page {currentPage} of {totalPages}
-    //     </span>
-    //     <button
-    //       onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-    //       disabled={currentPage === totalPages}
-    //     >
-    //       Next
-    //     </button>
-    //   </div>
-    // </div>
-
-
-
-
-
+   
 
         <div className=" w-full  pb-8">
  
@@ -349,6 +271,15 @@ onChange={handleSearchChange}
             </thead>
             <tbody>
             {/* {currentEntries.map((item, index) => ( */}
+{isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+
             {currentEntries.length > 0 ?(
               currentEntries.map((item,index) =>(
 
@@ -423,6 +354,8 @@ onChange={handleSearchChange}
               </tr> 
           )
         }
+        </>
+  )}
             </tbody>
           </table>
         </div>

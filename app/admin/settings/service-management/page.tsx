@@ -4,6 +4,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import Edit from "./edit";
 import Add from "./add";
+import { FaSpinner } from "react-icons/fa";
 
 type Service = {
   service_name: string;
@@ -38,6 +39,7 @@ const page = () => {
     const[searchServiceData,setSearchServiceData] =useState<Service[]>([]);
     const[filteredService,setFilteredService]=useState<Service[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+     const [isLoading, setIsLoading] = useState(false);
      const dropdownRef = useRef<HTMLDivElement>(null);
 
   const togglemodal = (
@@ -121,21 +123,35 @@ const page = () => {
 
     setCurrentPage(1);
   };
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData);
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
 
-    setCurrentPage(1);
-  };
+  //   setCurrentPage(1);
+  // };
+   const handleFilterSubmit = async (e: React.FormEvent) => {
+                  e.preventDefault();
+                  setIsLoading(true); // Start loading
+                
+                  // Simulate a delay to show the loader (you can remove this in production)
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                  const newFilteredData = applyFilters();
+                  setFilteredData(newFilteredData);
+                  setIsLoading(false); // Stop loading
+                };
+  
 
-  const handleReset = () => {
+                const handleReset = async () => {
+                  setIsLoading(true); 
+                   await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedService("");
     setSelectedStatus("");
     setFilteredData(serviceData);
 
     setCurrentPage(1);
+    setIsLoading(false);
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -487,6 +503,15 @@ const page = () => {
                 </thead>
                 <tbody>
                   {/* {currentEntries.map((item, index) => ( */}
+ {isLoading ? (
+                      <tr>
+                        <td colSpan={7} className="text-center py-10">
+                          <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+                        </td>
+                      </tr>
+                    ) : (
+                      <>
+
                   {currentEntries.length > 0 ? (
     currentEntries.map((item, index) => (
                     <tr
@@ -577,6 +602,8 @@ const page = () => {
                   </td>
                 </tr>
               )}
+              </>
+                    )}
                 </tbody>
               </table>
             </div>

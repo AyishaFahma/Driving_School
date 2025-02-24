@@ -761,7 +761,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { strict } from 'assert';
 import { useAuth } from '@/app/context/AuthContext';
 import Add from './add';
-import { FaRegCheckCircle } from 'react-icons/fa';
+import { FaRegCheckCircle, FaSpinner } from 'react-icons/fa';
 import Edit from './edit';
 import { HiOutlineArrowNarrowDown, HiOutlineArrowNarrowUp } from 'react-icons/hi';
 type Account = {
@@ -792,7 +792,7 @@ const page = () => {
   const [accountData, setAccountData] = useState<Account[]>([]);
   const [filteredData, setFilteredData] = useState<Account[]>([]);
   const [expenseData, setExpenseData] = useState<Account | null>(null);
-
+const [isLoading, setIsLoading] = useState(false);
   // const [selectedBranches, setSelectedBranches] = useState<string>("");
   const [ BranchData,  setBranchData] = useState<Account []>([]);
 
@@ -945,19 +945,35 @@ const page = () => {
   };
   
  
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); 
-    const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData); 
-  };
-  
-  const handleReset = () => {
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault(); 
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData); 
+  // };
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const newFilteredData = applyFilters();
+      setFilteredData(newFilteredData);
+      setIsLoading(false); // Stop loading
+    };
+
+  // const handleReset = () => {
+    const handleReset = async () => {
+      setIsLoading(true); // Start loading
+     
+       // Simulate a delay to show the loader (you can remove this in production)
+       await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
     setSelectedDate("");
     setFilteredData(accountData); 
     setSelectedBranch("");
+    setIsLoading(false); // Stop loading
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -1472,7 +1488,17 @@ const fetchSearchBranch = async () => {
               </tr>
             </thead>
             <tbody>
+
             {/* {currentEntries.map((item, index) => ( */}
+           {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+
             {currentEntries.length > 0 ?(
               currentEntries.map((item, index) =>(
 
@@ -1540,6 +1566,8 @@ const fetchSearchBranch = async () => {
             </tr>
             )
           }
+                           </>
+  )}
             </tbody>
           </table>
         </div>

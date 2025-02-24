@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
 import Edit from "./edit";
+import { FaSpinner } from "react-icons/fa";
 
 interface Vehicle {
   id: number;
@@ -20,6 +21,7 @@ interface Vehicle {
 }
 const page = () => {
   const { state } = useAuth();
+   const [isLoading, setIsLoading] = useState(false);
   const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -129,17 +131,29 @@ const page = () => {
 
     setFilteredData(searchFilteredData);
   };
-  const handleFilterSubmit = (e: React.FormEvent) => {
+  // const handleFilterSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
+  // };
+ const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+  
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
   };
-
-  const handleReset = () => {
+  const handleReset = async () => {
+    setIsLoading(true); 
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedVehicle("");
     setSelectedStatus("");
     setFilteredData(vehicleData);
+    setIsLoading(false);
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -499,6 +513,15 @@ const page = () => {
                 </thead>
                 <tbody>
                   {/* {currentEntries.map((item, index) => ( */}
+ {isLoading ? (
+                                       <tr>
+                                         <td colSpan={7} className="text-center py-10">
+                                           <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+                                         </td>
+                                       </tr>
+                                     ) : (
+                                       <>
+
                   {currentEntries.length > 0 ?(
                     currentEntries.map((item, index) =>(
                     
@@ -590,6 +613,8 @@ const page = () => {
                 </tr>
               )
               }
+              </>
+                                     )}
                 </tbody>
               </table>
             </div>
