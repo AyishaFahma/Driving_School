@@ -36,7 +36,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
   const [error, setError] = useState('');
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
   // const[searchServiceData,setSearchServiceData] =useState("");
@@ -211,7 +211,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     <div>
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" role="dialog">
         <div className="absolute inset-0 bg-slate-900/60 transition-opacity duration-300" onClick={togglemodal}></div>
-        <div className="relative flex w-full max-w-3xl origin-top flex-col rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+        <div className="relative flex w-full max-w-3xl origin-top flex-col  rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
               {isEditing ? "Edit License Cost" : "Add License Cost"}
@@ -312,6 +312,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                <option value="Autorickshaw">Auto rickshaw</option>
               </select>
               </label>
+
               <label className="block">
                 <span>Cost</span>
             <input 
@@ -325,10 +326,17 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 }
               }}
                type="text"
-                placeholder="cost" 
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                placeholder="Cost" 
+                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
-           
+            {/* <label className="block">
+            <input name="m_cost"
+             value={localFormData.m_cost}
+              onChange={handleChange}
+               type="text"
+                placeholder="Male cost"
+                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+           </label> */}
             </div>
             {error && (
               <div className="text-red-500 text-sm mt-2">{error}</div>

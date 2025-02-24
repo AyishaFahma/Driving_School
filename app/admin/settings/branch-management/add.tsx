@@ -123,7 +123,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                 <label className="block">
                   <span>Branch Name</span>
                   <input
-                    className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Branch Name"
                     name="branch_name"
                     type="text"

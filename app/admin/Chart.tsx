@@ -292,9 +292,9 @@ export default function Chart({ data }: { data: any }) {
         align: "start",
         labels: {
           font: {
-            size:14,
+            size: 14,
           },
-          padding:15,
+          padding: 20,
         },
       },
     },
@@ -312,8 +312,8 @@ export default function Chart({ data }: { data: any }) {
   };
 
   return (
-    <>
-      <Bar data={chartData} options={options} height={100}/>
-    </>
+    <div className="card-body">
+      <Bar data={chartData} options={options} height={100} />
+    </div>
   );
 }

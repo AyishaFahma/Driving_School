@@ -39,8 +39,9 @@ const page = () => {
     const[searchServiceData,setSearchServiceData] =useState<Service[]>([]);
     const[filteredService,setFilteredService]=useState<Service[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-     const [isLoading, setIsLoading] = useState(false);
      const dropdownRef = useRef<HTMLDivElement>(null);
+
+     const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (
     mode: "add" | "edit",
@@ -123,35 +124,29 @@ const page = () => {
 
     setCurrentPage(1);
   };
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData);
+ const handleFilterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    const newFilteredData = applyFilters();
+    setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
+    setCurrentPage(1);
+  };
 
-  //   setCurrentPage(1);
-  // };
-   const handleFilterSubmit = async (e: React.FormEvent) => {
-                  e.preventDefault();
-                  setIsLoading(true); // Start loading
-                
-                  // Simulate a delay to show the loader (you can remove this in production)
-                  await new Promise(resolve => setTimeout(resolve, 1000));
-                  const newFilteredData = applyFilters();
-                  setFilteredData(newFilteredData);
-                  setIsLoading(false); // Stop loading
-                };
-  
-
-                const handleReset = async () => {
-                  setIsLoading(true); 
-                   await new Promise(resolve => setTimeout(resolve, 1000));
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedService("");
     setSelectedStatus("");
     setFilteredData(serviceData);
-
+    setIsLoading(false); // Stop loading
     setCurrentPage(1);
-    setIsLoading(false);
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -326,29 +321,7 @@ const page = () => {
           <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
             <form>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {/* Service Name Select */}
-                {/* <div className="flex-1">
-                  <label
-                    htmlFor="serviceName"
-                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-                  >
-                    Service Name
-                  </label>
-                  <select
-                    id="serviceName"
-                    name="service_name"
-                    value={selectedService}
-                    onChange={(e) => setSelectedService(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                  >
-                    <option value="">select a service</option>
-                    {serviceData.map((service) => (
-                      <option key={service.id} value={service.service_name}>
-                        {service.service_name}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
+               
  <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Service Name
@@ -468,7 +441,7 @@ const page = () => {
                   type="search"
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-                  className="gridjs-input gridjs-search-input"
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
@@ -502,18 +475,16 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {currentEntries.map((item, index) => ( */}
- {isLoading ? (
-                      <tr>
-                        <td colSpan={7} className="text-center py-10">
-                          <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-                        </td>
-                      </tr>
-                    ) : (
-                      <>
-
-                  {currentEntries.length > 0 ? (
-    currentEntries.map((item, index) => (
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+                  {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -593,17 +564,16 @@ const page = () => {
                         </span>
                       </td>
                     </tr>
-                  // ))}
-                ))
-              ) : (
-                <tr>
+                  ))
+                ):(
+                  <tr>
                   <td colSpan={7} className="text-center py-4 text-gray-500">
                     No data available
                   </td>
                 </tr>
-              )}
-              </>
-                    )}
+                )}
+                </>
+  )}
                 </tbody>
               </table>
             </div>

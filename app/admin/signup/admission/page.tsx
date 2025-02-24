@@ -1,5 +1,4 @@
 
-
 // "use client";
 // import React, { useEffect, useRef, useState } from "react";
 // import { FaEdit } from "react-icons/fa";
@@ -49,9 +48,13 @@
 //   branch_name: string;
 //   address: string;
 //   dob: string;
-//   text:string;
+//   text: string;
+//   admission_no: string;
+//   app_no: string;
+//   billno: string;
+//   discounted_amount: string;
+//   discount: string;
 // };
-
 // const Admission = () => {
 //   const { state } = useAuth();
 //   const [showmodals, setShowmodals] = useState(false);
@@ -69,7 +72,9 @@
 //   //  const [search, setSearch] = useState("");
 //   //const [selectedServices, setSelectedServices] = useState<string>("");
 //   //  const [selectedBranches, setSelectedBranches] = useState<string>("");
-//   const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(null);
+//   const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(
+//     null
+//   );
 
 //   const [editedAdmission, setEditedAdmission] = useState<Admission | null>(
 //     null
@@ -85,20 +90,21 @@
 //   const [entriesPerPage] = useState(10);
 //   const [mobileData, setMobileData] = useState([]);
 //   // const [filteredMobile, setFilteredMobile] = useState([]);
-//   const [filteredMobile, setFilteredMobile] =useState<Admission []>([]);
+//   const [filteredMobile, setFilteredMobile] = useState<Admission[]>([]);
 //   const [searchMobile, setSearchMobile] = useState("");
 //   const [selectedMobile, setSelectedMobile] = useState("");
 
 //   const [selectedBranch, setSelectedBranch] = useState<string>("");
 //   const [searchBranch, setSearchBranch] = useState("");
-//   const [searchBranchData, setSearchBranchData] = useState<Admission []>([]);
-//   const [filteredBranch, setFilteredBranch] = useState<Admission []>([]);
+//   const [searchBranchData, setSearchBranchData] = useState<Admission[]>([]);
+//   const [filteredBranch, setFilteredBranch] = useState<Admission[]>([]);
 
 //   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 //   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
-//   const userDropdownRef = useRef<HTMLDivElement>(null);
+//   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
+//   const admissionDropdownRef = useRef<HTMLDivElement>(null);
 //   const branchDropdownRef = useRef<HTMLDivElement>(null);
-//   //  const dropdownRef = useRef(null);
+//   const dropdownRef = useRef<HTMLDivElement>(null);
 
 //   const togglemodal = (
 //     mode: "add" | "edit",
@@ -150,10 +156,8 @@
 //     fetchAdmissionData();
 //   }, [state]);
 
-
-
 //   // const fetchMobileData = async (searchTerm = null) => {
-//     const fetchMobileData = async (searchTerm: string | null = null) => {
+//   const fetchMobileData = async (searchTerm: string | null = null) => {
 //     try {
 //       const response = await fetch(
 //         "/api/admin/report/get_mobile_user_autocomplete",
@@ -193,25 +197,17 @@
 //     fetchMobileData();
 //   }, [state]);
 
-//   // Handle search input change
-//   // const handleSearchMobile = (e) => {
-//   //   const value = e.target.value;
-//   //   setSearchMobile(value);
-//   //   fetchMobileData(value); 
-//   // };
 //   const handleSearchMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const value = e.target.value;
 //     setSearchMobile(value);
 //     fetchMobileData(value || null);
 //   };
 
-
-//   const handleSelectMobile = (mobile :Admission) => {
+//   const handleSelectMobile = (mobile: Admission) => {
 //     setSelectedMobile(mobile.text);
 //     setIsDropdownOpen(false);
 //     setSearchMobile(""); // Reset search field
 //   };
-
 
 //   const updateAccountStatus = async (id: string, status: string) => {
 //     try {
@@ -288,20 +284,49 @@
 //   };
 
 //   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const value = e.target.value;
+//     const value = e.target.value.toLowerCase();
+//     console.log("Search Term:", value);
 //     setSearchTerm(value);
 
-//     const searchFilteredData = AdmissionData.filter(
-//       (item) =>
-//         item.service_name.toLowerCase().includes(value.toLowerCase()) ||
-//         item.first_name.toLowerCase().includes(value.toLowerCase()) ||
-//         item.email.toLowerCase().includes(value.toLowerCase()) ||
-//         item.mobile.toLowerCase().includes(value.toLowerCase()) ||
-//         item.pay_status.toLowerCase().includes(value.toLowerCase())
-//     );
+//     const searchFilteredData = AdmissionData.filter((item) => {
+//       // Convert pay_status values before filtering
+//       let payStatus = item.pay_status?.toLowerCase() || "";
 
+//       if (payStatus === "completed") {
+//         payStatus = "fully paid";
+//       } else if (payStatus === "remaining") {
+//         payStatus = "partially paid";
+//       }
+
+//       return (
+//         (item.service_name?.toLowerCase() || "").includes(value) ||
+//         (item.first_name?.toLowerCase() || "").includes(value) ||
+//         (item.email?.toLowerCase() || "").includes(value) ||
+//         (item.mobile?.toLowerCase() || "").includes(value) ||
+//         (item.due_amount?.toLowerCase() || "").includes(value) ||
+//         payStatus.includes(value) // Compare transformed pay_status
+//       );
+//     });
+
+//     console.log("Filtered Data:", searchFilteredData);
 //     setFilteredData(searchFilteredData); // Update filtered data in real-time
 //   };
+
+//   // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   //   const value = e.target.value;
+//   //   console.log("Search Term:", value); // Check the value here
+//   //   setSearchTerm(value);
+//   //   const searchFilteredData = AdmissionData.filter((item) =>
+//   //     (item.service_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+//   //     (item.first_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+//   //     (item.email?.toLowerCase() || "").includes(value.toLowerCase()) ||
+//   //     (item.mobile?.toLowerCase() || "").includes(value.toLowerCase()) ||
+//   //     (item.due_amount?.toLowerCase() || "").includes(value.toLowerCase()) ||
+//   //     (item.pay_status?.toLowerCase() || "").includes(value.toLowerCase())
+//   //   );
+//   //   console.log("Filtered Data:", searchFilteredData);
+//   //   setFilteredData(searchFilteredData); // Update filtered data in real-time
+//   // };
 
 //   const handleFilterSubmit = (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -326,6 +351,7 @@
 //     indexOfFirstEntry,
 //     indexOfLastEntry
 //   );
+ 
 //   const totalEntries = filteredData.length;
 //   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
@@ -382,47 +408,28 @@
 //     setFilteredBranch(searchData);
 //   };
 
-//   const handleSelectBranch = (branch:Admission) => {
+//   const handleSelectBranch = (branch: Admission) => {
 //     setSelectedBranch(branch.text);
 //     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
 //     setSearchBranch("");
-//     setIsDropdownOpen(false); // Close dropdown after selection
+//     setIsbranchDropdownOpen(false);  // Close dropdown after selection
 //   };
 
-
-//   // useEffect(() => {
-//   //   const handleClickOutside = (event: MouseEvent) => {
-//   //     if (dropdownRef.current && event.target instanceof Node) {
-//   //       if (!dropdownRef.current.contains(event.target)) {
-//   //         setIsDropdownOpen(false);
-//   //       }
-//   //     }
-//   //   };
-  
-//   //   document.addEventListener("mousedown", handleClickOutside);
-//   //   return () => document.removeEventListener("mousedown", handleClickOutside);
-//   // }, []);
 //   useEffect(() => {
 //     const handleClickOutside = (event: MouseEvent) => {
-//       // if (
-//       //   userDropdownRef.current &&
-//       //   !userDropdownRef.current.contains(event.target)
-//       // ) {
-//       //   setIsDropdownOpen(false);
-//       // }
-//       if (userDropdownRef.current && event.target instanceof Node) {
-//               if (!userDropdownRef.current.contains(event.target)) {
-//                 setIsDropdownOpen(false);
-//               }
-//             }
+   
+//       if (admissionDropdownRef.current && event.target instanceof Node) {
+//         if (!admissionDropdownRef.current.contains(event.target)) {
+//           setIsadmissionDropdownOpen(false);
+//         }
+//       }
 
+//       if (dropdownRef.current && event.target instanceof Node) {
+//         if (!dropdownRef.current.contains(event.target)) {
+//           setIsDropdownOpen(false);
+//         }
+//       }
 
-//       // if (
-//       //   branchDropdownRef.current &&
-//       //   !branchDropdownRef.current.contains(event.target)
-//       // ) {
-//       //   setIsbranchDropdownOpen(false);
-//       // }
 //       if (branchDropdownRef.current && event.target instanceof Node) {
 //         if (!branchDropdownRef.current.contains(event.target)) {
 //           setIsbranchDropdownOpen(false);
@@ -478,7 +485,7 @@
 //               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
 //                 {/* mobile Select */}
 
-//                 <div className="relative w-full" ref={userDropdownRef}>
+//                 <div className="relative w-full" ref={dropdownRef}>
 //                   <label
 //                     htmlFor="mobile"
 //                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
@@ -528,28 +535,61 @@
 //                     </div>
 //                   )}
 //                 </div>
-//                 {/* <div className='flex-1'>
-//  <label
-//  htmlFor="serviceName"
-//  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-//  >
-//  Branch Name
-//  </label>
-//  <select
-//  id="branch_name"
-//  name="branch_name"
-//  value={selectedBranches}
-//  onChange={(e) => setSelectedBranches(e.target.value)}
-//  className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-//  >
-//  <option value="">Select a Branch</option>
-//  {BranchData.map((branch) => (
-//  <option key={branch.id} value={branch.branch_name}>
-//  {branch.branch_name}
-//  </option>
-//  ))}
-//  </select>
-//  </div> */}
+//                 {/* Admission No:Select */}
+//                 <div className="relative w-full" ref={admissionDropdownRef}>
+//                   <label
+//                     htmlFor="mobile"
+//                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+//                   >
+//                     Admission No:
+//                   </label>
+
+//                   {/* Dropdown Button */}
+//                   <div
+//                     onClick={() =>
+//                       setIsadmissionDropdownOpen(!isadmissionDropdownOpen)
+//                     }
+//                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//                   >
+//                     {selectedBranch || "Select an Admission No:"}
+//                     <span className="ml-2">&#9662;</span> {/* Down arrow */}
+//                   </div>
+
+//                   {/* Dropdown Content */}
+//                   {isadmissionDropdownOpen && (
+//                     <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+//                       {/* Search Bar Inside Dropdown */}
+//                       <input
+//                         type="text"
+//                         value={searchBranch}
+//                         onChange={handleSearchBranch}
+//                         placeholder="Search..."
+//                         className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//                       />
+
+//                       {/* Dropdown Options */}
+//                       <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+//                         {filteredBranch.length > 0 ? (
+//                           filteredBranch.map((branch) => (
+//                             <li
+//                               key={branch.id}
+//                               onClick={() => handleSelectBranch(branch)}
+//                               className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+//                             >
+//                               {branch.text}
+//                             </li>
+//                           ))
+//                         ) : (
+//                           <li className="px-3 py-2 text-gray-500 dark:text-gray-400">
+//                             No results found
+//                           </li>
+//                         )}
+//                       </ul>
+//                     </div>
+//                   )}
+//                 </div>
+
+//                 {/* branch Select */}
 //                 <div className="relative w-full" ref={branchDropdownRef}>
 //                   <label
 //                     htmlFor="mobile"
@@ -602,7 +642,6 @@
 //                     </div>
 //                   )}
 //                 </div>
-
 //                 <div className="flex-1 mt-6">
 //                   <button
 //                     type="submit"
@@ -648,6 +687,13 @@
 //           <div className="mt-5">
 //             <div className="gridjs-head">
 //               <div className="gridjs-search">
+//                 {/* <input
+//                   type="text"
+//                   value={searchTerm}
+//                   onChange={handleSearchChange}
+//                   placeholder="Search by name, branch, or place..."
+//                   className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//                 /> */}
 //                 <input
 //                   type="text"
 //                   value={searchTerm}
@@ -664,7 +710,7 @@
 //                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 //                       SL No
 //                     </th>
-//                     <th className="max-w-[120px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+//                     <th className="max-w-[80px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 //                       Mobile Number
 //                     </th>
 //                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -673,7 +719,7 @@
 //                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 //                       Service Name
 //                     </th>
-//                     <th className="max-w-[120px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+//                     <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
 //                       Due Amount
 //                     </th>
 //                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -689,105 +735,105 @@
 //                   </tr>
 //                 </thead>
 //                 <tbody>
-//                   {currentEntries.map((item, index) => (
-//                     <tr
-//                       key={item.id}
-//                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-//                     >
-//                       <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-//                         {indexOfFirstEntry + index + 1}
-//                       </td>
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         {item.user_name}
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           Name: {item.first_name}
-//                         </p>
-//                       </td>
-//                       {/* <td className="max-w-[550px] px-4 py-3"> */}
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             D-O-B:
-//                           </span>
-//                           {item.dob ? item.dob : "null"}
-//                         </p>
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             Address:
-//                           </span>{" "}
-//                           {item.address ? item.address : "null"}
-//                         </p>
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             Email:{" "}
-//                           </span>
-//                           {item.email}
-//                         </p>
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             Blood Group:
-//                           </span>
-//                           {item.blood_group}
-//                         </p>
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             Gender:
-//                           </span>
-//                           {item.gender}
-//                         </p>
-//                         <p className="text-slate-400 dark:text-navy-300">
-//                           <span className="font-bold mr-2 dark:text-navy-100">
-//                             Branch:
-//                           </span>
-//                           {item.branch_name}
-//                         </p>
-//                       </td>
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         {item.service_name}
-//                       </td>
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         {item.due_amount}
-//                       </td>
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         {item.pay_status === "completed" && (
-//                           <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-//                             {/* <div className="size-2 rounded-full bg-current"/> */}
-//                             {/* <span>completed</span> */}
-//                             <span className="badge bg-orange-transparent">
-//                               <IoMdCheckmark className="mr-2" />
-//                               Fully Paid
+//                   {currentEntries.length > 0 ? (
+//                     currentEntries.map((item, index) => (
+//                       <tr
+//                         // key={item.id}
+//                         className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+//                       >
+//                         <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+//                           {indexOfFirstEntry + index + 1}
+//                         </td>
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           {item.user_name}
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             Name: {item.first_name}
+//                           </p>
+//                         </td>
+//                         {/* <td className="max-w-[550px] px-4 py-3"> */}
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               D-O-B:
 //                             </span>
-//                           </div>
-//                         )}
-//                         {item.pay_status === "pending" && (
-//                           <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
-//                             <span className="badge bg-orange-transparent">
-//                               <FiClock className="mr-2" />
-//                               Pending
+//                             {item.dob ? item.dob : "null"}
+//                           </p>
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               Address:
+//                             </span>{" "}
+//                             {item.address ? item.address : "null"}
+//                           </p>
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               Email:{" "}
 //                             </span>
-//                           </div>
-//                         )}
-//                         {item.pay_status === "remaining" && (
-//                           <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
-//                             <span className="badge bg-orange-transparent">
-//                               <CgNotes className="mr-2" />
-//                               Partially Paid
+//                             {item.email}
+//                           </p>
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               Blood Group:
 //                             </span>
+//                             {item.blood_group}
+//                           </p>
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               Gender:
+//                             </span>
+//                             {item.gender}
+//                           </p>
+//                           <p className="text-slate-400 dark:text-navy-300">
+//                             <span className="font-bold mr-2 dark:text-navy-100">
+//                               Branch:
+//                             </span>
+//                             {item.branch_name}
+//                           </p>
+//                         </td>
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           {item.service_name}
+//                         </td>
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           {item.due_amount}
+//                         </td>
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           {item.pay_status === "completed" && (
+//                             <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+//                               <span className="badge bg-orange-transparent">
+//                                 <IoMdCheckmark className="mr-2" />
+//                                 Fully Paid
+//                               </span>
+//                             </div>
+//                           )}
+//                           {item.pay_status === "pending" && (
+//                             <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
+//                               <span className="badge bg-orange-transparent">
+//                                 <FiClock className="mr-2" />
+//                                 Pending
+//                               </span>
+//                             </div>
+//                           )}
+//                           {item.pay_status === "remaining" && (
+//                             <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
+//                               <span className="badge bg-orange-transparent">
+//                                 <CgNotes className="mr-2" />
+//                                 Partially Paid
+//                               </span>
+//                             </div>
+//                           )}
+//                         </td>
+//                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//                           {/* {item.added_date} */}
+//                           <div className="flex flex-col">
+//                             <span>{item.added_date.split(" ")[0]}</span>{" "}
+//                             {/* Date */}
+//                             <span>{item.added_date.split(" ")[1]}</span>{" "}
+//                             {/* Time */}
 //                           </div>
-//                         )}
-//                       </td>
-//                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                         {/* {item.added_date} */}
-//                         <div className="flex flex-col">
-//                           <span>{item.added_date.split(" ")[0]}</span>{" "}
-//                           {/* Date */}
-//                           <span>{item.added_date.split(" ")[1]}</span>{" "}
-//                           {/* Time */}
-//                         </div>
-//                       </td>
-//                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-//                         <span>
-//                           <div className="flex justify-center space-x-2">
+//                         </td>
+
+//                         <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
+//                           <div className="flex flex-wrap gap-2">
+//                             {/* Edit Button */}
 //                             <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
 //                               <i
 //                                 className="fa fa-edit"
@@ -795,6 +841,7 @@
 //                               />
 //                             </button>
 
+//                             {/* Conditional Pay Button */}
 //                             {item.pay_status !== "completed" && (
 //                               <button
 //                                 onClick={() => handleEdit(item)}
@@ -804,18 +851,33 @@
 //                               </button>
 //                             )}
 
-
+//                             {/* Report Button */}
+//                             <button
+//                               onClick={() =>
+//                                 window.open(
+//                                   `/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`,
+//                                   "_blank"
+//                                 )
+//                               }
+//                               className="btn size-7 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+//                             >
+//                               {/* <RiBillFill/> */}
+//                               <RiBillFill className="w-4 h-4" />
+//                             </button>
 //                           </div>
-//                           <button 
-//     // onClick={() => window.open(`/admin/report/view-payment/${item.user_id}?cus_service_id=${item.cus_service_id}`, '_blank')}
-//     className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
-// >
-//     <RiBillFill />
-// </button>
-//                         </span>
+//                         </td>
+//                       </tr>
+//                     ))
+//                   ) : (
+//                     <tr>
+//                       <td
+//                         colSpan={7}
+//                         className="text-center py-4 text-gray-500"
+//                       >
+//                         No data available
 //                       </td>
 //                     </tr>
-//                   ))}
+//                   )}
 //                 </tbody>
 //               </table>
 //             </div>
@@ -908,6 +970,7 @@
 //                 payment_method: selectedCost.payment_method ?? "",
 //                 total_amount: selectedCost.total_amount ?? "",
 //                 id: selectedCost.id || "",
+//                 billno: selectedCost.billno || "",
 //               }
 //             : undefined
 //         }
@@ -941,8 +1004,6 @@
 // };
 
 // export default Admission;
-
-
 
 
 
@@ -995,9 +1056,12 @@ type Admission = {
   branch_name: string;
   address: string;
   dob: string;
-  text:string;
-  admission_no:string;
-  app_no:string;
+  text: string;
+  admission_no: string;
+  app_no: string;
+  billno: string;
+  discounted_amount: string;
+  discount: string;
 };
 const Admission = () => {
   const { state } = useAuth();
@@ -1016,7 +1080,9 @@ const Admission = () => {
   //  const [search, setSearch] = useState("");
   //const [selectedServices, setSelectedServices] = useState<string>("");
   //  const [selectedBranches, setSelectedBranches] = useState<string>("");
-  const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(null);
+  const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(
+    null
+  );
 
   const [editedAdmission, setEditedAdmission] = useState<Admission | null>(
     null
@@ -1027,26 +1093,28 @@ const Admission = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   //const [filterStatus,setFilterStatus] = useState("all");
-  const [isLoading, setIsLoading] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
   const [mobileData, setMobileData] = useState([]);
   // const [filteredMobile, setFilteredMobile] = useState([]);
-  const [filteredMobile, setFilteredMobile] =useState<Admission []>([]);
+  const [filteredMobile, setFilteredMobile] = useState<Admission[]>([]);
   const [searchMobile, setSearchMobile] = useState("");
   const [selectedMobile, setSelectedMobile] = useState("");
 
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-  const [searchBranchData, setSearchBranchData] = useState<Admission []>([]);
-  const [filteredBranch, setFilteredBranch] = useState<Admission []>([]);
+  const [searchBranchData, setSearchBranchData] = useState<Admission[]>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Admission[]>([]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
   const admissionDropdownRef = useRef<HTMLDivElement>(null);
   const branchDropdownRef = useRef<HTMLDivElement>(null);
-   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (
     mode: "add" | "edit",
@@ -1098,10 +1166,8 @@ const Admission = () => {
     fetchAdmissionData();
   }, [state]);
 
-
-
   // const fetchMobileData = async (searchTerm = null) => {
-    const fetchMobileData = async (searchTerm: string | null = null) => {
+  const fetchMobileData = async (searchTerm: string | null = null) => {
     try {
       const response = await fetch(
         "/api/admin/report/get_mobile_user_autocomplete",
@@ -1141,25 +1207,17 @@ const Admission = () => {
     fetchMobileData();
   }, [state]);
 
-  // Handle search input change
-  // const handleSearchMobile = (e) => {
-  //   const value = e.target.value;
-  //   setSearchMobile(value);
-  //   fetchMobileData(value); 
-  // };
   const handleSearchMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchMobile(value);
     fetchMobileData(value || null);
   };
 
-
-  const handleSelectMobile = (mobile :Admission) => {
+  const handleSelectMobile = (mobile: Admission) => {
     setSelectedMobile(mobile.text);
     setIsDropdownOpen(false);
     setSearchMobile(""); // Reset search field
   };
-
 
   const updateAccountStatus = async (id: string, status: string) => {
     try {
@@ -1236,28 +1294,36 @@ const Admission = () => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
+    console.log("Search Term:", value);
     setSearchTerm(value);
 
-    const searchFilteredData = AdmissionData.filter(
-      (item) =>
-        item.service_name.toLowerCase().includes(value.toLowerCase()) ||
-        item.first_name.toLowerCase().includes(value.toLowerCase()) ||
-        item.email.toLowerCase().includes(value.toLowerCase()) ||
-        item.mobile.toLowerCase().includes(value.toLowerCase()) ||
-        item.pay_status.toLowerCase().includes(value.toLowerCase())
-    );
+    const searchFilteredData = AdmissionData.filter((item) => {
+      // Convert pay_status values before filtering
+      let payStatus = item.pay_status?.toLowerCase() || "";
 
+      if (payStatus === "completed") {
+        payStatus = "fully paid";
+      } else if (payStatus === "remaining") {
+        payStatus = "partially paid";
+      }
+
+      return (
+        (item.service_name?.toLowerCase() || "").includes(value) ||
+        (item.first_name?.toLowerCase() || "").includes(value) ||
+        (item.email?.toLowerCase() || "").includes(value) ||
+        (item.mobile?.toLowerCase() || "").includes(value) ||
+        (item.due_amount?.toLowerCase() || "").includes(value) ||
+        payStatus.includes(value) // Compare transformed pay_status
+      );
+    });
+
+    console.log("Filtered Data:", searchFilteredData);
     setFilteredData(searchFilteredData); // Update filtered data in real-time
   };
 
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData);
+  
 
-  //   setCurrentPage(1);
-  // };
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
@@ -1267,11 +1333,13 @@ const Admission = () => {
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
+    setCurrentPage(1);
   };
 
-
   const handleReset = async () => {
-    setIsLoading(true); 
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
      await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
 
@@ -1279,8 +1347,8 @@ const Admission = () => {
     setSelectedStatus("");
     setFilteredData(AdmissionData);
     setSelectedMobile("");
+    setIsLoading(false); // Stop loading
     setCurrentPage(1);
-    setIsLoading(false);
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -1288,6 +1356,7 @@ const Admission = () => {
     indexOfFirstEntry,
     indexOfLastEntry
   );
+ 
   const totalEntries = filteredData.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
@@ -1344,35 +1413,28 @@ const Admission = () => {
     setFilteredBranch(searchData);
   };
 
-  const handleSelectBranch = (branch:Admission) => {
+  const handleSelectBranch = (branch: Admission) => {
     setSelectedBranch(branch.text);
     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
     setSearchBranch("");
-    setIsbranchDropdownOpen(false); // Close dropdown after selection
+    setIsbranchDropdownOpen(false);  // Close dropdown after selection
   };
 
-
-  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // if (
-      //   userDropdownRef.current &&
-      //   !userDropdownRef.current.contains(event.target)
-      // ) {
-      //   setIsDropdownOpen(false);
-      // }
-      if (dropdownRef.current && event.target instanceof Node) {
-              if (!dropdownRef.current.contains(event.target)) {
-                setIsDropdownOpen(false);
-              }
-            }
+   
+      if (admissionDropdownRef.current && event.target instanceof Node) {
+        if (!admissionDropdownRef.current.contains(event.target)) {
+          setIsadmissionDropdownOpen(false);
+        }
+      }
 
-            if (admissionDropdownRef.current && event.target instanceof Node) {
-              if (!admissionDropdownRef.current.contains(event.target)) {
-                setIsadmissionDropdownOpen(false);
-              }
-            }
-    
+      if (dropdownRef.current && event.target instanceof Node) {
+        if (!dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      }
+
       if (branchDropdownRef.current && event.target instanceof Node) {
         if (!branchDropdownRef.current.contains(event.target)) {
           setIsbranchDropdownOpen(false);
@@ -1478,7 +1540,7 @@ const Admission = () => {
                     </div>
                   )}
                 </div>
-{/* Admission No:Select */}
+                {/* Admission No:Select */}
                 <div className="relative w-full" ref={admissionDropdownRef}>
                   <label
                     htmlFor="mobile"
@@ -1532,7 +1594,7 @@ const Admission = () => {
                   )}
                 </div>
 
-{/* branch Select */}
+                {/* branch Select */}
                 <div className="relative w-full" ref={branchDropdownRef}>
                   <label
                     htmlFor="mobile"
@@ -1630,12 +1692,13 @@ const Admission = () => {
           <div className="mt-5">
             <div className="gridjs-head">
               <div className="gridjs-search">
+               
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder="Search by name, branch, or place..."
-                  className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 />
               </div>
             </div>
@@ -1643,29 +1706,29 @@ const Admission = () => {
               <table className="is-hoverable w-full text-left">
                 <thead>
                   <tr>
-                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       SL No
                     </th>
-                    <th className="max-w-[120px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Info
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Service Name
                     </th>
-                    <th className="max-w-[120px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Due Amount
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pay Status
                     </th>
 
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Date
                     </th>
-                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Action
                     </th>
                   </tr>
@@ -1679,107 +1742,106 @@ const Admission = () => {
     </tr>
   ) : (
     <>
-                  {/* {currentEntries.map((item, index) => ( */}
-                  {currentEntries.length > 0 ?(
-              currentEntries.map((item, index) =>(
-                    <tr
-                      key={item.id}
-                      className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-                    >
-                      <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                        {indexOfFirstEntry + index + 1}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.user_name}
-                        <p className="text-slate-400 dark:text-navy-300">
-                          Name: {item.first_name}
-                        </p>
-                      </td>
-                      {/* <td className="max-w-[550px] px-4 py-3"> */}
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            D-O-B:
-                          </span>
-                          {item.dob ? item.dob : "null"}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Address:
-                          </span>{" "}
-                          {item.address ? item.address : "null"}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Email:{" "}
-                          </span>
-                          {item.email}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Blood Group:
-                          </span>
-                          {item.blood_group}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Gender:
-                          </span>
-                          {item.gender}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Branch:
-                          </span>
-                          {item.branch_name}
-                        </p>
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.service_name}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.due_amount}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.pay_status === "completed" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-                            {/* <div className="size-2 rounded-full bg-current"/> */}
-                            {/* <span>completed</span> */}
-                            <span className="badge bg-orange-transparent">
-                              <IoMdCheckmark className="mr-2" />
-                              Fully Paid
+                  {currentEntries.length > 0 ? (
+                    currentEntries.map((item, index) => (
+                      <tr
+                        // key={item.id}
+                        className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+                      >
+                        <td className="whitespace-nowrap rounded-l-lg px-1 py-3 sm:px-5">
+                          {indexOfFirstEntry + index + 1}
+                        </td>
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          {item.user_name}
+                          <p className="text-slate-400 dark:text-navy-300">
+                            Name: {item.first_name}
+                          </p>
+                        </td>
+                        {/* <td className="max-w-[550px] px-4 py-3"> */}
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              D-O-B:
                             </span>
-                          </div>
-                        )}
-                        {item.pay_status === "pending" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
-                            <span className="badge bg-orange-transparent">
-                              <FiClock className="mr-2" />
-                              Pending
+                            {item.dob ? item.dob : "null"}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Address:
+                            </span>{" "}
+                            {item.address ? item.address : "null"}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Email:{" "}
                             </span>
-                          </div>
-                        )}
-                        {item.pay_status === "remaining" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
-                            <span className="badge bg-orange-transparent">
-                              <CgNotes className="mr-2" />
-                              Partially Paid
+                            {item.email}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Blood Group:
                             </span>
+                            {item.blood_group}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Gender:
+                            </span>
+                            {item.gender}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Branch:
+                            </span>
+                            {item.branch_name}
+                          </p>
+                        </td>
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          {item.service_name}
+                        </td>
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          {item.due_amount}
+                        </td>
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          {item.pay_status === "completed" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+                              <span className="badge bg-orange-transparent">
+                                <IoMdCheckmark className="mr-2" />
+                                Fully Paid
+                              </span>
+                            </div>
+                          )}
+                          {item.pay_status === "pending" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
+                              <span className="badge bg-orange-transparent">
+                                <FiClock className="mr-2" />
+                                Pending
+                              </span>
+                            </div>
+                          )}
+                          {item.pay_status === "remaining" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
+                              <span className="badge bg-orange-transparent">
+                                <CgNotes className="mr-2" />
+                                Partially Paid
+                              </span>
+                            </div>
+                          )}
+                        </td>
+                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                          {/* {item.added_date} */}
+                          <div className="flex flex-col">
+                            <span>{item.added_date.split(" ")[0]}</span>{" "}
+                            {/* Date */}
+                            <span>{item.added_date.split(" ")[1]}</span>{" "}
+                            {/* Time */}
                           </div>
-                        )}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {/* {item.added_date} */}
-                        <div className="flex flex-col">
-                          <span>{item.added_date.split(" ")[0]}</span>{" "}
-                          {/* Date */}
-                          <span>{item.added_date.split(" ")[1]}</span>{" "}
-                          {/* Time */}
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-                        <span>
-                          <div className="flex justify-center space-x-2">
+                        </td>
+
+                     
+                        <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
+                          <div className="flex flex-wrap gap-2">
+                            
                             <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                               <i
                                 className="fa fa-edit"
@@ -1787,36 +1849,39 @@ const Admission = () => {
                               />
                             </button>
 
+                          
                             {item.pay_status !== "completed" && (
-                              <button
-                                onClick={() => handleEdit(item)}
-                                className="btn size-7 p-0 text-error focus:bg-error/20 active:bg-error/25 border border-error rounded"
-                              >
+                              <button className="btn size-7 p-0 text-error focus:bg-error/20 active:bg-error/25 border border-error rounded"
+                                onClick={() => handleEdit(item)} >
                                 <RiCurrencyLine />
                               </button>
                             )}
 
-
+                      
+                            <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                              onClick={() =>
+                                window.open(
+                                  `/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`,
+                                  "_blank"
+                                )
+                              } >
+                        
+                              <RiBillFill className="w-4 h-4" />
+                            </button>
                           </div>
-                          <button 
- onClick={() => window.open(`/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`, '_blank')}
-    className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
->
-    <RiBillFill />
-</button>
-                        </span>
-                      </td>
-                    </tr>
-                     ))
-                    ):(
-                      <tr>
-                      <td colSpan={7} className="text-center py-4 text-gray-500">
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={7}
+                        className="text-center py-4 text-gray-500"
+                      >
                         No data available
                       </td>
                     </tr>
-                    )
-                  }
-                 
+                  )}
                   </>
   )}
                 </tbody>
@@ -1911,6 +1976,7 @@ const Admission = () => {
                 payment_method: selectedCost.payment_method ?? "",
                 total_amount: selectedCost.total_amount ?? "",
                 id: selectedCost.id || "",
+                billno: selectedCost.billno || "",
               }
             : undefined
         }

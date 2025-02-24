@@ -26,6 +26,9 @@
 //   added_by:string;
 //   payment_method:string;
 //   text:string;
+//   staff_id:string;
+//    driver_id:string;
+//     driver_name:string;
 // };
 
 // const page = () => {
@@ -352,20 +355,19 @@
 //   </div>
 
 
-// <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-4">
 
-//   <div className="col-span-4 sm:col-span-3 card px-4 pb-4 sm:px-5 pt-4">
+// <div className="flex flex-col sm:flex-row gap-4 mb-4">
+
+// <div className="flex-1 sm:w-4/7 card px-4 pb-4 sm:px-5 pt-4">
 //   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
-
-// <form>
+//     <form>
 //       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      
 //         <div>
 //           <label
 //             htmlFor="status"
 //             className="block text-sm font-medium text-slate-700 dark:text-navy-100"
 //           >
-//            Accounts Type
+//             Accounts Type
 //           </label>
 //           <select
 //             className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
@@ -395,142 +397,111 @@
 //           </select>
 //         </div>
 //         <div>
-//       <label
-//         htmlFor="date"
-//         className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-//       >
-//         Date
-//       </label>
-//       <input
-//         type="date"
-//         id="date"
-//         className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-//         value={selectedDate}
-//       onChange={(e) => setSelectedDate(e.target.value)}
-//       />
-//     </div>
-//       </div>
-//       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
-//       {/* <div className='flex-1'>
 //           <label
-//             htmlFor="serviceName"
+//             htmlFor="date"
 //             className="block text-sm font-medium text-slate-700 dark:text-navy-100"
 //           >
-//            Branch Name
+//             Date
 //           </label>
-//           <select
-//             id="branch_name"
-//             name="branch_name"
-//             value={selectedBranches}
-//             onChange={(e) => setSelectedBranches(e.target.value)}
-//             className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-//           >
-//             <option value="">Select a Branch</option>
-//             {BranchData.map((branch) => (
-//     <option key={branch.id} value={branch.branch_name}>
-//       {branch.branch_name}
-//     </option>
-//   ))}
-//           </select>
-//         </div> */}
-//           <div className="relative w-full" ref={dropdownRef}>
-//       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
-//        Branch Name
-//       </label>
-
-//       {/* Dropdown Button */}
-//       <div
-//         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-//         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-//       >
-//         {selectedBranch || "Select a Branch"}
-//         <span className="ml-2">&#9662;</span> {/* Down arrow */}
-//       </div>
-
-//       {/* Dropdown Content */}
-//       {isDropdownOpen && (
-//         <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-//           {/* Search Bar Inside Dropdown */}
 //           <input
-//             type="text"
-//             value={searchBranch}
-//             onChange={handleSearchBranch}
-//             placeholder="Search..."
-//             className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//             type="date"
+//             id="date"
+//             className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//             value={selectedDate}
+//             onChange={(e) => setSelectedDate(e.target.value)}
 //           />
-
-//           {/* Dropdown Options */}
-//           <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-//             {filteredBranch.length > 0 ? (
-//               filteredBranch.map((branch) => (
-//                 <li
-//                   key={branch.id}
-//                   onClick={() => handleSelectBranch(branch)}
-//                   className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-//                 >
-//                    {branch.text}
-//                 </li>
-//               ))
-//             ) : (
-//               <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-//             )}
-//           </ul>
 //         </div>
-//       )}
-//     </div>
-
-//       <div className="mt-4 flex space-x-4">
-//         <button
-//           type="submit"
-//           className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-//           onClick={handleFilterSubmit}
-//         >
-//           <i
-//             className="fa fa-filter"
-//             style={{ marginTop: "3px", marginRight: "3px" }}
-//           ></i>
-//           Filter
-//         </button>
-//         <button
-//           type="button"
-//           className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-//           onClick={handleReset}
-//         >
-//           <i
-//             className="fa fa-refresh"
-//             style={{ marginTop: "3px", marginRight: "3px" }}
-//           ></i>
-//           Reset
-//         </button>
 //       </div>
+//       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+//         <div className="relative w-full" ref={dropdownRef}>
+//           <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+//             Branch Name
+//           </label>
+//           <div
+//             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+//             className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//           >
+//             {selectedBranch || "Select a Branch"}
+//             <span className="ml-2">&#9662;</span>
+//           </div>
+//           {isDropdownOpen && (
+//             <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+//               <input
+//                 type="text"
+//                 value={searchBranch}
+//                 onChange={handleSearchBranch}
+//                 placeholder="Search..."
+//                 className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+//               />
+//               <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+//                 {filteredBranch.length > 0 ? (
+//                   filteredBranch.map((branch) => (
+// <li
+//                       key={branch.id}
+//                       onClick={() => handleSelectBranch(branch)}
+//                       className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+//                     >
+//                       {branch.text}
+//                     </li>
+//                   ))
+//                 ) : (
+//                   <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+//                 )}
+//               </ul>
+//             </div>
+//           )}
+//         </div>
+
+//         <div className="mt-4 flex space-x-4">
+//           <button
+//             type="submit"
+//             className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//             onClick={handleFilterSubmit}
+//           >
+//             <i
+//               className="fa fa-filter"
+//               style={{ marginTop: "3px", marginRight: "3px" }}
+//             ></i>
+//             Filter
+//           </button>
+//           <button
+//             type="button"
+//             className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//             onClick={handleReset}
+//           >
+//             <i
+//               className="fa fa-refresh"
+//               style={{ marginTop: "3px", marginRight: "3px" }}
+//             ></i>
+//             Reset
+//           </button>
+//         </div>
 //       </div>
 //     </form>
 //   </div>
-//   </div>
+// </div>
 
-
-//   <div className="col-span-4 sm:col-span-1 card px-4 pb-4 sm:px-5 pt-10">
-//     <div className="p-3 rounded-lg bg-slate-100 dark:bg-navy-800">
-//       <div className="card top-countries-card">
+// <div className="sm:w-3/7 card px-4 pb-4 sm:px-5 pt-10">
+//   <div className="p-3 rounded-lg bg-slate-100 dark:bg-navy-800">
+//     <div className="card top-countries-card">
 //       {expenseData && (
 //         <div className="list-group border">
-        
-//           <div className="flex list-group-item border p-2" >
+//           <div className="flex list-group-item border p-2">
 //             <p className='mr-8'>Total Income </p>
 //             <span className='font-bold'>{expenseData.total_income}</span>
 //           </div>
-
 //           <div className="flex list-group-item p-2">
 //             <p className='mr-8'>Total Expense </p>
 //             <span className='font-bold'> {expenseData.total_expense}</span>
 //           </div>
-       
 //         </div>
-//          )}
-//       </div>
+//       )}
 //     </div>
 //   </div>
 // </div>
+// </div>
+
+
 //   <div className="flex items-center justify-between py-5 lg:py-6">
 //                 <span className="text-lg font-medium text-slate-800 dark:text-navy-50">
 //                 Daily Accounts
@@ -590,7 +561,11 @@
 //               </tr>
 //             </thead>
 //             <tbody>
-//             {currentEntries.map((item, index) => (
+//             {/* {currentEntries.map((item, index) => ( */}
+//             {currentEntries.length > 0 ?(
+//               currentEntries.map((item, index) =>(
+
+             
 //               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
 //                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
 //                 {index +indexOfFirstEntry+1}
@@ -644,7 +619,16 @@
 //                 </td>
 //               </tr>
   
-//                ))}
+//               //  {/* ))} */}
+//               ))
+//             ):(
+//               <tr>
+//               <td colSpan={7} className="text-center py-4 text-gray-500">
+//                 No data available
+//               </td>
+//             </tr>
+//             )
+//           }
 //             </tbody>
 //           </table>
 //         </div>
@@ -746,14 +730,6 @@
 // export default page
 
 
-
-
-
-
-
-
-
-
 'use client'
 import withAuth from '@/hoc/withAuth';
 import React, { useEffect, useRef, useState } from 'react'
@@ -792,7 +768,7 @@ const page = () => {
   const [accountData, setAccountData] = useState<Account[]>([]);
   const [filteredData, setFilteredData] = useState<Account[]>([]);
   const [expenseData, setExpenseData] = useState<Account | null>(null);
-const [isLoading, setIsLoading] = useState(false);
+
   // const [selectedBranches, setSelectedBranches] = useState<string>("");
   const [ BranchData,  setBranchData] = useState<Account []>([]);
 
@@ -800,6 +776,7 @@ const [isLoading, setIsLoading] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
+  
   const [dailystatusselected, setdailystatusselected] = useState<string>("");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
@@ -813,15 +790,24 @@ const [isLoading, setIsLoading] = useState(false);
       // const dropdownRef = useRef(null);
       const dropdownRef = useRef<HTMLDivElement>(null);
 
+      const [isLoading, setIsLoading] = useState(false);
+
   const togglemodal = (mode: 'add' | 'edit', account: Account | null = null) => {
     setModalMode(mode);
     setSelectedAccount(account);
     setShowmodal((prev) => !prev); 
-    fetchStaffData();
+    fetchAccountData();
   };
 
 
-  const fetchStaffData = async () => {
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+    setSelectedDate(today);
+  }, []);
+
+
+
+  const fetchAccountData = async () => {
   
 
     try {
@@ -855,7 +841,7 @@ const [isLoading, setIsLoading] = useState(false);
     }
   };
   useEffect(() => {
-    fetchStaffData();
+    fetchAccountData();
   }, [state]);
 
 
@@ -945,33 +931,31 @@ const [isLoading, setIsLoading] = useState(false);
   };
   
  
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault(); 
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData); 
-  // };
-  const handleFilterSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setIsLoading(true); // Start loading
-    
-      // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const newFilteredData = applyFilters();
-      setFilteredData(newFilteredData);
-      setIsLoading(false); // Stop loading
-    };
 
-  // const handleReset = () => {
-    const handleReset = async () => {
-      setIsLoading(true); // Start loading
-     
-       // Simulate a delay to show the loader (you can remove this in production)
-       await new Promise(resolve => setTimeout(resolve, 1000));
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true); // Start loading
+  
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  
+    const newFilteredData = applyFilters();
+    setFilteredData(newFilteredData);
+  
+    setIsLoading(false); // Stop loading
+  };
+  //const handleReset = () => {
+   const handleReset = async () => {
+   setIsLoading(true); // Start loading
+  
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
     setSelectedDate("");
     setFilteredData(accountData); 
+   
     setSelectedBranch("");
     setIsLoading(false); // Stop loading
   };
@@ -986,6 +970,12 @@ const [isLoading, setIsLoading] = useState(false);
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
 
+
+  // const filteredEntries = accountData.filter((item) => {
+  //   if (!selectedDate) return true; // Show all if no date is selected
+  //   return item.added_date === selectedDate;
+  // });
+  
 
 
 
@@ -1014,7 +1004,7 @@ const [isLoading, setIsLoading] = useState(false);
     
         if (data.success) {
          
-          fetchStaffData();
+          fetchAccountData();
         } else {
           console.error("API error:", data.msg || "Unknown error");
         }
@@ -1078,16 +1068,7 @@ const fetchSearchBranch = async () => {
       setIsDropdownOpen(false); 
     };
   
-    // Close dropdown when clicking outside
-    // useEffect(() => {
-    //   const handleClickOutside = (event) => {
-    //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-    //       setIsDropdownOpen(false);
-    //     }
-    //   };
-    //   document.addEventListener("mousedown", handleClickOutside);
-    //   return () => document.removeEventListener("mousedown", handleClickOutside);
-    // }, []);
+
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (dropdownRef.current && event.target instanceof Node) {
@@ -1126,163 +1107,7 @@ const fetchSearchBranch = async () => {
   </div>
 
 
-{/* <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-4">
 
-  <div className="col-span-4 sm:col-span-3 card px-4 pb-4 sm:px-5 pt-4">
-  <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
-
-<form>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      
-        <div>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-           Accounts Type
-          </label>
-          <select
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-            value={dailystatusselected}
-            onChange={(e) => setdailystatusselected(e.target.value)}
-          >
-            <option value="">Please select Account Type</option>
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-          </select>
-        </div>
-        <div>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Status
-          </label>
-          <select
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
-        <div>
-      <label
-        htmlFor="date"
-        className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-      >
-        Date
-      </label>
-      <input
-        type="date"
-        id="date"
-        className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-        value={selectedDate}
-      onChange={(e) => setSelectedDate(e.target.value)}
-      />
-    </div>
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
-      
-          <div className="relative w-full" ref={dropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
-       Branch Name
-      </label>
-
-      <div
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-      >
-        {selectedBranch || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> 
-      </div>
-
-   
-      {isDropdownOpen && (
-        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-        
-          <input
-            type="text"
-            value={searchBranch}
-            onChange={handleSearchBranch}
-            placeholder="Search..."
-            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          />
-
-      
-          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-            {filteredBranch.length > 0 ? (
-              filteredBranch.map((branch) => (
-                <li
-                  key={branch.id}
-                  onClick={() => handleSelectBranch(branch)}
-                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                >
-                   {branch.text}
-                </li>
-              ))
-            ) : (
-              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
-
-      <div className="mt-4 flex space-x-4">
-        <button
-          type="submit"
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          onClick={handleFilterSubmit}
-        >
-          <i
-            className="fa fa-filter"
-            style={{ marginTop: "3px", marginRight: "3px" }}
-          ></i>
-          Filter
-        </button>
-        <button
-          type="button"
-          className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          onClick={handleReset}
-        >
-          <i
-            className="fa fa-refresh"
-            style={{ marginTop: "3px", marginRight: "3px" }}
-          ></i>
-          Reset
-        </button>
-      </div>
-      </div>
-    </form>
-  </div>
-  </div>
-
-
-  <div className="col-span-4 sm:col-span-1 card px-4 pb-4 sm:px-5 pt-10">
-    <div className="p-3 rounded-lg bg-slate-100 dark:bg-navy-800">
-      <div className="card top-countries-card">
-      {expenseData && (
-        <div className="list-group border">
-        
-          <div className="flex list-group-item border p-2" >
-            <p className='mr-8'>Total Income </p>
-            <span className='font-bold'>{expenseData.total_income}</span>
-          </div>
-
-          <div className="flex list-group-item p-2">
-            <p className='mr-8'>Total Expense </p>
-            <span className='font-bold'> {expenseData.total_expense}</span>
-          </div>
-       
-        </div>
-         )}
-      </div>
-    </div>
-  </div>
-</div> */}
 <div className="flex flex-col sm:flex-row gap-4 mb-4">
 
 <div className="flex-1 sm:w-4/7 card px-4 pb-4 sm:px-5 pt-4">
@@ -1443,18 +1268,22 @@ const fetchSearchBranch = async () => {
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
   <div className="mt-5">
+
+  {/* {selectedDate} */}
+ 
+
   <div className="gridjs-head">
             <div className="gridjs-search">
             <input
       type="text"
       value={searchTerm}
       onChange={handleSearchChange}
-      placeholder="Search by name, branch, or place..."
-      className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        placeholder="Type a keyword..."
+                  aria-label="Type a keyword..."
+      className="text-sm form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
     />
             </div>
           </div>
-
 
         <div className="overflow-x-auto w-full">
   <table className="is-hoverable w-full text-left">
@@ -1480,7 +1309,7 @@ const fetchSearchBranch = async () => {
                Amount
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-               Date
+               Remarks
                 </th> 
                 <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Action
@@ -1488,9 +1317,7 @@ const fetchSearchBranch = async () => {
               </tr>
             </thead>
             <tbody>
-
-            {/* {currentEntries.map((item, index) => ( */}
-           {isLoading ? (
+  {isLoading ? (
     <tr>
       <td colSpan={7} className="text-center py-10">
         <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
@@ -1498,77 +1325,74 @@ const fetchSearchBranch = async () => {
     </tr>
   ) : (
     <>
-
-            {currentEntries.length > 0 ?(
-              currentEntries.map((item, index) =>(
-
-             
-              <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                {index +indexOfFirstEntry+1}
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.daily_status === "income" ? item.type : item.expense_name}
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.added_by}
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.branch_name}
-                </td>
-                  <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.daily_status === "income" ? (
-    <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-      <span>Income</span>
-      <HiOutlineArrowNarrowUp/>
+      {currentEntries.length > 0 ? (
+        currentEntries.map((item, index) => (
+       
+          <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+            <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+              {index + indexOfFirstEntry + 1}
+            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+              {item.daily_status === "income" ? item.type : item.expense_name}
+            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+              {item.added_by}
+            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+              {item.branch_name}
+            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+              {item.daily_status === "income" ? (
+                <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+                  <span>Income</span>
+                  <HiOutlineArrowNarrowUp />
                 </div>
-  ) : (
-    <>
-      <div className="badge space-x-2.5 rounded-full bg-error/10 text-error"> 
-               <span>Expense</span>
-               <HiOutlineArrowNarrowDown/>
+              ) : (
+                <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                  <span>Expense</span>
+                  <HiOutlineArrowNarrowDown />
                 </div>
+              )}
+            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">{item.amount}</td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+              {/* {item.added_date} */}
+
+            </td>
+            <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => togglemodal("edit", item)}
+                  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                >
+                  <i className="fa fa-edit" />
+                </button>
+                <button
+                  className={`btn size-8 p-0 ${
+                    item.status === "active" ? "text-error" : "text-primary"
+                  } hover:bg-${item.status === "active" ? "error" : "primary"}/20 focus:bg-${
+                    item.status === "active" ? "error" : "primary"
+                  }/20 active:bg-${item.status === "active" ? "error" : "primary"}/25`}
+                  onClick={() => updateAccountStatus(item.id!, item.status)}
+                >
+                  <i className={`fa ${item.status === "active" ? "fa-trash-alt" : "fa-check-circle"}`} />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan={7} className="text-center py-4 text-gray-500">
+            No data available
+          </td>
+        </tr>
+      )}
     </>
   )}
-                </td>
-                <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
-                {item.amount}
-                </td>
-                <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
-                {item.added_date}
-                </td>
-                <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-                <span>
-                      <div className="flex  space-x-2">
-                        <button 
-                        onClick={() => togglemodal('edit', item)}
-                        className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                          <i className="fa fa-edit"/>
-                        </button>
-                        <button
-                        className={`btn size-8 p-0 ${item.status === 'active' ? 'text-error' : 'text-primary'} hover:bg-${item.status === 'active' ? 'error' : 'primary'}/20 focus:bg-${item.status === 'active' ? 'error' : 'primary'}/20 active:bg-${item.status === 'active' ? 'error' : 'primary'}/25`}
-                        onClick={() => updateAccountStatus(item.id!, item.status)} // Pass the current status
-                      >
-                        <i className={`fa ${item.status === 'active' ? 'fa-trash-alt' : 'fa-check-circle'}`} />
-                      </button>
-                      </div>
-                    </span>
-                </td>
-              </tr>
-  
-              //  {/* ))} */}
-              ))
-            ):(
-              <tr>
-              <td colSpan={7} className="text-center py-4 text-gray-500">
-                No data available
-              </td>
-            </tr>
-            )
-          }
-                           </>
-  )}
-            </tbody>
+</tbody>
+
+
           </table>
         </div>
 

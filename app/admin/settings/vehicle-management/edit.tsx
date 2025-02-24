@@ -201,7 +201,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     value={formData.vehicle_no}
                     onChange={handleChange}
                     placeholder="Vehicle No:"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -215,7 +215,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -230,7 +230,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -244,7 +244,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -258,20 +258,20 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
 
               <div className="ml-2">
-              <span>RC Upload</span>
+              <span className="mb-2">RC Upload</span>
                 {imagePreview ? (
                   // If an image is selected, show the preview
                   <div className="mb-2">
                     <img
                       src={imagePreview}
                       alt="Selected"
-                      className="w-32 h-32 object-cover border rounded"
+                      className="w-36 h-32 object-cover border rounded"
                     />
                   </div>
                 ) : (
@@ -280,13 +280,13 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     <img
                       src={`https://our-demos.com/n/drivingschool_api/assets/images/rc_documents/${formData.rc_document}`}
                       alt="RC Document"
-                      className="w-32 h-32 object-cover border rounded"
+                      className="w-36 h-32 object-cover border rounded"
                     />
                   </div>
                 )}
 
                 {!imagePreview && (
-                  <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                  <label className="w-1/3 flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
                     Select Image
                     <input
                       type="file"
@@ -301,10 +301,10 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                 {imagePreview && (
                   <div className="mt-2">
                     <label
-                      className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                      className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
                       htmlFor="imageUpload"
                     >
-                      Change Image
+                      Change
                     </label>
                     <input
                       id="imageUpload"
@@ -321,7 +321,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                       onClick={handleRemoveImage}
                       className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
                     >
-                      Remove Image
+                      Remove
                     </button>
                   </div>
                 )}

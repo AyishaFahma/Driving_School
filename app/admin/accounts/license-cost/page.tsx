@@ -22,7 +22,6 @@ type Cost = {
 };
 const page = () => {
   const { state } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
   const [showmodal,setShowmodal]=useState(false);
   const [costData, setCostData] = useState<Cost[]>([]);
   const [filteredData, setFilteredData] = useState<Cost[]>([]);
@@ -43,7 +42,7 @@ const page = () => {
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
      const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+     const [isLoading, setIsLoading] = useState(false);
  
   const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
     setModalMode(mode);  // Set the modal mode to either "add" or "edit"
@@ -206,33 +205,30 @@ const page = () => {
       setFilteredData(searchFilteredData); // Update filtered data in real-time
     };
     
-    // Handle form submit for additional filters
-    // const handleFilterSubmit = (e: React.FormEvent) => {
-    //   e.preventDefault(); // Prevent page reload
-    //   const newFilteredData = applyFilters();
-    //   setFilteredData(newFilteredData); // Update filtered data
-    // };
-    
-      const handleFilterSubmit = async (e: React.FormEvent) => {
-              e.preventDefault();
-              setIsLoading(true); // Start loading
-            
-              // Simulate a delay to show the loader (you can remove this in production)
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              const newFilteredData = applyFilters();
-              setFilteredData(newFilteredData);
-              setIsLoading(false); // Stop loading
-            };
 
-    // const handleReset = () => {
-      const handleReset = async () => {
-        setIsLoading(true); 
-         await new Promise(resolve => setTimeout(resolve, 1000));
+    // Handle form submit for additional filters
+    const handleFilterSubmit = async (e: React.FormEvent) => {
+      e.preventDefault(); // Prevent page reload
+          setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const newFilteredData = applyFilters();
+      setFilteredData(newFilteredData); // Update filtered data
+      setIsLoading(false); // Stop loading
+    };
+    
+    const handleReset = async () => {
+      setIsLoading(true); // Start loading
+     
+       // Simulate a delay to show the loader (you can remove this in production)
+       await new Promise(resolve => setTimeout(resolve, 1000));
       setSearchTerm("");
       setSelectedService("");
       setSelectedStatus("");
       setFilteredData(costData); // Reset to original data
-      setIsLoading(false);
+      setIsLoading(false); // Stop loading
     };
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -484,7 +480,7 @@ const page = () => {
 <input type="search" 
 placeholder="Type a keyword..." 
 aria-label="Type a keyword..." 
-className="gridjs-input gridjs-search-input" 
+className="text-sm pl-2 gridjs-input gridjs-search-input" 
 defaultValue="" 
 value={searchTerm}
 onChange={handleSearchChange}
@@ -523,8 +519,7 @@ onChange={handleSearchChange}
               </tr>
             </thead>
             <tbody>
-            {/* {currentEntries.map((item, index) => ( */}
-  {isLoading ? (
+            {isLoading ? (
     <tr>
       <td colSpan={7} className="text-center py-10">
         <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
@@ -532,9 +527,8 @@ onChange={handleSearchChange}
     </tr>
   ) : (
     <>
-
-            {currentEntries.length > 0 ? (
-    currentEntries.map((item, index) => (
+            {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>(
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
                 {index +indexOfFirstEntry+1}
@@ -548,7 +542,9 @@ onChange={handleSearchChange}
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.f_cost}
                 </td>
-                
+                {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                {item.m_cost}
+                </td> */}
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                
                  {item.status === "active" && (
@@ -613,14 +609,13 @@ onChange={handleSearchChange}
                     </span>
                 </td>
               </tr>
-  // ))}
-))
-) : (
+  ))
+):(
   <tr>
-    <td colSpan={7} className="text-center py-4 text-gray-500">
-      No data available
-    </td>
-  </tr>
+  <td colSpan={7} className="text-center py-4 text-gray-500">
+    No data available
+  </td>
+</tr>
 )}
 </>
   )}

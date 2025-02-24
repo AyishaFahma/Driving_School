@@ -155,7 +155,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={vehicle_no}
                   onChange={(e) => setVehicle_No(e.target.value)}
                   placeholder="Vehicle No:"
-                  className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
               </label>
@@ -166,7 +166,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={tax_expiry_date}
                   onChange={(e) => setTax_expiry_date(e.target.value)}
                   min={today}
-                  className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
               </label>
@@ -177,7 +177,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={rc_expiry_date}
                   onChange={(e) => setRc_expiry_date(e.target.value)}
                   min={today}
-                  className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
               </label>
@@ -188,7 +188,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={pucc_expiry_date}
                   onChange={(e) => setPucc_expiry_date(e.target.value)}
                   min={today}
-                  className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
               </label>
@@ -199,7 +199,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={insurance_expiry_date}
                   onChange={(e) => setInsurance_expiry_date(e.target.value)}
                   min={today}
-                  className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
               </label>
@@ -208,7 +208,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                 <span>RC Upload</span>
                 <div className="mt-2">
                   <div
-                    className={`w-32 h-32 border rounded ${
+                    className={`w-36 h-32 border rounded ${
                       imagePreview
                         ? "flex justify-center items-center"
                         : "bg-transparant"
@@ -218,7 +218,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                       <img
                         src={imagePreview}
                         alt="Selected"
-                        className="w-32 h-32 object-cover border rounded"
+                        className="w-36 h-32 object-cover border rounded"
                       />
                     ) : (
                       <span className="text-gray-500"></span>
@@ -227,7 +227,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   {!imagePreview ? (
                     <label
                       htmlFor="imageInput"
-                      className="mt-2 flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded px-4 py-2"
+                      className="w-1/3 mt-2 flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded px-4 py-2"
                     >
                       Select Image
                       <input
@@ -241,10 +241,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   ) : (
                     <div className="mt-2 flex space-x-2">
                       <label
-                        className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                        className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
                         htmlFor="imageUpload"
                       >
-                        Change Image
+                        Change
                       </label>
                       <input
                         id="imageUpload"
@@ -259,7 +259,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                         onClick={handleRemoveImage}
                         className="outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                       >
-                        Remove Image
+                        Remove
                       </button>
                     </div>
                   )}

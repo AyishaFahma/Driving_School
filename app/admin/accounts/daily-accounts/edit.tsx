@@ -487,7 +487,7 @@ const handleSelectBranch = (branch : Account) => {
         name="type"
         value={ formData.type}
         onChange={handleChange}
-        className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
 )}
@@ -532,7 +532,7 @@ const handleSelectBranch = (branch : Account) => {
          name="amount"
         value={formData.amount}
         onChange={handleChange}
-        className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
 
@@ -677,7 +677,7 @@ const handleSelectBranch = (branch : Account) => {
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-              {loading ? 'Updating...' : 'Update'}
+           {loading ? 'Updating...' : 'Update'}
             </button>
           </form>
         </div>

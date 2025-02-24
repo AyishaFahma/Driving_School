@@ -148,9 +148,9 @@ if (response.ok){
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block">
                 <span>Driver name </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Name"
                     type="text"
                     value={driverName}
@@ -160,9 +160,9 @@ if (response.ok){
               </label>
               <label className="block">
                 <span>Mobile </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                 <input
-  className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+  className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
   placeholder="Enter Mobile No"
   type="text" // Change to text to avoid spinner
   value={mobile}
@@ -185,9 +185,9 @@ if (response.ok){
 
               <label className="block">
                 <span>Place </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Place"
                     type="text"
                     value={place}
@@ -200,9 +200,9 @@ if (response.ok){
 
               <label className="block">
                 <span>Driving Licence No</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Driving Licence No"
                     type="text"
                     value={drivingLicenceNo}
@@ -213,18 +213,19 @@ if (response.ok){
               {/* <label className="relative flex mt-4"> */}
               <label className="block">
                 <span>Password</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Password"
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
-                    onChange={(e) => {
-                      const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                      setPassword(newValue);
-                    }}
+                  //  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                    setPassword(newValue);
+                  }}
+
                   />
                   <span
                     className="absolute right-3 flex items-center justify-center text-slate-400 cursor-pointer mt-3"

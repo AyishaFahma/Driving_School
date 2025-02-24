@@ -679,6 +679,7 @@ type Payment = {
   payment_method:string;
   first_name:string;
  email:string;
+ billno:string;
 
 };
 
@@ -904,7 +905,7 @@ type Site = {
       {userData && (
      <div className="mt-4">
   <h6 className="font-bold mb-2">{userData.first_name}</h6>
-  Bill No:  {userData.mobile}
+  Bill No:  {userData.billno}
   <br />Tel No:  {userData.mobile}
   <br />Email:  {userData.email}<p />
 </div>
@@ -944,6 +945,9 @@ type Site = {
       </th> 
     </tr>
   </thead>
+
+
+
   <tbody>
     {paymentData.map((item, index) => (
       <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -951,7 +955,8 @@ type Site = {
           {index + 1}
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-          {item.amount_total}
+          {/* {item.amount_total} */}
+          {index === 0 ? item.amount_total : ""} 
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
           {item.pay_amount}

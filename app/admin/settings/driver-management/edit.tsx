@@ -43,6 +43,12 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
     }
   }, [driverData]);
 
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) =>
+  //     prevData ? { ...prevData, [name]: value } : null
+  //   );
+  // };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -56,7 +62,6 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
       prevData ? { ...prevData, [name]: value } : null
     );
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -72,8 +77,7 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
           mobile: formData.mobile,
           place: formData.address,
           driving_licence_no: formData.driving_licence_no,
-          // password: formData.password,
-          password: formData.password.trim().replace(/\s/g, ""),
+          password: formData.password,
         };
         console.log("formData:", formData);
        // console.log("Address value:", formData.address);
@@ -159,9 +163,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block">
                 <span>Driver name </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Name"
                     type="text"
                     name="first_name"
@@ -172,9 +176,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
               </label>
               <label className="block">
                 <span>Mobile </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Mobile No"
                     type="text"
                     name="mobile"
@@ -191,9 +195,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
               </label>
               <label className="block">
                 <span>Place </span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Place"
                     type="text"
                     name="address"
@@ -204,9 +208,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
               </label>
               <label className="block">
                 <span>Driving Licence No</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Enter Driving Licence No"
                     type="text"
                     name="driving_licence_no"
@@ -218,9 +222,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
 
               <label className="block">
                 <span>Password</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Password"
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -235,6 +239,9 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
                   </span>
                 </span>
               </label>
+
+      
+
             </div>
 
             <button

@@ -21,7 +21,6 @@ interface Vehicle {
 }
 const page = () => {
   const { state } = useAuth();
-   const [isLoading, setIsLoading] = useState(false);
   const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +44,7 @@ const page = () => {
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
    const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+   const [isLoading, setIsLoading] = useState(false);
 
 
   const togglemodal = (
@@ -131,29 +130,27 @@ const page = () => {
 
     setFilteredData(searchFilteredData);
   };
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData);
-  // };
- const handleFilterSubmit = async (e: React.FormEvent) => {
+  const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
-  
-    // Simulate a delay to show the loader (you can remove this in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
   };
+
   const handleReset = async () => {
-    setIsLoading(true); 
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
      await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedVehicle("");
     setSelectedStatus("");
     setFilteredData(vehicleData);
-    setIsLoading(false);
+    setIsLoading(false); // Stop loading
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -474,7 +471,7 @@ const page = () => {
                   type="search"
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-                  className="gridjs-input gridjs-search-input"
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
                   defaultValue=""
                   value={searchTerm}
                   onChange={handleSearchChange}
@@ -491,19 +488,23 @@ const page = () => {
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Vehicle No:
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Rc Document
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Rc Expiry Date
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pucc Expiry Date
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                   
                       Insurance Expiry Date
-                    </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    </th> */}
+                    <th className="max-w-[100px] break-words bg-slate-200 px-2 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100">
+                     Insurance Expiry Date
+                      </th>
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Tax Expiry Date
                     </th>
                     <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -512,19 +513,16 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {currentEntries.map((item, index) => ( */}
- {isLoading ? (
-                                       <tr>
-                                         <td colSpan={7} className="text-center py-10">
-                                           <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-                                         </td>
-                                       </tr>
-                                     ) : (
-                                       <>
-
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
                   {currentEntries.length > 0 ?(
-                    currentEntries.map((item, index) =>(
-                    
+currentEntries.map((item,index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -556,6 +554,7 @@ const page = () => {
                       </td>
 
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                      {/* <td className="whitespace-nowrap px-2 py-3 sm:px-3"> */}
                         {item.insurance_expiry_date}
                       </td>
                       <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
@@ -602,19 +601,16 @@ const page = () => {
                         </span>
                       </td>
                     </tr>
-                  // ))}
-                    
-                ))
-              ):(
-<tr>
+                  ))
+                ):(
+                  <tr>
                   <td colSpan={7} className="text-center py-4 text-gray-500">
                     No data available
                   </td>
                 </tr>
-              )
-              }
-              </>
-                                     )}
+                )}
+                </>
+  )}
                 </tbody>
               </table>
             </div>

@@ -28,7 +28,7 @@ const page = () => {
   const { state } = useAuth();
 
 
-  const [isLoading, setIsLoading] = useState(false);
+
   const [showmodal, setShowmodal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +61,7 @@ const page = () => {
    const staffDropdownRef = useRef<HTMLDivElement>(null);
    const branchDropdownRef = useRef<HTMLDivElement>(null);
 
-
+   const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (mode: 'add' | 'edit', staff: Staff | null = null) => {
     setModalMode(mode); 
@@ -185,31 +185,29 @@ const page = () => {
   
     setFilteredData(searchFilteredData); 
   };
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault(); 
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData); 
-  // };
-  const handleFilterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true); // Start loading
   
-    // Simulate a delay to show the loader (you can remove this in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); 
+    setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
-    setFilteredData(newFilteredData);
+    setFilteredData(newFilteredData); 
     setIsLoading(false); // Stop loading
   };
-
+  
   const handleReset = async () => {
-    setIsLoading(true); 
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
      await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedStaff("");
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(staffData); 
-    setIsLoading(false);
+    setIsLoading(false); // Stop loading
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -365,23 +363,7 @@ const page = () => {
       setIsbranchDropdownOpen(false); 
     };
   
-      // Close dropdown when clicking outside
-  
-   // Close dropdown when clicking outside
-  
-
-  //  useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (dropdownRef.current && event.target instanceof Node) {
-  //       if (!dropdownRef.current.contains(event.target)) {
-  //         setIsDropdownOpen(false);
-  //       }
-  //     }
-  //   };
-  
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
+     
 
 
     useEffect(() => {
@@ -635,7 +617,7 @@ const page = () => {
 <input type="search" 
 placeholder="Type a keyword..." 
 aria-label="Type a keyword..." 
-className="gridjs-input gridjs-search-input" 
+className="text-sm pl-2 gridjs-input gridjs-search-input" 
 defaultValue="" 
 value={searchTerm}
 onChange={handleSearchChange}
@@ -673,25 +655,24 @@ onChange={handleSearchChange}
                   </tr>
                 </thead>
                 <tbody>
-                
-                  {isLoading ? (
-                                       <tr>
-                                         <td colSpan={7} className="text-center py-10">
-                                           <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-                                         </td>
-                                       </tr>
-                                     ) : (
-                                       <>
-    {currentEntries.length > 0 ?(
+                 
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+                  {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>{
-  const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
+    const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
 
-  return ( 
-  
+    return (
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -742,18 +723,17 @@ currentEntries.map((item,index) =>{
                     </tr>
                  
                 );
-              // })}
-           
-})
-          ):(
-            <tr>
+              })
+            ):(
+
+              <tr>
               <td colSpan={7} className="text-center py-4 text-gray-500">
                 No data available
               </td>
             </tr>
-          )}
-          </>
-                                     )}
+            )}
+            </>
+  )}
                 </tbody>
               </table>
             </div>

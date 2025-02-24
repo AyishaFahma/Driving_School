@@ -15,6 +15,7 @@ type CreateProps = {
     amount: string;
     total_amount: string;
     service_name: string;
+    billno:string;
   };
   isEditing?: boolean;
 };
@@ -30,6 +31,7 @@ interface Payment {
   amount: string;
   total_amount: string;
   cus_service_id: string;
+  billno:string;
 }
 const Payment: React.FC<CreateProps> = ({
   showmodals,
@@ -50,8 +52,9 @@ const Payment: React.FC<CreateProps> = ({
     amount: "",
     total_amount: "",
     cus_service_id: "",
+    billno:"",
   });
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (formData) {
       setLocalFormData({
@@ -66,6 +69,7 @@ const Payment: React.FC<CreateProps> = ({
         type: formData.type || "",
         amount: formData.amount || "",
         cus_service_id: formData.customer_id || "",
+        billno:formData.billno || "",
       });
     }
   }, [formData]);
@@ -163,6 +167,21 @@ const Payment: React.FC<CreateProps> = ({
             </h3>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+                {/* Bill NO */}
+                <label className="block">
+                <span>Bill No:</span>
+                <span className="relative mt-1.5 flex">
+                  <input
+                    name="billno"
+                    value={localFormData.billno}
+                    readOnly
+                    type="text"
+                    placeholder="Bill no"
+                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  />
+                </span>
+              </label>
+            {/* Payment Method */}
               <label className="block">
                 <span>Payment Method</span>
                 <span className="relative mt-1.5 flex">
@@ -177,7 +196,7 @@ const Payment: React.FC<CreateProps> = ({
                   </select>
                 </span>
               </label>
-
+  {/* Total Amount */}
               <label className="block">
                 <span>Total Amount</span>
                 <span className="relative mt-1.5 flex">
@@ -191,7 +210,7 @@ const Payment: React.FC<CreateProps> = ({
                   />
                 </span>
               </label>
-
+  {/* Paid Amount*/}
               <label className="block">
                 <span>Paid Amount</span>
                 <span className="relative mt-1.5 flex">
@@ -205,9 +224,39 @@ const Payment: React.FC<CreateProps> = ({
                   />
                 </span>
               </label>
+               {/* Due Amount */}
+              <label className="block">
+                <span>Due Amount</span>
+                <span className="relative mt-1.5 flex">
+                  <input
+                    name="due_amount"
+                    value={localFormData.due_amount}
+                    readOnly
+                    type="text"
+                    placeholder="Enter Due Amount"
+                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  />
+                </span>
+              </label>
+               {/* Pay Amount*/}
+              <label className="block">
+                <span>Pay Amount</span>
+                <span className="relative mt-1.5 flex">
+                  <input
+                    name="payed_amount"
+                    value={localFormData.payed_amount}
+                    onChange={handleChange}
+                    type="number"
+                    placeholder="Pay Amount"
+                    step="1"
+                    min="0"
+                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  />
+                </span>
+              </label>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
               <label className="block">
                 <span>Due Amount</span>
                 <span className="relative mt-1.5 flex">
@@ -236,14 +285,14 @@ const Payment: React.FC<CreateProps> = ({
                   />
                 </span>
               </label>
-            </div>
+            </div> */}
 
             <div className="mt-4">
               <button
                 type="submit"
                 className="bg-primary text-white rounded p-2 w-1/5"
               >
-                Pay
+                     {loading ? 'Paying...' : 'Pay'}
               </button>
             </div>
           </form>

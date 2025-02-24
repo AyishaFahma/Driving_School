@@ -37,10 +37,9 @@ const page = () => {
   const[searchBranchData,setSearchBranchData] = useState<Branch []>([]);
   const [filteredBranch, setFilteredBranch] = useState<Branch[]>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
    const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+   const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (mode: "add" | "edit", branch: Branch | null = null) => {
     setModalMode(mode);
@@ -118,30 +117,28 @@ const page = () => {
 
     setFilteredData(searchFilteredData);
   };
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData);
-  // };
-    const handleFilterSubmit = async (e: React.FormEvent) => {
-                e.preventDefault();
-                setIsLoading(true); // Start loading
-              
-                // Simulate a delay to show the loader (you can remove this in production)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const newFilteredData = applyFilters();
-                setFilteredData(newFilteredData);
-                setIsLoading(false); // Stop loading
-              };
 
-              const handleReset = async () => {
-                setIsLoading(true); 
-                 await new Promise(resolve => setTimeout(resolve, 1000));
+  const handleFilterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    const newFilteredData = applyFilters();
+    setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
+  };
+
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(branchData);
-    setIsLoading(false);
+    setIsLoading(false); // Stop loading
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -465,7 +462,7 @@ const page = () => {
                   type="search"
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-                  className="gridjs-input gridjs-search-input"
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
@@ -496,17 +493,16 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {currentEntries.map((item, index) => ( */}
-                  {isLoading ? (
-                      <tr>
-                        <td colSpan={7} className="text-center py-10">
-                          <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-                        </td>
-                      </tr>
-                    ) : (
-                      <>
-                      {currentEntries.length > 0 ? (
-                        currentEntries.map((item, index) => (
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+                {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -523,9 +519,25 @@ const page = () => {
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                         {item.status}
+                      </td> */}
+<td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.status === "active" && (
+                          <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>active</span>
+                          </div>
+                        )}
+                        {item.status === "inactive" && (
+                          <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>inactive</span>
+                          </div>
+                        )}
                       </td>
+
+
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                         {item.added_date}
                       </td>
@@ -566,17 +578,16 @@ const page = () => {
                         </span>
                       </td>
                     </tr>
-                  // ))}
-                ))
-              ):(
-                <tr>
-                <td colSpan={7} className="text-center py-4 text-gray-500">
-                  No data available
-                </td>
-              </tr>
+                 ))
+                ):(
+                  <tr>
+                  <td colSpan={7} className="text-center py-4 text-gray-500">
+                    No data available
+                  </td>
+                </tr>
                 )}
                 </>
-                    )}
+  )}
                 </tbody>
               </table>
             </div>
