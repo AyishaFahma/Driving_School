@@ -1362,7 +1362,9 @@ interface Admission {
   text:string;
   admission_no:string;
   app_no:string;
-  
+  billno:string;
+  discounted_amount:string;
+  discount:string;
 }
 
 interface EditProps {
@@ -1411,7 +1413,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenBranch, setIsOpenBranch] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
+  // const [selectedService, setSelectedService] = useState("");
 
   const [selectedAmount, setSelectedAmount] = useState("");
   const [submission, setsubmission] = useState<Admission| null>(null);
@@ -1429,7 +1431,15 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   const[searchBranchData,setSearchBranchData] =useState<Admission[]>([]);
   const [selectedBranch, setSelectedBranch] = useState<string>("");
  const [searchBranch, setSearchBranch] = useState("");
+ const [selectedService, setSelectedService] = useState<string>("");
+  const [searchService, setSearchService] = useState("");
+
+  const[searchServiceData,setSearchServiceData] =useState<Admission[]>([]);
+  const[filteredService,setFilteredService]=useState<Admission[]>([]);
+
+
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
+  const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false); 
   const branchDropdownRef = useRef<HTMLDivElement>(null);
   const serviceDropdownRef = useRef<HTMLDivElement>(null);
 ////
@@ -1828,6 +1838,58 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 
     setFilteredBranch(searchData);
   };
+       const fetchSearchService = async () => {
+             try {
+               const response = await fetch("/api/admin/report/get_service_autocomplete", {
+                 method: "POST",
+                 headers: {
+                   authorizations: state?.accessToken ?? "",
+                   api_key: "10f052463f485938d04ac7300de7ec2b",
+                 },
+                 body: JSON.stringify({}),
+               });
+         
+               if (!response.ok) {
+                 const errorData = await response.json();
+                 throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+               }
+         
+               const data = await response.json();
+               console.log("Search mobile data", data.data);
+         
+               if (data.success) {
+                 setSearchServiceData(data.data.service_details || []);
+                 setFilteredService(data.data.service_details || []);
+               }
+             } catch (error) {
+               console.error("Fetch error:", error);
+             }
+           };
+         
+           useEffect(() => {
+             fetchSearchService();
+           }, [state]);
+         
+           const handleSearchService = (e : any) => {
+             const value = e.target.value;
+             setSearchService(value);
+         
+             const searchData = searchServiceData.filter(
+               (item) =>
+                 item.text.toLowerCase().includes(value.toLowerCase())
+             );
+         
+             setFilteredService(searchData);
+           };
+         
+           
+           const handleSelectService = (service:Admission) => {
+             setSelectedService(service.text);
+            
+             setSearchService("");
+             setIsserviceDropdownOpen(false); 
+           };
+  
 
   // click to hide
   useEffect(() => {
@@ -1835,7 +1897,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
       const handleClickOutside = (event: MouseEvent) => {
         if (serviceDropdownRef.current && event.target instanceof Node) {
           if (!serviceDropdownRef.current.contains(event.target)) {
-            setIsOpen(false);
+            setIsserviceDropdownOpen(false);
           }
         }
   
@@ -2471,10 +2533,10 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
               </label>
               <div className="space-y-5 p-4 sm:p-5">
                 {/* service and billno */}
-                   <div className="flex">
+                   {/* <div className="flex"> */}
+                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-
-              <div className="relative flex-1 w-full">
+              {/* <div className="relative flex-1 w-full">
               <span>Service</span>
     <div
       className="form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9"
@@ -2512,15 +2574,60 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         </div>
       </div>
     )}
-  </div>
+  </div> */}
+<div className="relative w-full" ref={serviceDropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Service
+      </label>
 
+      {/* Dropdown Button */}
+      <div
+        onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
+        className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {selectedService || formData?.service_name || "Select a service"}
+        
+        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      </div>
+
+      {/* Dropdown Content */}
+      {isserviceDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+          {/* Search Bar Inside Dropdown */}
+          <input
+            type="text"
+            value={searchService}
+            onChange={handleSearchService}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+          {/* Dropdown Options */}
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredService.length > 0 ? (
+              filteredService.map((service) => (
+                <li
+                  key={service.id}
+                  onClick={() => handleSelectService(service)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {service.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
 
 
 <label className="block ml-3 flex-1">
 <span>Bill No:</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                           value={formData?.tax || ""}
+                           value={formData?.billno || ""}
                            onChange={handleChange}
                           type="text"
                           placeholder="Bill no:"
@@ -2531,9 +2638,30 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </label>
               </div>
 
- {/* Type,Both type */}
+ {/* Type,checkbox */}
             
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {(formData?.type === "lmv" || 
+                   formData?.type === "mc" || 
+                   formData?.type === "both" || 
+                   formData?.type === "auto" 
+                    ) && (
+                      <div className="block">   
+                
+                <label >
+  <input 
+  className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+  type="checkbox" />
+  <span className="ml-3">Study</span>
+</label>
+ <label className="ml-6">
+ <input 
+ className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+ type="checkbox" />
+ <span className="ml-3">Licence</span>
+</label>
+</div> 
+)}
                     {(formData?.service_name === "licence fresh" ||
                   formData?.service_name === "renewal licence" ||
                   formData?.service_name === "duplicate licence" ||
@@ -2550,14 +2678,24 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         name="type"
                         className="dark:bg-navy-700 form-input peer mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value=''>Select Type</option>
-                          <option value="lmc">LMC</option>
+                          <option value="lmv">LMV</option>
                           <option value="mc">MC</option>
                           <option value="both">BOTH</option>
+                          <option value="auto">Auto rickshaw</option>
                         </select>
                       </span>
 </label>
    )}
-<label className="block">
+
+    {/* BothType*/}
+    {!(
+  formData?.type === "lmv" || 
+  formData?.type === "mc" || 
+  formData?.type === "both" || 
+  formData?.type === "auto" 
+) && ( 
+
+                    <label className="block">
   <span>Both Type</span>
   <span className="relative mt-1 flex">
                          <select 
@@ -2574,6 +2712,8 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </select>
                       </span>
 </label>
+                   )}
+
 {/* total amount */}
 <label className="block">
                   <span>Total amount</span>
@@ -2596,12 +2736,12 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     <span>Discount</span>
                     <span className="relative flex">
                       <input
-                        name="pay_amount"
-                        value={formData?.pay_amount || ""}
+                        name="discount"
+                        value={formData?.discount || ""}
                         readOnly
                           // onChange={handleChange}
                         type="text"
-                        placeholder="Paid Amount"
+                        placeholder="Discount"
                         className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
@@ -2612,8 +2752,8 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     <span>Pay Amount</span>
                     <span className="relative flex">
                       <input
-                        name="pay_amount"
-                        value={formData?.pay_amount || ""}
+                        name="discounted_amount"
+                        value={formData?.discounted_amount || ""}
                         readOnly
                           // onChange={handleChange}
                         type="text"
@@ -2671,13 +2811,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                   </label> 
 </div>
                 {/* Additional Fields */}
-                {(formData?.service_name === "rc transfer" ||
+                {/* {(formData?.service_name === "rc transfer" ||
                   formData?.service_name === "cf" ||
                   formData?.service_name === "cf renewal" ||
                   formData?.service_name === "rc renewal" ||
                   formData?.service_name === "sfds") && (
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {/* tax */}
+                  
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2689,7 +2829,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         />
                       </span>
                     </label>
-                    {/* pucc */}
+                
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2703,7 +2843,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       </span>
                     </label>
 
-                    {/* Upload old rc Section */}
+                   
                     <div>
                           <label className="block mb-2 mt-4">
                           Old RC
@@ -2772,7 +2912,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                            </div>
                     </div>
 
-                    {/* Upload Aadhaar  Section */}
+                
                     <div>
                           <label className="block mb-2 mt-4">
                           Aadhaar
@@ -2843,7 +2983,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
              </div>
                         </div>
 
-                    {/* Upload Insurence Section */}
+                  
                     <div>
                           <label className="block mb-2 mt-4">
                           Insurence
@@ -2914,13 +3054,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
              </div>
                         </div>
                   </div>
-                )}
+                )} */}
 
 <button
               type="submit"
               className="bg-primary text-white rounded p-2"
             >
-          Update
+           {loading ? 'Updating...' : 'Update'}
             </button>
               </div>
               </div>

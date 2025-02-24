@@ -1373,6 +1373,7 @@ const Create: React.FC<CreateProps> = ({
   isEditing,
 }) => {
   const { state } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("create");
   const [branch, setBranch] = useState<{ id: string; branch_name: string }[]>(
     []
@@ -1445,9 +1446,10 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
    const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false);
    const serviceDropdownRef = useRef<HTMLDivElement>(null);
    
-
+   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
+    const admissionDropdownRef = useRef<HTMLDivElement>(null);
     const userDropdownRef = useRef<HTMLDivElement>(null);
     const branchDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -1735,7 +1737,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
        const handleSelectBranch = (branch:Admission) => {
          setSelectedBranch(branch.text);
          setSearchBranch("");
-         setIsDropdownOpen(false); 
+         setIsbranchDropdownOpen(false); 
        };
        const fetchSearchService = async () => {
            try {
@@ -1786,7 +1788,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
            setSelectedService(service.text);
           
            setSearchService("");
-           setIsDropdownOpen(false); 
+           setIsserviceDropdownOpen(false); 
          };
 
 
@@ -1809,6 +1811,12 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
               if (serviceDropdownRef.current && event.target instanceof Node) {
                 if (!serviceDropdownRef.current.contains(event.target)) {
                   setIsserviceDropdownOpen(false);
+                }
+              }
+
+              if (admissionDropdownRef.current && event.target instanceof Node) {
+                if (!admissionDropdownRef.current.contains(event.target)) {
+                  setIsadmissionDropdownOpen(false);
                 }
               }
             };
@@ -1945,14 +1953,14 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                     )}
                     </div>
 
-<div className="relative w-full mt-4" ref={userDropdownRef}>
+<div className="relative w-full mt-4" ref={admissionDropdownRef}>
 <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
 Enter Admission No
 </label>
 
 {/* Dropdown Button */}
 <div
-onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+onClick={() => setIsadmissionDropdownOpen(!isadmissionDropdownOpen)}
 className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
 >
 {selectedMobile || "Select an Admission No"}
@@ -1960,7 +1968,7 @@ className="mt-1 flex w-full items-center justify-between rounded-md border borde
 </div>
 
 {/* Dropdown Content */}
-{isDropdownOpen && (
+{isadmissionDropdownOpen && (
 <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
 {/* Search Bar Inside Dropdown */}
 <input
@@ -2977,7 +2985,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                   type="submit"
                   className="btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
                 >
-                  Add
+                  {loading ? 'Adding...' : 'Add'}
                 </button>
               </div>
            

@@ -322,7 +322,7 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
            </label>
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              Update
+            {loading ? 'Updating...' : 'Update'}
             </button>
           </form>
         </div>
