@@ -47,30 +47,6 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   }, [costData]);
 
-// useEffect(() => {
-//     if (showModal) {
-//       const fetchServices = async () => {
-//         try {
-//           const response = await fetch('/api/admin/settings/service_details', {
-//             method: 'POST',
-//             headers: {
-//               'authorizations': state?.accessToken ?? '',
-//               'api_key': '10f052463f485938d04ac7300de7ec2b', 
-//             },
-//             body: JSON.stringify({ }),
-//           });
-//           const data = await response.json();
-//           if (data.success) {
-//             setServices(data.data);
-//           }
-//         } catch (error) {
-//           console.error("Error fetching Services:", error);
-//         }
-//       };
-
-//       fetchServices();
-//     }
-//   }, [showModal]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -135,77 +111,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
   
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   try {
-  //     if (!formData) return;
-  
-  //     const transformedData = {
-  //       id: formData.id,
-  //       type: 'cost',
-  //       study_cost: formData.study_cost,
-  //       licence_cost: formData.licence_cost,
-  //       cost: formData.cost,
-  //       vehicle_type: formData.vehicle_type,
-  //     };
-  
-  //     console.log('Transformed Data:', transformedData);
-  
-  //     const response = await fetch(`/api/admin/accounts/update_fresh_licence_cost`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         authorizations: state?.accessToken ?? '',
-  //         api_key: '10f052463f485938d04ac7300de7ec2b',
-  //       },
-  //       body: JSON.stringify(transformedData),
-  //     });
-  
-  //     console.log('Response Status:', response.status);
-  
-  //     // ✅ Read response as text first
-  //     const responseText = await response.text();
-  //     console.log('Raw Response:', responseText || '(empty)');
-  
-  //     let data: any = {};
-  //     if (responseText.trim()) {
-  //       try {
-  //         data = JSON.parse(responseText);
-  //       } catch (jsonError) {
-  //         console.error('JSON Parse Error:', jsonError);
-  //         throw new Error('Invalid JSON response from server');
-  //       }
-  //     }
-  
-  //     console.log('Response Data:', data);
-  
-  //     // ✅ Handle truly empty responses (assume success on status 200)
-  //     if (response.status === 200 && Object.keys(data).length === 0) {
-  //       toast.success('License Class updated successfully');
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       togglemodal();
-  //       return;
-  //     }
-  
-  //     if (data.success) {
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       toast.success('License Class updated successfully');
-  //       togglemodal();
-  //     } else {
-  //       setError(data.msg || 'Failed to update driver');
-  //       console.log('Error Messages:', data.error_msgs || 'No error messages provided');
-  //     }
-  //   } catch (err: any) {
-  //     console.error('Error during API call:', err);
-  //     toast.error(err.message || 'An error occurred while updating the License class.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
+ 
   
   
   if (!showModal || !formData) return null;

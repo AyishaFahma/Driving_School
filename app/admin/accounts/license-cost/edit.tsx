@@ -70,15 +70,12 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // setLoading(true);
-    // setError('');
-    // setSuccess(false);
+ 
   
     try {
       if (formData) {
         const transformedData = {
           id: formData.id,
-        //   name: `${formData.first_name}`,
           type: 'cost',
           f_cost: formData.f_cost,
           m_cost: formData.m_cost,
@@ -167,9 +164,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     const searchData = searchServiceData.filter(
       (item) =>
         item.text.toLowerCase().includes(value.toLowerCase())
-        // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
-        // item.email.toLowerCase().includes(value.toLowerCase()) ||
-        // item.pay_status.toLowerCase().includes(value.toLowerCase())
+      
     );
 
     setFilteredService(searchData);
@@ -316,15 +311,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                 placeholder="Cost" 
                 className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
-            {/* <label className="block">
-              <span>Male Cost</span>
-            <input name="m_cost"
-             value={formData.m_cost}
-              onChange={handleChange}
-               type="text"
-                placeholder="Male cost"
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
-           </label> */}
+           
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
               {loading ? 'Updating...' : 'Update'}

@@ -27,7 +27,7 @@ const page = () => {
   const [filteredData, setFilteredData] = useState<Cost[]>([]);
   const [selectedCost, setSelectedCost] = useState<Cost | null>(null); 
   const [search, setSearch] = useState("");
-  // const [selectedServices, setSelectedServices] = useState<string>("");
+ 
   const [service, setService] = useState<{ id: string; service_name: string }[]>([]);
   const [filters, setFilters] = useState({ service_name: '', status: '' });
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,8 +35,7 @@ const page = () => {
    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
  const [selectedService, setSelectedService] = useState<string>("");
     const [searchService, setSearchService] = useState("");
-    // const[searchServiceData,setSearchServiceData] =useState("");
-    // const[filteredService,setFilteredService]=useState("");
+   
     const[searchServiceData,setSearchServiceData] = useState<Cost []>([]);
     const[filteredService,setFilteredService]=useState<Cost []>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -279,9 +278,7 @@ const page = () => {
       const searchData = searchServiceData.filter(
         (item) =>
           item.text.toLowerCase().includes(value.toLowerCase())
-          // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
-          // item.email.toLowerCase().includes(value.toLowerCase()) ||
-          // item.pay_status.toLowerCase().includes(value.toLowerCase())
+         
       );
   
       setFilteredService(searchData);
@@ -344,30 +341,7 @@ const page = () => {
   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
     <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {/* Driver Name Select */}
-        {/* <div className='flex-1'>
-          <label
-            htmlFor="serviceName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Service
-          </label>
-           <select
-            id="driverName"
-            name="driverName"
-            value={selectedServices}
-            onChange={(e) => setSelectedServices(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a service</option>
-  {service.map((service) => (
-                <option key={service.id} value={service.service_name}>
-                  {service.service_name}
-                </option>
-              ))}
-</select>
-
-        </div> */}
+  
 <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Service Name
@@ -492,7 +466,7 @@ onChange={handleSearchChange}
             <thead>
               <tr>
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                SL No
+               #
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Service Name

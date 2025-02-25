@@ -34,26 +34,25 @@ interface EditProps {
 
 const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
   const { state } = useAuth();
-  const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
-  const [ BranchData,  setBranchData] = useState<Account []>([]);
+ 
   const [formData, setFormData] = useState<Account | null>(null);
 
   const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
   const [branch_text, setbranch_text] = useState('');
   const [searchBranch, setSearchBranch] = useState("");
-  // const[searchBranchData,setSearchBranchData] =useState("");
+ 
   const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
   const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
-  // const[filteredBranch,setFilteredBranch]=useState("");
+ 
 
   const [staff_id, setstaff_id] = useState(formData?.staff_id || '');
  
-  // const [staff_text, setstaff_text] = useState('');
+ 
 const [StaffData, setStaffData] = useState([]);
  const [filteredStaff, setFilteredStaff] = useState<Account[]>([]);
     const [searchStaff, setSearchStaff] = useState("");
     const [selectedStaff, setSelectedStaff] = useState("");
-    // const [driver_text, setdriver_text] = useState('');
+  
     const [driver_id, setdriver_id] = useState(formData?.driver_id || '');
      const [selectedDriver, setSelectedDriver] = useState<string>("");
       const [searchDriver, setSearchDriver] = useState("");
@@ -78,40 +77,6 @@ const [StaffData, setStaffData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-
-//   const fetchBranchData = async () => {
-//     try {
-
-//       const response = await fetch('/api/admin/settings/branch_details', {
-//         method: 'POST',
-//         headers: {
-//            'authorizations': state?.accessToken ?? '', 
-        
-//           'api_key': '10f052463f485938d04ac7300de7ec2b',  
-//         },
-//         body: JSON.stringify({ user_id:null}),
-//       });
-//       if (!response.ok) {
-//         const errorData = await response.json();
-       
-//         throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
-//       }
-      
-//       const data = await response.json();
-//  //console.log(data,"data")
-//       if (data.success) {
-//         setBranchData(data.data || []);
-//       } else {
-      
-//       }
-//     } catch (error) {
-//       console.error("Fetch error:", error);
-//     }
-//   };
-  
-//   useEffect(() => {
-//     fetchBranchData();
-//   }, [state]);
 
 
 
@@ -167,8 +132,6 @@ useEffect(() => {
           amount: formData.amount, 
           daily_status: formData.daily_status, 
           expense_name: formData.expense_name, 
-          // branch_name: formData.branch_name,
-         // branch_id: formData.branch_id,
          branch_id: branch_id || formData.branch_id,
          staff_id: staff_id || formData.staff_id,
          driver_id: driver_id || formData.driver_id,
@@ -195,7 +158,7 @@ useEffect(() => {
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-         // toggleModal();
+        
         } else {
           setError(data.msg || 'Failed to update Cost');
           console.log('Error Messages:', data.error_msgs);
@@ -225,9 +188,6 @@ const handleSearchBranch = (e : any) => {
   const searchData = searchBranchData.filter(
     (item) =>
       item.text.toLowerCase().includes(value.toLowerCase())
-      // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
-      // item.email.toLowerCase().includes(value.toLowerCase()) ||
-      // item.pay_status.toLowerCase().includes(value.toLowerCase())
   );
 
   setFilteredBranch(searchData);
@@ -235,9 +195,7 @@ const handleSearchBranch = (e : any) => {
 
 
 const handleSelectBranch = (branch : Account) => {
-  // setSelectedBranch(branch.text);
   setbranch_text(branch.text);
-  // setbranch_id(branch.id);
   setbranch_id(branch.id ?? "");
   setSearchBranch("");
   setIsDropdownOpen(false); 
@@ -478,7 +436,7 @@ const handleSelectBranch = (branch : Account) => {
       )}
     </div>
 {(formData.daily_status === 'income') && (
-    // {/* Name Field */}
+   
     <label className="block">
       <span>Name</span>
       <input
@@ -496,10 +454,10 @@ const handleSelectBranch = (branch : Account) => {
    <label className="block">
       <label>Expense Type</label>
    <select
-     // value={expenseType}
+    
      value={formData.expense_name}
      name="expense_name"
-     // onChange={(e) => setExpenseType(e.target.value)}
+    
      onChange={handleChange}
      className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
    >
@@ -548,7 +506,7 @@ const handleSelectBranch = (branch : Account) => {
         onClick={() => setIsstaffDropdownOpen(!isstaffDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {/* {staff_text || "Select a Staff"} */}
+       
         {selectedStaff || formData.staff_name ||"Select a Staff"}
         
         <span className="ml-2">&#9662;</span> 
@@ -637,10 +595,10 @@ const handleSelectBranch = (branch : Account) => {
     <label className="block">
       <label>Payment Method</label>
    <select
-     // value={expenseType}
+    
      value={formData.payment_method}
      name="payment_method"
-     // onChange={(e) => setExpenseType(e.target.value)}
+    
      onChange={handleChange}
      className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
    >
@@ -652,26 +610,15 @@ const handleSelectBranch = (branch : Account) => {
    </div>       
 
 
-{/* {formData.daily_status === 'income' && ( */}
+
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-3">
   
 
-    {/* Amount Field */}
-    {/* <label className="block">
-      <span>Amount</span>
-      <input
-        type="text"
-        placeholder="Amount"
-         name="amount"
-        value={formData.amount}
-        onChange={handleChange}
-        className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-      />
-    </label> */}
+    
 
  
   </div>
-{/* )} */}
+
             {/* Submit Button */}
             <button
               type="submit"

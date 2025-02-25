@@ -1707,7 +1707,7 @@ const Admission = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                     #
                     </th>
                     <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number

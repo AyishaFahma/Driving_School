@@ -326,10 +326,7 @@ const page = () => {
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
   <div className="mt-5">
-<div className="gridjs-head">
-            <div className="gridjs-search">
             <div className="gridjs-head">
-           
            <div className="gridjs-search">
 <input type="search" 
 placeholder="Type a keyword..." 
@@ -339,8 +336,7 @@ defaultValue=""
 value={searchTerm}
 onChange={handleSearchChange}
 />
-</div>
-        </div>
+
             </div>
           </div>
         <div className="overflow-x-auto w-full">
@@ -348,7 +344,7 @@ onChange={handleSearchChange}
             <thead>
               <tr>
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                SL No
+               #
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Vehicle Type
@@ -410,13 +406,7 @@ currentEntries.map((item,index) =>(
                   <span>inactive</span>
                 </div>
                 )}
-                {/* {item.status} */}
-                 {/* {item.status === "completed" && (
-                <div className="badge space-x-2.5 rounded-full bg-info/10 text-info">
-                  <div className="size-2 rounded-full bg-current"/>
-                  <span>completed</span>
-                </div>
-                )} */}
+            
                 </td>
             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.added_date}
@@ -429,9 +419,7 @@ currentEntries.map((item,index) =>(
                           onClick={() => togglemodal('edit', item)}
                             />
                         </button>
-                        {/* <button className="btn size-8 p-0 text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-                          <i className="fa fa-trash-alt" onClick={() => updateAccountStatus(item.id!, item.status)}/>
-                        </button> */}
+                       
                            <button
                               onClick={() =>
                                 updateAccountStatus(item.id!, item.status)
@@ -528,9 +516,7 @@ currentEntries.map((item,index) =>(
       togglemodal={() => togglemodal('add')}  // Correct the mode here if you want to switch to 'edit'
       costData={selectedCost}
       onSave={(updatedCost) => {
-        // setCostData((prevData) => prevData.map((cost) =>
-        //   cost.id === updatedCost.id ? updatedCost : cost
-        // ));
+       
         setCostData((prevData) =>
           prevData.map((cost) =>
             cost.id === updatedCost.id ? updatedCost : cost

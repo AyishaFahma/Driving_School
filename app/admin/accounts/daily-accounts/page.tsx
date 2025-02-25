@@ -1,6 +1,5 @@
 
 
-
 'use client'
 import withAuth from '@/hoc/withAuth';
 import React, { useEffect, useRef, useState } from 'react'
@@ -47,19 +46,16 @@ const page = () => {
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredDate, setFilteredDate] = useState('');
-  
+  const [filteredDate, setFilteredDate] = useState("");
+
   const [dailystatusselected, setdailystatusselected] = useState<string>("");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   
     const [searchBranch, setSearchBranch] = useState("");
-    // const[searchBranchData,setSearchBranchData] =useState("");
-    // const[filteredBranch,setFilteredBranch]=useState("");
     const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
     const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      // const dropdownRef = useRef(null);
       const dropdownRef = useRef<HTMLDivElement>(null);
 
       const [isLoading, setIsLoading] = useState(false);
@@ -68,59 +64,21 @@ const page = () => {
     setModalMode(mode);
     setSelectedAccount(account);
     setShowmodal((prev) => !prev); 
-    fetchAccountData();
+    fetchStaffData();
   };
 
-
-  // const fetchAccountData = async () => {
-  
-
-  //   try {
-
-  //     const response = await fetch('/api/admin/accounts/accounts_details', {
-  //       method: 'POST',
-  //       headers: {
-  //          'authorizations': state?.accessToken ?? '', 
-  //         'api_key': '10f052463f485938d04ac7300de7ec2b', 
-  //       },
-  //       body: JSON.stringify({ 
-  //         id: null,
-  //         status: null,
-  //         date: null, }),
-  //     });
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
-  //     }
-      
-  //     const data = await response.json();
-     
-  //     if (data.success) {
-  //       setAccountData(data.data.accounts_details);
-  //       setFilteredData(data.data.accounts_details);
-  //       setExpenseData(data.data.expenses);
-  //     } else {
-  //     }
-  //   } catch (error) {
-  //     console.error("Fetch error:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchAccountData();
-  // }, [state]);
-
-  const fetchAccountData = async () => {
+  const fetchStaffData = async () => {
     try {
       const response = await fetch('/api/admin/accounts/accounts_details', {
         method: 'POST',
         headers: {
-          'authorizations': state?.accessToken ?? '', 
+           'authorizations': state?.accessToken ?? '', 
           'api_key': '10f052463f485938d04ac7300de7ec2b', 
         },
         body: JSON.stringify({ 
           id: null,
           status: null,
-          date: selectedDate, // Include the selected date here
+          date:filteredDate, // Include the selected date in the request
         }),
       });
       if (!response.ok) {
@@ -129,24 +87,20 @@ const page = () => {
       }
       
       const data = await response.json();
-      
+     
       if (data.success) {
         setAccountData(data.data.accounts_details);
         setFilteredData(data.data.accounts_details);
         setExpenseData(data.data.expenses);
       } else {
-        // Handle error
       }
     } catch (error) {
       console.error("Fetch error:", error);
     }
   };
   useEffect(() => {
-    fetchAccountData(); // Fetch data whenever the selected date changes
-  }, [selectedDate]);
-
-
-
+    fetchStaffData();
+  }, [filteredDate]);
 
   const fetchBranchData = async () => {
     try {
@@ -187,6 +141,8 @@ const page = () => {
   const [currentPage,setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
 
+
+  
   const applyFilters = () => {
     let newFilteredData = accountData;
   
@@ -202,17 +158,16 @@ const page = () => {
       );
     }
   
-    if (selectedDate) {
+    if (filteredDate) {
       newFilteredData = newFilteredData.filter((item) => {
-      
         const itemDate = item.added_date.split(" ")[0]; 
-        return itemDate === selectedDate;
+         return itemDate === filteredDate;
+        
       });
     }
-
     if (selectedBranch){
       newFilteredData = newFilteredData.filter(
-        (item) => item.branch_name=== selectedBranch
+        (item) => item.branch_name === selectedBranch
       );
     }
     return newFilteredData; 
@@ -227,41 +182,38 @@ const page = () => {
         item.type.toLowerCase().includes(value.toLowerCase()) ||
         item.expense_name.toLowerCase().includes(value.toLowerCase()) ||
         item.added_by.toLowerCase().includes(value.toLowerCase()) ||
-        item.status.toLowerCase().includes(value.toLowerCase())
+        item.status.toLowerCase().includes(value.toLowerCase()) ||
+        item.branch_name.toLowerCase().includes(value.toLowerCase())
     );
   
     setFilteredData(searchFilteredData); 
   };
   
- 
-
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
   
-    // Simulate a delay to show the loader (you can remove this in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // delay to show the loader
+    await new Promise(resolve => setTimeout(resolve, 300));
   
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
-  
- // Update the filtered date to the currently selected date
- setFilteredDate(selectedDate);
-
+    setFilteredDate(selectedDate);
     setIsLoading(false); // Stop loading
   };
-  //const handleReset = () => {
-   const handleReset = async () => {
-   setIsLoading(true); // Start loading
   
-    // Simulate a delay to show the loader (you can remove this in production)
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+  
+    // delay to show the loader
     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
-    setSelectedDate("");
+    const today = new Date().toISOString().split("T")[0];
+   setSelectedDate(today); 
+    setFilteredDate(today);
     setFilteredData(accountData); 
-   
     setSelectedBranch("");
     setIsLoading(false); // Stop loading
   };
@@ -276,12 +228,6 @@ const page = () => {
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
 
-
-  // const filteredEntries = accountData.filter((item) => {
-  //   if (!selectedDate) return true; // Show all if no date is selected
-  //   return item.added_date === selectedDate;
-  // });
-  
 
 
 
@@ -310,7 +256,7 @@ const page = () => {
     
         if (data.success) {
          
-          fetchAccountData();
+          fetchStaffData();
         } else {
           console.error("API error:", data.msg || "Unknown error");
         }
@@ -388,19 +334,21 @@ const fetchSearchBranch = async () => {
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     
+    // todays date
+useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    setSelectedDate(today);
+    setFilteredDate(today); // Set initial date
+  }, []);
 
-
-    useEffect(() => {
-      const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
-      setSelectedDate(today);
-      setFilteredDate(today); // Set filtered date to today initially
-    }, []);
-
-    const formatDate = (dateString) => {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-    };
-
+  // const formatDate = (dateString : any) => {
+  //   const options = { year:'numeric', month: 'long', day: 'numeric' };
+  //   return new Date(dateString).toLocaleDateString(undefined, options);
+  // };
+  const formatDate = (dateString: any) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
    
   return (
     <div className=" w-full  pb-8">
@@ -587,32 +535,32 @@ const fetchSearchBranch = async () => {
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
   <div className="mt-5">
-
- <p className="text-lg font-medium text-slate-800 dark:text-navy-50">
-  {/* Date :{filteredDate ? formatDate(filteredDate) : formatDate(selectedDate)} */}
-  Date :{formatDate(filteredDate)}
-  </p> 
- 
-
+  
   <div className="gridjs-head">
-            <div className="gridjs-search">
-            <input
-      type="text"
-      value={searchTerm}
-      onChange={handleSearchChange}
-        placeholder="Type a keyword..."
+              <div className="gridjs-search">
+                <input
+                  type="search"
+                  placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-      className="text-sm form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-    />
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
+                  defaultValue=""
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
             </div>
-          </div>
+
+          <p className="text-m font-medium text-slate-800 dark:text-navy-50 p-2">
+    Date : {formatDate(filteredDate)}
+    </p>
+
 
         <div className="overflow-x-auto w-full">
   <table className="is-hoverable w-full text-left">
             <thead>
               <tr>
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                SL No
+               #
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Source
@@ -631,7 +579,7 @@ const fetchSearchBranch = async () => {
                Amount
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-               Remarks
+             Remarks
                 </th> 
                 <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Action
@@ -649,7 +597,6 @@ const fetchSearchBranch = async () => {
     <>
       {currentEntries.length > 0 ? (
         currentEntries.map((item, index) => (
-       
           <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
             <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
               {index + indexOfFirstEntry + 1}
@@ -677,10 +624,7 @@ const fetchSearchBranch = async () => {
               )}
             </td>
             <td className="whitespace-nowrap px-4 py-3 sm:px-5">{item.amount}</td>
-            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-              {item.added_date}
-
-            </td>
+            <td className="whitespace-nowrap px-4 py-3 sm:px-5">{item.added_date}</td>
             <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
               <div className="flex space-x-2">
                 <button
@@ -777,6 +721,7 @@ const fetchSearchBranch = async () => {
   </div>
 </div>
       </div>
+     
   </div>
   </div>
 
