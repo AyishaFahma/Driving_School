@@ -122,6 +122,8 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false); 
   const branchDropdownRef = useRef<HTMLDivElement>(null);
   const serviceDropdownRef = useRef<HTMLDivElement>(null);
+
+  console.log(formData?.type,"type")
 ////
   const fetchbranchData = async () => {
     try {
@@ -565,11 +567,22 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
            
            const handleSelectService = (service:Admission) => {
              setSelectedService(service.text);
-            
+       
              setSearchService("");
              setIsserviceDropdownOpen(false); 
            };
-  
+
+          //  const handleSelectService = (service: any) => {
+          //   setSelectedService(service.text); // Set selected service
+          
+          //   // Reset dependent fields
+        //  setSelectedOption("");
+          //   settype("");
+         
+          //   setSelectedAmount("");
+          
+          //   setIsserviceDropdownOpen(false); // Close dropdown
+          // };
 
   // click to hide
   useEffect(() => {
@@ -642,12 +655,12 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 
               <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
                 <div className="flex-1 p-4 border border-gray-300 shadow-md rounded-lg ">
-                <label className="p-4 block mb-2 mt-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+                <label className="p-4 block mt-2 text-lg font-medium text-slate-700 dark:text-navy-100">
                 Profile Information
               </label>
                   {/* Profile Information */}
-                  <div className="mb-4 mt-4 p-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                  <div className="mb-4 p-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {/* Admission No */}
                   <label className="block">
                         <span>Admission No</span>
@@ -744,21 +757,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     </div>
                     {/* Additional Fields */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                          {/* Email*/}
-                      {/* <label className="block">
-                        <span>Email</span>
-                        <span className="relative mt-1.5 flex">
-                          <input
-                           name="email"
-                          //  value={formData.email}
-                          value={formData?.email || ""}
-                            onChange={handleChange}
-                            type="text"
-                            placeholder="email"
-                            className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          />
-                        </span>
-                      </label> */}
+                   
  {/*DL No:*/}
 <label className="block mt-2">
                         <span>DL No:</span>
@@ -1215,46 +1214,6 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                 {/* service and billno */}
                    {/* <div className="flex"> */}
                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-              {/* <div className="relative flex-1 w-full">
-              <span>Service</span>
-    <div
-      className="form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9"
-      onClick={() => setIsOpen(!isOpen)} 
-      
-    >
-      <span>{formData?.service_name || "Select a Service"}</span> 
-    </div>
-
-    {isOpen && (
-      // hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500
-      <div className="dark:bg-navy-700 absolute z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
-        <input
-          type="text"
-          placeholder="Search services..."
-          className="w-full px-3 py-2 border-b dark:bg-navy-700"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <div className="max-h-60 overflow-y-auto hide-scrollbar">
-          {filteredServices.length > 0 ? (
-            filteredServices.map((service) => (
-              <div
-                key={service.id}
-                // className="cursor-pointer px-3 py-2 hover:bg-gray-700 "
-                 className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                onClick={() => handleSelect(service)}
-              >
-                {service.service_name}
-              </div>
-            ))
-          ) : (
-            <div className="px-3 py-2 text-gray-400">No results found</div>
-          )}
-        </div>
-      </div>
-    )}
-  </div> */}
 <div className="relative w-full" ref={serviceDropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Service
@@ -1302,7 +1261,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
       )}
     </div>
 
-
+ {/*billno */}
 <label className="block ml-3 flex-1">
 <span>Bill No:</span>
                       <span className="relative mt-1 flex">
@@ -1321,7 +1280,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
  {/* Type,checkbox */}
             
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {(formData?.type === "lmv" || 
+                    {/* {(formData?.type === "lmv" || 
                    formData?.type === "mc" || 
                    formData?.type === "both" || 
                    formData?.type === "auto" 
@@ -1341,7 +1300,35 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
  <span className="ml-3">Licence</span>
 </label>
 </div> 
+)} */}
+
+{formData?.service_name === "licence fresh" &&(
+<>
+{(formData?.type === "lmv" || 
+  formData?.type === "mc" || 
+  formData?.type === "both" || 
+  formData?.type === "auto" 
+   ) && (
+     <div className="block">   
+
+<label >
+<input 
+className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+type="checkbox" />
+<span className="ml-3">Study</span>
+</label>
+<label className="ml-6">
+<input 
+className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+type="checkbox" />
+<span className="ml-3">Licence</span>
+</label>
+</div> 
 )}
+</>
+)
+}
+
                     {(formData?.service_name === "licence fresh" ||
                   formData?.service_name === "renewal licence" ||
                   formData?.service_name === "duplicate licence" ||
@@ -1353,7 +1340,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
   <span>Type</span>
   <span className="relative mt-1 flex">
                          <select 
-                         value={formData?.type || ""}
+                         value={formData?.type ||""}
                         onChange={handleChange}
                         name="type"
                         className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
@@ -1474,7 +1461,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                   </label>
 
 
-                                   {/* Trial Amount */}
+{/* Trial Amount */}
 <label className="block">
                     <span>Trial Amount</span>
                     <span className="relative flex">
@@ -1489,252 +1476,21 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       />
                     </span>
                   </label> 
+                     {/* Remarks*/}
+                     <label className="block ">
+                        <span>Remarks</span>
+                        <span className="relative mt-1 flex">
+                          <textarea 
+                          rows={2}
+                            name="address"
+                            value={formData?.pay_amount || ""}
+                            onChange={handleChange}
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            // placeholder="Address" 
+                          />
+                        </span>
+                      </label>
 </div>
-                {/* Additional Fields */}
-                {/* {(formData?.service_name === "rc transfer" ||
-                  formData?.service_name === "cf" ||
-                  formData?.service_name === "cf renewal" ||
-                  formData?.service_name === "rc renewal" ||
-                  formData?.service_name === "sfds") && (
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  
-                    <label className="block ">
-                      <span className="relative mt-1.5 flex">
-                        <input
-                           value={formData?.tax || ""}
-                           onChange={handleChange}
-                          type="text"
-                          placeholder="Tax"
-                          className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        />
-                      </span>
-                    </label>
-                
-                    <label className="block ">
-                      <span className="relative mt-1.5 flex">
-                        <input
-                           value={formData?.pucc || ""}
-                           onChange={handleChange}
-                           name="pucc"
-                          type="text"
-                          placeholder="Pucc"
-                          className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        />
-                      </span>
-                    </label>
-
-                   
-                    <div>
-                          <label className="block mb-2 mt-4">
-                          Old RC
-                          </label>
-                          <div className="ml-2">
-               
-               {RcPreview? (
-       // If an image is selected, show the preview
-       <div className="mb-2">
-         <img
-           src={RcPreview}
-           alt="Selected"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     ) : (
-       // If no image is selected, show the default rc_document image
-       <div className="mb-2">
-         <img
-  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData.old_rc}`}
-           alt="RC Document"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     )}
-               
-                {!RcPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
-                 Select Image
-                 <input
-                   type="file"
-                   accept="image/*"
-                   onChange={handleRcchange}
-                   className="hidden"
-                 />
-               </label>
-             )}
-
-             {RcPreview  && (
-               <div className="mt-2 flex">
-                 
-
-                 <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
-                       htmlFor="imageUpload"
-                     >
-                       Change
-                     </label>
-                     <input
-                       id="imageUpload"
-                       type="file"
-                       accept="image/*"
-                       onChange={handleRcchange}
-                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
-                     />
-
-<button
-                   type="button"
-                   onClick={handleRemoveRc}
-                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
-                 >
-                   Remove
-                 </button>
-               </div>
-             )}
-                           </div>
-                    </div>
-
-                
-                    <div>
-                          <label className="block mb-2 mt-4">
-                          Aadhaar
-                          </label>
-
-                         
-                          <div className="ml-2">
-               
-               {AadhaarPreview? (
-       // If an image is selected, show the preview
-       <div className="mb-2">
-         <img
-           src={AadhaarPreview}
-           alt="Selected"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     ) : (
-       // If no image is selected, show the default rc_document image
-       <div className="mb-2">
-         <img
-  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.adhar}`}
-           alt="RC Document"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     )}
-               
-                {!AadhaarPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
-                 Select Image
-                 <input
-                   type="file"
-                   accept="image/*"
-                   onChange={handleAadhaarchange}
-                   className="hidden"
-                 />
-               </label>
-             )}
-
-             {AadhaarPreview  && (
-               <div className="mt-2 flex">
-                 
-
-                 <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
-                       htmlFor="imageUpload"
-                     >
-                       Change
-                     </label>
-                     <input
-                       id="imageUpload"
-                       type="file"
-                       accept="image/*"
-                       onChange={handleAadhaarchange}
-                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
-                     />
-
-<button
-                   type="button"
-                   onClick={handleRemoveAadhaar}
-                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
-                 >
-                   Remove
-                 </button>
-               </div>
-             )}
-             </div>
-                        </div>
-
-                  
-                    <div>
-                          <label className="block mb-2 mt-4">
-                          Insurence
-                          </label>
-
-                         
-                          <div className="ml-2">
-               
-               {InsurencePreview? (
-     
-       <div className="mb-2">
-         <img
-           src={InsurencePreview}
-           alt="Selected"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     ) : (
-       // If no image is selected, show the default rc_document image
-       <div className="mb-2">
-         <img
-  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.insurence}`}
-           alt="RC Document"
-           className="w-32 h-32 object-cover border rounded"
-         />
-       </div>
-     )}
-               
-                {!InsurencePreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
-                 Select Image
-                 <input
-                   type="file"
-                   accept="image/*"
-                   onChange={handleInsurencechange}
-                   className="hidden"
-                 />
-               </label>
-             )}
-
-             {InsurencePreview  && (
-               <div className="mt-2 flex">
-                 
-
-                 <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
-                       htmlFor="imageUpload"
-                     >
-                       Change
-                     </label>
-                     <input
-                       id="imageUpload"
-                       type="file"
-                       accept="image/*"
-                       onChange={handleInsurencechange}
-                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
-                     />
-
-<button
-                   type="button"
-                   onClick={handleRemoveInsurence}
-                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
-                 >
-                   Remove
-                 </button>
-               </div>
-             )}
-             </div>
-                        </div>
-                  </div>
-                )} */}
 
 <button
               type="submit"

@@ -13,7 +13,7 @@ interface Driver {
   date_of_joining: string;
   password: string;
   user_id?: string;
-  text:string;
+  text: string;
   id?: string;
 }
 
@@ -52,11 +52,10 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-  // Prevent spaces in the password field
-  if (name === "password" && value.includes(" ")) {
-    return;
-}
-
+    // Prevent spaces in the password field
+    if (name === "password" && value.includes(" ")) {
+      return;
+    }
 
     setFormData((prevData) =>
       prevData ? { ...prevData, [name]: value } : null
@@ -80,8 +79,8 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
           password: formData.password,
         };
         console.log("formData:", formData);
-       // console.log("Address value:", formData.address);
-        
+        // console.log("Address value:", formData.address);
+
         console.log("Transformed Data:", transformedData);
 
         const response = await fetch(`/api/admin/settings/update_driver`, {
@@ -98,7 +97,7 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
         const data = await response.json();
         toast.success("Driver updated successfully");
         console.log("Response Data:", data);
-       // setTimeout(() => toggleModal(), 2000);
+        // setTimeout(() => toggleModal(), 2000);
         if (data.success) {
           setSuccess(true);
           onSave(formData);
@@ -186,7 +185,7 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
                     onChange={handleChange}
                     onKeyPress={(e) => {
                       // Allow only numbers, backspace, and dot
-                      if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                      if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
                         e.preventDefault();
                       }
                     }}
@@ -239,16 +238,13 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
                   </span>
                 </span>
               </label>
-
-      
-
             </div>
 
             <button
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-              {loading ? 'Updating...' : 'Update'}
+              {loading ? "Updating..." : "Update"}
             </button>
           </form>
         </div>

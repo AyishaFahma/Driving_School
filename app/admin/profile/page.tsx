@@ -1,3 +1,5 @@
+
+
 "use client";
 import { useAuth } from "@/app/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
@@ -527,16 +529,6 @@ const AdminProfile = () => {
                   <h2 className="text-lg font-medium tracking-wide text-slate-700 dark:text-navy-100">
                     Account Settings
                   </h2>
-                  {/* <div className="flex justify-center space-x-2">
-                    <button
-                      className="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                      type="submit"
-                      disabled={isSubmitting}
-                     
-                    >
-                      {isSubmitting ? "Updating..." : "Update"}
-                    </button>
-                  </div> */}
                 </div>
 
                 <div className="p-4 sm:p-5">
@@ -545,7 +537,7 @@ const AdminProfile = () => {
                       <span>First Name </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder="User name"
                           type="text"
                           name="first_name"
@@ -561,7 +553,7 @@ const AdminProfile = () => {
                       <span>Last Name </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder="Enter name"
                           type="text"
                           name="second_name"
@@ -577,7 +569,7 @@ const AdminProfile = () => {
                       <span>Email Address </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder="Enter email address"
                           type="text"
                           name="email"
@@ -593,7 +585,7 @@ const AdminProfile = () => {
                       <span>Phone Number</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder="Enter phone number"
                           type="text"
                           name="mobile"
@@ -614,7 +606,7 @@ const AdminProfile = () => {
                           rows={3}
                           placeholder=" "
                           name="address"
-                          className="form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           value={userData.address}
                           onChange={handleInputChange}
                         />
@@ -626,7 +618,7 @@ const AdminProfile = () => {
                       <span>City </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder=""
                           type="text"
                           name="city"
@@ -639,7 +631,7 @@ const AdminProfile = () => {
                       <span>Zipcode</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder=""
                           type="text"
                           name="zip_code"
@@ -650,7 +642,7 @@ const AdminProfile = () => {
                     </label>
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-4 mt-4">
                     <label className="block mb-2 font-medium">User Photo</label>
                     <div className="w-32 h-32">
                       {profileImage ? (
@@ -684,7 +676,7 @@ const AdminProfile = () => {
                   )}
                   {profileImage && (
                     <>
-                      <label className="cursor-pointer bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
+                      <label className="cursor-pointer bg-primary hover:bg-primary-focus text-white font-bold py-3 px-4 rounded">
                         Change
                         <input
                           type="file"
@@ -695,7 +687,7 @@ const AdminProfile = () => {
                       </label>
                       <button
                         onClick={handleRemoveImage}
-                        className="outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                        className="ml-4 outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                       >
                         Remove
                       </button>
@@ -721,17 +713,6 @@ const AdminProfile = () => {
                   <h2 className="text-lg font-medium tracking-wide text-slate-700 dark:text-navy-100">
                     Change password
                   </h2>
-                  {/* <div className="flex justify-center space-x-2">
-                    
-                 
-                    <button
-                      className="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Saving..." : "Save"}
-                    </button>
-                  </div> */}
                 </div>
 
                 <div className="p-4 sm:p-5">
@@ -741,34 +722,34 @@ const AdminProfile = () => {
                       <input
                         type={showPassword ? "text" : "password"}
                         name="new_password"
-                        className="form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Enter new password"
                         value={changePasswordData.new_password}
                         onChange={handlePasswordInputChange}
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-4"
+                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-6"
                         onClick={togglePasswordVisibility}
                       >
                         {showPassword ? <IoEye /> : <IoEyeOff />}
                       </span>
                     </div>
-                    <div className="relative">
+                    <div className="relative mt-3">
                       <label className="block mt-1.5">
                         Confirm New Password:
                       </label>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirm_password"
-                        className="form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Confirm new password"
                         value={changePasswordData.confirm_password}
                         onChange={handlePasswordInputChange}
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-4"
+                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-6"
                         onClick={toggleConfirmPasswordVisibility}
                       >
                         {showConfirmPassword ? <IoEye /> : <IoEyeOff />}

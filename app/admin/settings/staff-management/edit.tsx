@@ -401,7 +401,7 @@ useEffect(() => {
         onClick={() => setShowPassword(!showPassword)} 
         className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent"
       >
-        {showPassword ? <HiEyeOff size={20} /> : <HiEye size={20} />}
+        {showPassword ? <HiEye size={20} /> : <HiEyeOff size={20} />}
       </span>
     </span>
             </label>

@@ -74,9 +74,10 @@ const Payment: React.FC<CreateProps> = ({
     }
   }, [formData]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
     const { name, value } = e.target;
     setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -170,26 +171,26 @@ const Payment: React.FC<CreateProps> = ({
                 {/* Bill NO */}
                 <label className="block">
                 <span>Bill No:</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
                     name="billno"
                     value={localFormData.billno}
                     readOnly
                     type="text"
                     placeholder="Bill no"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
             {/* Payment Method */}
               <label className="block">
                 <span>Payment Method</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <select
                     name="payment_method"
                     value={localFormData.payment_method}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                    className="text-sm pl-2 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
                     <option value="cash">Cash</option>
                     <option value="online">Online</option>
@@ -199,49 +200,49 @@ const Payment: React.FC<CreateProps> = ({
   {/* Total Amount */}
               <label className="block">
                 <span>Total Amount</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
                     name="amount"
                     value={localFormData.amount}
                     readOnly
                     type="text"
                     placeholder="Enter Total Amount"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
   {/* Paid Amount*/}
               <label className="block">
                 <span>Paid Amount</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
                     name="pay_amount"
                     value={localFormData.pay_amount}
                     readOnly
                     type="text"
                     placeholder="Enter Payed Amount"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
                {/* Due Amount */}
               <label className="block">
                 <span>Due Amount</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
                     name="due_amount"
                     value={localFormData.due_amount}
                     readOnly
                     type="text"
                     placeholder="Enter Due Amount"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
                {/* Pay Amount*/}
               <label className="block">
                 <span>Pay Amount</span>
-                <span className="relative mt-1.5 flex">
+                <span className="relative mt-1 flex">
                   <input
                     name="payed_amount"
                     value={localFormData.payed_amount}
@@ -250,42 +251,27 @@ const Payment: React.FC<CreateProps> = ({
                     placeholder="Pay Amount"
                     step="1"
                     min="0"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
+                 {/* Remarks*/}
+                 <label className="block ">
+                        <span>Remarks</span>
+                        <span className="relative mt-1 flex">
+                          <textarea 
+                          rows={2}
+                           name="payed_amount"
+                            value={localFormData.payed_amount}
+                            onChange={handleChange}
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                           
+                          />
+                        </span>
+                      </label>
             </div>
 
-            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
-              <label className="block">
-                <span>Due Amount</span>
-                <span className="relative mt-1.5 flex">
-                  <input
-                    name="due_amount"
-                    value={localFormData.due_amount}
-                    readOnly
-                    type="text"
-                    placeholder="Enter Due Amount"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  />
-                </span>
-              </label>
-              <label className="block">
-                <span>Payable Amount</span>
-                <span className="relative mt-1.5 flex">
-                  <input
-                    name="payed_amount"
-                    value={localFormData.payed_amount}
-                    onChange={handleChange}
-                    type="number"
-                    placeholder="Enter Paying Amount"
-                    step="1"
-                    min="0"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  />
-                </span>
-              </label>
-            </div> */}
+          
 
             <div className="mt-4">
               <button

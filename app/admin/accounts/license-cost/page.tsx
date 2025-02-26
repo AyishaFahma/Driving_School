@@ -596,65 +596,79 @@ currentEntries.map((item,index) =>(
             </tbody>
           </table>
         </div>
-        <div className="flex justify-between items-center mt-4">
-        <div>
-          Showing {indexOfFirstEntry + 1} to {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries} entries
-        </div>
-        <div>
-          <button
-            onClick={() => setCurrentPage(1)}
-            disabled={currentPage === 1}
-            className="px-4 py-2 border rounded-md"
-          >
-            First
-          </button>
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 border rounded-md"
-          >
-            Previous
-          </button>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 border rounded-md ${currentPage === i + 1 ? 'bg-[#4f46e5] text-white' : ''}`}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 border rounded-md"
-          >
-            Next
-          </button>
-          <button
-            onClick={() => setCurrentPage(totalPages)}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 border rounded-md"
-          >
-            Last
-          </button>
-        </div>
-      </div>
+       
+  <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0">
+              <div className="text-center sm:text-left">
+                Showing {indexOfFirstEntry + 1} to{" "}
+                {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries}{" "}
+                entries
+              </div>
+
+              {/* Pagination */}
+              <div className="flex flex-wrap justify-center sm:justify-end gap-2">
+                <button
+                  onClick={() => setCurrentPage(1)}
+                  disabled={currentPage === 1}
+                  className={`px-4 py-2 border rounded-md ${
+                    currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                >
+                  First
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className={`px-4 py-2 border rounded-md ${
+                    currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i + 1}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`px-4 py-2 border rounded-md ${
+                      currentPage === i + 1 ? "bg-[#4f46e5] text-white" : ""
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`px-4 py-2 border rounded-md ${
+                    currentPage === totalPages
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                  }`}
+                >
+                  Next
+                </button>
+                <button
+                  onClick={() => setCurrentPage(totalPages)}
+                  disabled={currentPage === totalPages}
+                  className={`px-4 py-2 border rounded-md ${
+                    currentPage === totalPages
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                  }`}
+                >
+                  Last
+                </button>
+              </div>
+            </div>
+
+
       </div>
   </div>
   </div>
-  {/* <Add
-  showmodal={showmodal}
-  togglemodal={togglemodal}
-  formData={selectedCost ? { 
-    service_id: selectedCost.service_id, 
-    vehicle_type: selectedCost.vehicle_type, 
-    f_cost: selectedCost.f_cost, 
-    m_cost: selectedCost.m_cost, 
-    id:selectedCost.id || ""
-  } : undefined}
-  isEditing={!!selectedCost}
-/> */}
+ 
 
 {showmodal && (
   modalMode === 'edit' ? (

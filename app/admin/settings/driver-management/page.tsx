@@ -339,28 +339,6 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
             <form>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {/* Driver Name Select */}
-                {/* <div className="flex-1">
-                  <label
-                    htmlFor="driverName"
-                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-                  >
-                    Driver Name
-                  </label>
-                  <select
-                    id="driverName"
-                    name="driverName"
-                    value={selectedDriver}
-                    onChange={(e) => setSelectedDriver(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                  >
-                    <option value="">All Drivers</option>
-                    {driverData.map((driver) => (
-                      <option key={driver.id} value={driver.first_name}>
-                        {driver.first_name}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
                  <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Driver Name

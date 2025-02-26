@@ -138,19 +138,6 @@ const Add: React.FC<AddProps> = ({ showmodal, togglemodal }) => {
               </label>
 
 
-              {/* <label className="block">
-                <span>Amount</span>
-                <input
-                  className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  placeholder="Amount"
-                  name="amount"
-                  type="number"
-                  value={formData.amount}
-                  onChange={(e) =>
-                    setFormData({ ...formData, amount: e.target.value })
-                  }
-                />
-              </label> */}
 <label className="block">
   <span>Amount</span>
   <input

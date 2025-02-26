@@ -15,7 +15,7 @@ interface Vehicle {
   userfile: File | null;
   rc_document: string | File;
   mobile: string;
-  text:string;
+  text: string;
 }
 interface EditProps {
   showModal: boolean;
@@ -264,7 +264,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
               </label>
 
               <div className="ml-2">
-              <span className="mb-2">RC Upload</span>
+                <span className="mb-2">RC Upload</span>
                 {imagePreview ? (
                   // If an image is selected, show the preview
                   <div className="mb-2">
@@ -333,7 +333,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                 type="submit"
                 className="bg-primary text-white rounded p-2 w-1/5"
               >
-                {loading ? 'Updating...' : 'Update'}
+                {loading ? "Updating..." : "Update"}
               </button>
             </div>
           </form>

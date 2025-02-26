@@ -38,21 +38,6 @@ const [loading, setLoading] = useState(false);
   }, [branchData]);
 
  
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement> | string,
-  //   fieldName?: string
-  // ) => {
-  //   if (typeof e === "string" && fieldName) {
-  //     setFormData((prevData) =>
-  //       prevData ? { ...prevData, [fieldName]: e } : null
-  //     );
-  //   } else if (e instanceof Event && 'target' in e) { 
-  //     const { name, value } = e.target as HTMLInputElement; 
-  //     setFormData((prevData) =>
-  //       prevData ? { ...prevData, [name]: value } : null
-  //     );
-  //   }
-  // };
   
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | string,
