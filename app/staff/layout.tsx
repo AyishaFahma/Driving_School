@@ -96,6 +96,7 @@ import Head from "next/head";
 import MobileSearchbar from "../dashboard/MobileSearchbar";
 import Topbar from "./dashboard/Topbar";
 import Sidebar from "../dashboard/Sidebar";
+import Footer from "../dashboard/Footer";
 export default function DashboardLayout({
   children,
 }: {
@@ -180,8 +181,9 @@ export default function DashboardLayout({
             {/* </div> */}
           </main>
         </div>
+        
       </div>
-
+      <Footer/>
       <script src="/dist/js/app.js" defer></script>
       <script src="/dist/js/main.js" defer></script>
     </>

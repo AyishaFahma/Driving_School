@@ -1,7 +1,7 @@
 
 'use client'
 import withAuth from '@/hoc/withAuth';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { strict } from 'assert';
 import { useAuth } from '@/app/context/AuthContext';
@@ -23,6 +23,7 @@ type Account = {
   amount:string;
   total_income:string;
   total_expense:string;
+  text:string;
 };
 
 const page = () => {
@@ -39,6 +40,13 @@ const page = () => {
   const [dailystatusselected, setdailystatusselected] = useState<string>("");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+
+ const [searchBranch, setSearchBranch] = useState("");
+  const [searchBranchData, setSearchBranchData] = useState<Account[]>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
 
   const togglemodal = (mode: 'add' | 'edit', account: Account | null = null) => {
     setModalMode(mode); 
@@ -186,6 +194,80 @@ const page = () => {
       }
     };
 
+  const fetchSearchBranch = async () => {
+    try {
+      const response = await fetch(
+        "/api/admin/report/get_branch_autocomplete",
+        {
+          method: "POST",
+          headers: {
+            authorizations: state?.accessToken ?? "",
+            api_key: "10f052463f485938d04ac7300de7ec2b",
+          },
+          body: JSON.stringify({}),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! Status: ${response.status} - ${
+            errorData.message || "Unknown error"
+          }`
+        );
+      }
+
+      const data = await response.json();
+      //   console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setSearchBranchData(data.data.branch_details || []);
+        setFilteredBranch(data.data.branch_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchBranch();
+  }, [state]);
+
+  const handleSearchBranch = (e: any) => {
+    const value = e.target.value;
+    setSearchBranch(value);
+
+    const searchData = searchBranchData.filter(
+      (item) => item.text.toLowerCase().includes(value.toLowerCase())
+      // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
+      // item.email.toLowerCase().includes(value.toLowerCase()) ||
+      // item.pay_status.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredBranch(searchData);
+  };
+
+  const handleSelectBranch = (branch: Account) => {
+    setSelectedBranch(branch.text);
+
+    setSearchBranch("");
+    setIsDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && event.target instanceof Node) {
+        if (!dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
 
    
   return (
@@ -270,7 +352,7 @@ const page = () => {
       />
     </div>
       </div>
-      <div className="mt-4 flex space-x-4">
+      {/* <div className="mt-4 flex space-x-4">
         <button
           type="submit"
           className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -293,7 +375,77 @@ const page = () => {
           ></i>
           Reset
         </button>
-      </div>
+      </div> */}
+       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+                <div className="relative w-full" ref={dropdownRef}>
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  >
+                    Branch Name
+                  </label>
+                  <div
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                  >
+                    {selectedBranch || "Select a Branch"}
+                    <span className="ml-2">&#9662;</span>
+                  </div>
+                  {isDropdownOpen && (
+                    <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                      <input
+                        type="text"
+                        value={searchBranch}
+                        onChange={handleSearchBranch}
+                        placeholder="Search..."
+                        className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                      />
+                      <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                        {filteredBranch.length > 0 ? (
+                          filteredBranch.map((branch) => (
+                            <li
+                              key={branch.id}
+                              onClick={() => handleSelectBranch(branch)}
+                              className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                            >
+                              {branch.text}
+                            </li>
+                          ))
+                        ) : (
+                          <li className="px-3 py-2 text-gray-500 dark:text-gray-400">
+                            No results found
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-4 flex space-x-4">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={handleFilterSubmit}
+                  >
+                    <i
+                      className="fa fa-filter"
+                      style={{ marginTop: "3px", marginRight: "3px" }}
+                    ></i>
+                    Filter
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={handleReset}
+                  >
+                    <i
+                      className="fa fa-refresh"
+                      style={{ marginTop: "3px", marginRight: "3px" }}
+                    ></i>
+                    Reset
+                  </button>
+                </div>
+              </div>
     </form>
   </div>
   </div>
@@ -359,10 +511,16 @@ const page = () => {
             <thead>
               <tr>
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                SL No
+                #
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Source
+                </th>
+                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+              Added By
+                </th>
+                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+              Branch Name
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Type
@@ -372,7 +530,7 @@ const page = () => {
                Amount
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-               Date
+             Remarks
                 </th> 
                 <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Action

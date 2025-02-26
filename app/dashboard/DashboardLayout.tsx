@@ -224,6 +224,7 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import Head from "next/head";
 import MobileSearchbar from "./MobileSearchbar";
+import Footer from "./Footer";
 
 export default function DashboardLayout({
   children,
@@ -285,8 +286,9 @@ export default function DashboardLayout({
             {/* </div> */}
           </main>
         </div>
+       
       </div>
-
+      <Footer/>
       <script src="/dist/js/app.js" defer></script>
       <script src="/dist/js/main.js" defer></script>
     </>
