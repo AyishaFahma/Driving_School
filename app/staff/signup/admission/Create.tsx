@@ -374,7 +374,8 @@ const handleSelect = (service: { id: string; service_name: string; amount?: stri
         <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
           <h3 className="text-base font-medium text-slate-700 dark:text-navy-100">
           {/* Add Admission */}
-          {isEditing ? "Edit Admission" : "Add Admission"}
+          {/* {isEditing ? "Edit Admission" : "Add Admission"} */}
+          Add Admission
           </h3>
           <button
             onClick={togglemodal}
@@ -448,7 +449,7 @@ onClick={() => setmobileOpen(!isOpen)} >
         
        
       >
-        <span>{mobile || 'Select a number'}</span>
+        <span>{mobile || 'Select a Number'}</span>
       </div>
       </div>
 
@@ -498,7 +499,7 @@ onClick={() => setmobileOpen(!isOpen)} >
                         value={name}
                        onChange={(e) => setname(e.target.value)}
                           className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="name"
+                          placeholder="Name"
                           type="text"
                         />
                       </span>
@@ -511,7 +512,7 @@ onClick={() => setmobileOpen(!isOpen)} >
                          value={mobile}
                          onChange={(e) => setmobile(e.target.value)}
                           className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="mobile"
+                          placeholder="Mobile"
                           type="text"
                         />
                       </span>
@@ -528,7 +529,7 @@ onClick={() => setmobileOpen(!isOpen)} >
                          value={email}
                          onChange={(e) => setemail(e.target.value)}
                           type="text"
-                          placeholder="email"
+                          placeholder="Email"
                           className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         />
                       </span>
@@ -1016,7 +1017,7 @@ onClick={() => setmobileOpen(!isOpen)} >
                     onChange={(e) => setpayment_method(e.target.value)}
                       className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     >
-                      <option >Select payment method</option>
+                      <option >Select Payment Method</option>
                       <option value="cash">Cash</option>
                       <option value="online">Online</option>
                     </select>
@@ -1029,7 +1030,7 @@ onClick={() => setmobileOpen(!isOpen)} >
                   
                     <input
                       type="text"
-                      placeholder="Total amount"
+                      placeholder="Total Amount"
                       value={selectedAmount}
                       className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />

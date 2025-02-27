@@ -314,7 +314,7 @@ const page = () => {
             value={dailystatusselected}
             onChange={(e) => setdailystatusselected(e.target.value)}
           >
-            <option value="">Please select Account Type</option>
+            <option value="">Please Select Account Type</option>
             <option value="expense">Expense</option>
             <option value="income">Income</option>
           </select>

@@ -401,7 +401,7 @@ const handleSelectBranch = (branch : Account) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {branch_text || formData.branch_name || "Select a branch"}
+        {branch_text || formData.branch_name || "Select a Branch"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
@@ -491,6 +491,12 @@ const handleSelectBranch = (branch : Account) => {
          name="amount"
         value={formData.amount}
         onChange={handleChange}
+        onKeyPress={(e) => {
+          // Allow only numbers, backspace, and dot
+          if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+            e.preventDefault();
+          }
+        }}
         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>

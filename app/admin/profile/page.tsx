@@ -11,6 +11,7 @@ import {
   FaLinkedin,
   FaTwitter,
 } from "react-icons/fa";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
@@ -185,9 +186,18 @@ const AdminProfile = () => {
 
   const handlePasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+if (/\s/.test(value)) {
+  setMessage("Password should not contain spaces.");
+} else {
+  setMessage(""); // Clear error when valid
+}
+
+
     setChangePasswordData((prevData) => ({
       ...prevData,
-      [name]: value,
+      // [name]: value,
+      [name]: value.replace(/\s/g, ""),
     }));
   };
 
@@ -213,7 +223,7 @@ const AdminProfile = () => {
     if (changePasswordData.new_password.length < 6) {
       // setMessage("New password must be at least 6 characters long.");
       // setIsSubmitting(false);
-      toast.error("New password must be at least 6 characters long.");
+      toast.error("Password must be at least 6 characters long.");
       setLoading(false);
       return;
     }
@@ -591,6 +601,12 @@ const AdminProfile = () => {
                           name="mobile"
                           value={userData.mobile}
                           onChange={handleInputChange}
+                          onKeyPress={(e) => {
+                            // Allow only numbers and backspace
+                            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                           <i className="fa fa-phone" />
@@ -726,13 +742,14 @@ const AdminProfile = () => {
                         placeholder="Enter new password"
                         value={changePasswordData.new_password}
                         onChange={handlePasswordInputChange}
+                        // onKeyDown={(e) => e.key === " " && e.preventDefault()} 
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-6"
+                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent mt-6"
                         onClick={togglePasswordVisibility}
                       >
-                        {showPassword ? <IoEye /> : <IoEyeOff />}
+                        {showPassword ? <HiEye size={16}/> : <HiEyeOff size={16}/>}
                       </span>
                     </div>
                     <div className="relative mt-3">
@@ -749,10 +766,10 @@ const AdminProfile = () => {
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-6"
+                        className="absolute inset-y-0 right-6 flex items-center cursor-pointer text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent mt-6"
                         onClick={toggleConfirmPasswordVisibility}
                       >
-                        {showConfirmPassword ? <IoEye /> : <IoEyeOff />}
+                        {showConfirmPassword ? <HiEye size={16}/> : <HiEyeOff size={16}/>}
                       </span>
                     </div>
                     {message && (
