@@ -896,7 +896,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             onChange={(e) => setblood_group(e.target.value)}
                             className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
-                            <option>Please select Blood Group</option>
+                            <option>Please Select Blood Group</option>
                             <option value="A+ve">A+ve</option>
                             <option value="O+ve">O+ve</option>
                             <option value="B+ve">B+ve</option>
@@ -920,7 +920,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             onChange={(e) => setgender(e.target.value)}
                             className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
-                            <option>Please select Gender</option>
+                            <option>Please Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="others">Others</option>

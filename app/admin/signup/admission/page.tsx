@@ -678,7 +678,7 @@ const Admission = () => {
           className="px-4 py-2 bg-[#4f46e5] text-white rounded-md"
           onClick={() => togglemodal("add")}
         >
-          Add admission
+          Add Admission
         </button>
       </div>
 
@@ -859,7 +859,7 @@ const Admission = () => {
                             )}
 
                       
-                            <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                            {/* <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
                               onClick={() =>
                                 window.open(
                                   `/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`,
@@ -868,7 +868,19 @@ const Admission = () => {
                               } >
                         
                               <RiBillFill className="w-4 h-4" />
-                            </button>
+                            </button> */}
+                            <button
+  onClick={() => {
+    sessionStorage.setItem('viewPaymentData', JSON.stringify({
+      user_id: item.customer_id,
+      cus_service_id: item.id
+    }));
+    window.open(`/admin/report/view-payment`, '_blank');
+  }}
+  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+>
+  <RiBillFill />
+</button>
                           </div>
                         </td>
                       </tr>

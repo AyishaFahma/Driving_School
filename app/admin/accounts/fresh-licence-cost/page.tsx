@@ -243,7 +243,7 @@ const page = () => {
         
     <div className="flex items-center space-x-4 py-5 lg:py-6">
     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
-    Fresh Licence cost
+    Fresh Licence Cost
     </h2>
     <div className="hidden h-full py-1 sm:flex">
       <div className="h-full w-px bg-slate-300 dark:bg-navy-600" />
@@ -260,7 +260,7 @@ const page = () => {
       <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
-      <li>Fresh Licence cost</li>
+      <li>Fresh Licence Cost</li>
     </ul>
   </div>
 
@@ -312,12 +312,12 @@ const page = () => {
 
   <div className="flex items-center justify-between py-5 lg:py-6">
                 <span className="text-lg font-medium text-slate-800 dark:text-navy-50">
-                 Licence cost
+                 Licence Cost
                 </span>
                 <button className="px-4 py-2 bg-[#4f46e5] text-white rounded-md" 
                  onClick={() => togglemodal('add')}
                 >  
-         Add Licence cost
+         Add Licence Cost
                 </button>
                
             </div>

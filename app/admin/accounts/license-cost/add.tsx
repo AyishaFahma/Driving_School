@@ -241,7 +241,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {selectedService || "Select a service"}
+        {selectedService || "Select a Service"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
@@ -283,7 +283,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               <select name="vehicle_type" value={localFormData.vehicle_type} onChange={handleChange} 
               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
               >
-                <option value="">Please select vehicle type</option>
+                <option value="">Please Select Vehicle Type</option>
                <option value="LMV">LMV</option>
                <option value="MC">MC</option>
                <option value="Both">Both</option>

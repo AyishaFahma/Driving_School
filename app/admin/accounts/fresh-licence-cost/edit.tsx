@@ -158,7 +158,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
              value={formData.vehicle_type}
               onChange={handleChange}
                type="text"
-                placeholder="vehicle_type"
+                placeholder="Vehicle Type"
                 readOnly
                 // className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
@@ -176,7 +176,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
              value={formData.gender}
               onChange={handleChange}
                type="text"
-                placeholder="gender"
+                placeholder="Gender"
                 readOnly
                 // className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
                 className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
@@ -191,7 +191,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               ) ? (
                 <>
                   <label className="block">
-                  <span>LMV MC both study</span>
+                  <span>LMV MC both Study</span>
               <input 
               name="lmc_mc_both_study"
                value={formData.lmc_mc_both_study}
@@ -202,7 +202,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               </label>
 
 <label className="block">
-<span>LMV MC both licence</span>
+<span>LMV MC both Licence</span>
 <input 
 name="lmc_mc_both_licence"
 value={formData.lmc_mc_both_licence}
@@ -214,7 +214,7 @@ className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-sla
 
 
 <label className="block">
-<span>LMV study MC licence</span>
+<span>LMV Study MC Licence</span>
 <input 
 name="lmc_study_mc_licence"
 value={formData.lmc_study_mc_licence}
@@ -264,7 +264,7 @@ className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-sla
     }
   }}
    type="text"
-    placeholder="licence cost"
+    placeholder="Licence Cost"
     className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
 </label>
 </>

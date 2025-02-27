@@ -161,7 +161,7 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
           <form onSubmit={handleSubmit} className="p-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block">
-                <span>Driver name </span>
+                <span>Driver Name </span>
                 <span className="relative mt-1 flex">
                   <input
                     className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
