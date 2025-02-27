@@ -18,6 +18,7 @@ interface Account {
    amount:string;
    total_income:string;
    total_expense:string;
+   text:string;
   }
 
 interface EditProps {

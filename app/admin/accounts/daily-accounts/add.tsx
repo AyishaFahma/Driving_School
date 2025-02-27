@@ -39,6 +39,7 @@ type CreateProps = {
     staff_id:string;
     id?: string; 
     payment_method:string;
+    text: string;
   };
   isEditing?: boolean;
 };

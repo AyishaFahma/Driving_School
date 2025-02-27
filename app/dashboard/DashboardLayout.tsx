@@ -263,7 +263,7 @@ export default function DashboardLayout({
       {/* Layout excluding Topbar */}
       <div className="dashboard-layout flex">
         <Sidebar />
-        {/* <MobileSearchbar /> */}
+       
 
         {/* Main Content */}
         <div className="content-area relative w-full min-h-screen bg-slate-50 dark:bg-navy-900">

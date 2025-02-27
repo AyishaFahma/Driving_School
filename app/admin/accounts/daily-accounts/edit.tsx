@@ -23,6 +23,7 @@ interface Account {
    added_by:string;
    payment_method:string;
    text:string;
+   
   }
 
 interface EditProps {
