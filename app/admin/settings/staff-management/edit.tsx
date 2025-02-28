@@ -4,6 +4,7 @@
 
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -342,7 +343,9 @@ useEffect(() => {
         className="text-sm pl-2 mt-2 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         { selectedBranch || formData.branch_name || "Select a branch"}
-        <span className="ml-2">&#9662;</span> 
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span> 
       </div>
 
      
@@ -407,7 +410,7 @@ useEffect(() => {
             </label>
 
             </div>
-            <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
+            <button type="submit" className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4">
             {loading ? 'Updating...' : 'Update'}
             </button>
           </form>

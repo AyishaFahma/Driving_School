@@ -286,7 +286,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                 )}
 
                 {!imagePreview && (
-                  <label className="w-1/3 flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                  <label className="w-1/3 flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                     Select Image
                     <input
                       type="file"
@@ -301,7 +301,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                 {imagePreview && (
                   <div className="mt-2">
                     <label
-                      className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
+                      className="bg-primary text-white p-2 rounded cursor-pointer px-6"
                       htmlFor="imageUpload"
                     >
                       Change
@@ -331,7 +331,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
             <div className="mt-4">
               <button
                 type="submit"
-                className="bg-primary text-white rounded p-2 w-1/5"
+                className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5"
               >
                 {loading ? "Updating..." : "Update"}
               </button>

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
 import Edit from "./edit";
-import { FaSpinner } from "react-icons/fa";
+import { FaChevronDown, FaSpinner } from "react-icons/fa";
 
 interface Vehicle {
   id: number;
@@ -342,7 +342,9 @@ const page = () => {
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
                     {selectedVehicle || "Select a Vehicle"}
-                    <span className="ml-2">&#9662;</span> {/* Down arrow */}
+                   <span className="ml-2 dark:text-slate-400/70">
+                             <FaChevronDown />
+                           </span>
                   </div>
 
                   {/* Dropdown Content */}
@@ -436,7 +438,7 @@ const page = () => {
         </span>
 
         <button
-          className="px-4 py-2 bg-[#4f46e5] text-white rounded-md"
+          className="px-4 py-2 bg-[#4f46e5] hover:bg-primary-focus text-white rounded-md"
           onClick={() => togglemodal("add")}
         >
           Add Vehicle
@@ -546,7 +548,8 @@ const page = () => {
                                 <div className="flex justify-center space-x-2">
                                   <button
                                     onClick={() => togglemodal("edit", item)}
-                                    className="btn size-8 p-0  bg-primary hover:bg-primary-focus text-white"
+                                    // className="btn size-8 p-0  bg-primary hover:bg-primary-focus text-white"
+                                    className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
                                   >
                                     <i className="fa fa-edit" />
                                   </button>

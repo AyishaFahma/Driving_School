@@ -4,6 +4,7 @@
 
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 interface Admission {
   user_name: string;
@@ -676,7 +677,9 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                     >
                     {selectedMobile || "Select a Mobile / Name"}
-                    <span className="ml-2">&#9662;</span> {/* Down arrow */}
+                    <span className="ml-2 dark:text-slate-400/70">
+                              <FaChevronDown />
+                            </span>
                     </div>
                    
                     {/* Dropdown Content */}
@@ -722,7 +725,9 @@ onClick={() => setIsadmissionDropdownOpen(!isadmissionDropdownOpen)}
 className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
 >
 {selectedAdmission || "Select an Admission No"}
-<span className="ml-2">&#9662;</span> {/* Down arrow */}
+<span className="ml-2 dark:text-slate-400/70">
+          <FaChevronDown />
+        </span>
 </div>
 
 {/* Dropdown Content */}
@@ -945,7 +950,9 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
         className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedBranch || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
       {/* Dropdown Content */}
@@ -1302,7 +1309,9 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
         className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedService || "Select a Service"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
       {/* Dropdown Content */}
@@ -1562,8 +1571,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                 </div> */}
                 <button
                   type="submit"
-                  className="btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                >
+                  className="btn bg-primary font-medium text-white hover:bg-primary-focus rounded p-2 w-1/5">
                    {loading ? 'Adding...' : 'Add'}
                 </button>
               </div>

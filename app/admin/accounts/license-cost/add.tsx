@@ -3,6 +3,7 @@
 
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 type CreateProps = {
@@ -242,7 +243,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedService || "Select a Service"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
       {/* Dropdown Content */}
@@ -284,10 +287,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
               >
                 <option value="">Please Select Vehicle Type</option>
-               <option value="LMV">LMV</option>
-               <option value="MC">MC</option>
-               <option value="Both">Both</option>
-               <option value="Autorickshaw">Auto rickshaw</option>
+               <option value="lmc">LMV</option>
+               <option value="mc">MC</option>
+               <option value="lmc_mc">Both</option>
+               <option value="auto">Auto rickshaw</option>
               </select>
               </label>
 
@@ -312,7 +315,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             {error && (
               <div className="text-red-500 text-sm mt-2">{error}</div>
             )}
-            <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
+            <button type="submit" className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4">
             {loading ? 'Adding...' : 'Add'}
             </button>
           </form>

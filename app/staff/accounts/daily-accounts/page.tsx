@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { strict } from 'assert';
 import { useAuth } from '@/app/context/AuthContext';
 import Add from './add';
-import { FaRegCheckCircle } from 'react-icons/fa';
+import { FaChevronDown, FaRegCheckCircle } from 'react-icons/fa';
 import Edit from './edit';
 import { HiOutlineArrowNarrowDown, HiOutlineArrowNarrowUp } from 'react-icons/hi';
 type Account = {
@@ -389,7 +389,9 @@ const page = () => {
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
                     {selectedBranch || "Select a Branch"}
-                    <span className="ml-2">&#9662;</span>
+                    <span className="ml-2 dark:text-slate-400/70">
+                              <FaChevronDown />
+                            </span>
                   </div>
                   {isDropdownOpen && (
                     <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">

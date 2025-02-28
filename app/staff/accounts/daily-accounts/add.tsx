@@ -254,6 +254,7 @@
 
 import { useAuth } from '@/app/context/AuthContext';
 import React, { useState, useEffect, useRef } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -711,7 +712,9 @@ useEffect(() => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {branch_text || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
       {/* Dropdown Content */}
@@ -824,7 +827,9 @@ useEffect(() => {
       >
         
         {selectedStaff || "Select a Staff"}
-        <span className="ml-2">&#9662;</span> 
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
      
@@ -871,7 +876,9 @@ useEffect(() => {
       >
         
         {selectedDriver || "Select a Driver"}
-        <span className="ml-2">&#9662;</span> 
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
      
@@ -968,7 +975,9 @@ useEffect(() => {
       >
         
         {selectedStaff || "Select a Staff"}
-        <span className="ml-2">&#9662;</span> 
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
      
@@ -1015,7 +1024,9 @@ useEffect(() => {
       >
         
         {selectedDriver || "Select a Driver"}
-        <span className="ml-2">&#9662;</span> 
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
      

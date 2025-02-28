@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { strict } from "assert";
 import { useAuth } from "@/app/context/AuthContext";
 import Add from "./add";
-import { FaRegCheckCircle, FaSpinner } from "react-icons/fa";
+import { FaChevronDown, FaRegCheckCircle, FaSpinner } from "react-icons/fa";
 import Edit from "./edit";
 import {
   HiOutlineArrowNarrowDown,
@@ -71,7 +71,7 @@ const page = () => {
     setModalMode(mode);
     setSelectedAccount(account);
     setShowmodal((prev) => !prev);
-    fetchStaffData();
+    fetchAccountData();
   };
 
   // const fetchStaffData = async () => {
@@ -116,7 +116,7 @@ const page = () => {
 
 
 
-  const fetchStaffData = async () => {
+  const fetchAccountData = async () => {
     try {
       console.log("Fetching data for date:", filteredDate); // Debug log
       const response = await fetch('/api/admin/accounts/accounts_details', {
@@ -147,6 +147,7 @@ const page = () => {
         // Handle the case when no data is found
         setAccountData([]); // Clear accountData
         setFilteredData([]); // Clear filteredData
+        setExpenseData(null);
         console.log("No data found for the selected date"); // Debug log
       }
       setExpenseData(data.data.expenses || null); // Handle case when expenses data is not available
@@ -157,7 +158,7 @@ const page = () => {
 
   useEffect(() => {
    // console.log("filteredDate changed:", filteredDate);
-    fetchStaffData();
+   fetchAccountData();
   }, [filteredDate]);
   
  
@@ -329,7 +330,7 @@ const page = () => {
       // console.log("API Response:", data);
 
       if (data.success) {
-        fetchStaffData();
+        fetchAccountData();
       } else {
         console.error("API error:", data.msg || "Unknown error");
       }
@@ -478,9 +479,11 @@ const page = () => {
                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
                   >
                     Accounts Type
+                   
                   </label>
                   <select
                     className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                   
                     value={dailystatusselected}
                     onChange={(e) => setdailystatusselected(e.target.value)}
                   >
@@ -534,8 +537,13 @@ const page = () => {
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
+                    {/* <span className="dark:text-slate-400/70"> */}
                     {selectedBranch || "Select a Branch"}
-                    <span className="ml-2">&#9662;</span>
+                    {/* </span> */}
+                    <span className="ml-2 dark:text-slate-400/70">
+                      {/* &#9662; */}
+                      <FaChevronDown />
+                      </span>
                   </div>
                   {isDropdownOpen && (
                     <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
@@ -652,7 +660,7 @@ const page = () => {
         </span>
         <button
           onClick={() => togglemodal("add")}
-          className="px-4 py-2 bg-[#4f46e5] text-white rounded-md"
+          className="px-4 py-2 bg-[#4f46e5] hover:bg-primary-focus text-white rounded-md"
         >
           Add Accounts
         </button>

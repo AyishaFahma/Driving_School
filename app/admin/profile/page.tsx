@@ -679,7 +679,7 @@ if (/\s/.test(value)) {
                   </div>
                   {!profileImage && (
                     <div className="mb-4">
-                      <label className="w-1/5 flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                      <label className="w-1/5 flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                         Select Image
                         <input
                           type="file"

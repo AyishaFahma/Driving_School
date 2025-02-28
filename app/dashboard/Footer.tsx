@@ -15,7 +15,7 @@ const Footer = () => {
           href="https://signaturesoftwarelab.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="fw-semibold text-primary text-decoration-underline"
+          className="fw-semibold text-primary text-decoration-underline ml-2"
         >
           Signature Software Lab
         </a>

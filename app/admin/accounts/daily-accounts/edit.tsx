@@ -1,5 +1,6 @@
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 interface Account {
@@ -337,7 +338,7 @@ const handleSelectBranch = (branch : Account) => {
       onKeyDown={(e) => e.key === "Escape" && toggleModal()}
       >
         <div className="absolute inset-0 bg-slate-900/60 transition-opacity duration-300" onClick={toggleModal}></div>
-        <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+        <div className="relative flex w-full max-w-3xl origin-top flex-col rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
              Edit Account
@@ -402,7 +403,9 @@ const handleSelectBranch = (branch : Account) => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {branch_text || formData.branch_name || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
       {/* Dropdown Content */}
@@ -479,7 +482,7 @@ const handleSelectBranch = (branch : Account) => {
                     placeholder="Name"
                     value={formData.type}
                     onChange={handleChange}
-                    className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </label>
 )}
@@ -497,7 +500,7 @@ const handleSelectBranch = (branch : Account) => {
             e.preventDefault();
           }
         }}
-        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm mt-1 pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
 
@@ -516,7 +519,9 @@ const handleSelectBranch = (branch : Account) => {
        
         {selectedStaff || formData.staff_name ||"Select a Staff"}
         
-        <span className="ml-2">&#9662;</span> 
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
      
@@ -532,7 +537,7 @@ const handleSelectBranch = (branch : Account) => {
           />
 
          
-          <ul className="max-h-48 overflow-y-auto">
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredStaff.length > 0 ? (
               filteredStaff.map((staff) => (
                 <li
@@ -563,7 +568,9 @@ const handleSelectBranch = (branch : Account) => {
       >
         
         {selectedDriver || formData.driver_name|| "Select a Driver"}
-        <span className="ml-2">&#9662;</span> 
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
      
@@ -579,7 +586,7 @@ const handleSelectBranch = (branch : Account) => {
           />
 
          
-          <ul className="max-h-48 overflow-y-auto">
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredDriver.length > 0 ? (
               filteredDriver.map((driver) => (
                 <li
@@ -620,16 +627,13 @@ const handleSelectBranch = (branch : Account) => {
 
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-3">
   
-
-    
-
  
   </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-primary text-white rounded p-2 w-1/5 mt-4"
+              className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4"
             >
            {loading ? 'Updating...' : 'Update'}
             </button>

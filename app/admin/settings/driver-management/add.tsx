@@ -245,7 +245,7 @@ if (response.ok){
             )}
             <button
               type="submit"
-              className="bg-primary text-white rounded p-2 w-1/5 mt-4"
+              className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4"
             >
                {loading ? 'Adding...' : 'Add'}
             </button>

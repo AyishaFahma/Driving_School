@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import "./create.css";
 import { toast } from "react-toastify";
+import { FaChevronDown } from "react-icons/fa";
 
 
 interface Admission {
@@ -833,7 +834,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
       >
         {/* {selectedBranch || "Select a branch"} */}
         {branch_text || formData?.branch_name || "Select a branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+       <span className="ml-2 dark:text-slate-400/70">
+                 <FaChevronDown />
+               </span>
       </div>
 
       {/* Dropdown Content */}
@@ -905,7 +908,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                 <div className="mt-4 flex space-x-2">
                 {!userPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -976,7 +979,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                 <div className="mt-4 flex space-x-2">
                 {!signaturePreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center  rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1068,7 +1071,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                    <div className="mt-4 flex space-x-2">
                 {!documentPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1159,7 +1162,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                    <div className="mt-4 flex space-x-2">
                 {!documentPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1232,7 +1235,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
       >
         {selectedService || formData?.service_name || "Select a service"}
         
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+                  <FaChevronDown />
+                </span>
       </div>
 
       {/* Dropdown Content */}
@@ -1500,7 +1505,7 @@ type="checkbox" />
 
 <button
               type="submit"
-              className="bg-primary text-white rounded p-2"
+              className="bg-primary hover:bg-primary-focus text-white rounded p-2 rounded p-2 w-1/5"
             >
           {loading ? 'Updating...' : 'Update'}
             </button>

@@ -314,7 +314,7 @@ const page = () => {
                 <span className="text-lg font-medium text-slate-800 dark:text-navy-50">
                  Licence Cost
                 </span>
-                <button className="px-4 py-2 bg-[#4f46e5] text-white rounded-md" 
+                <button className="px-4 py-2 bg-[#4f46e5] hover:bg-primary-focus text-white rounded-md" 
                  onClick={() => togglemodal('add')}
                 >  
          Add Licence Cost
@@ -384,7 +384,19 @@ currentEntries.map((item,index) =>(
                 {index +indexOfFirstEntry+1}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.vehicle_type}
+                {/* {item.vehicle_type} */}
+                {( item.vehicle_type=== 'lmc') && (
+                  <>LMV</>
+                )}
+                 {( item.vehicle_type=== 'mc') && (
+                  <>MC</>
+                )}
+                 {( item.vehicle_type=== 'auto') && (
+                  <>Auto</>
+                )}
+                {( item.vehicle_type=== 'lmc_mc') && (
+                  <>Both</>
+                )}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.gender}
