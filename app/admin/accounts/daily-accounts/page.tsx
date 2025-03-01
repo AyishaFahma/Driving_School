@@ -419,18 +419,15 @@ const page = () => {
     setFilteredDate(today); // Set initial date
   }, []);
 
-  // const formatDate = (dateString : any) => {
-  //   const options = { year:'numeric', month: 'long', day: 'numeric' };
+  
+  // const formatDate = (dateString: any) => {
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   };
   //   return new Date(dateString).toLocaleDateString(undefined, options);
   // };
-  const formatDate = (dateString: any) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
 
   return (
     <div className=" w-full  pb-8">
@@ -668,7 +665,10 @@ const page = () => {
       <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6">
         <div className="card px-4 pb-4 sm:px-5">
           <div className="mt-5">
-            <div className="gridjs-head">
+            {/* <div className="gridjs-head">
+            <span className="text-m font-medium text-slate-800 dark:text-navy-50 p-2">
+              Date : {formatDate(filteredDate)}
+            </span>
               <div className="gridjs-search">
                 <input
                   type="search"
@@ -680,11 +680,26 @@ const page = () => {
                   onChange={handleSearchChange}
                 />
               </div>
-            </div>
-
-            <p className="text-m font-medium text-slate-800 dark:text-navy-50 p-2">
-              Date : {formatDate(filteredDate)}
-            </p>
+             
+            </div> */}
+<div className="gridjs-head flex flex-col sm:flex-row justify-between items-center">
+  <div className="order-2 font-bold sm:order-1 text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
+    {/* <span>Date: {formatDate(filteredDate)}</span> */}
+    <span>Date: {filteredDate}</span>
+  </div>
+  
+  <div className="gridjs-search order-1 sm:order-2 w-full sm:w-auto">
+    <input
+      type="search"
+      placeholder="Type a keyword..."
+      aria-label="Type a keyword..."
+      className="text-sm pl-2 gridjs-input gridjs-search-input"
+      value={searchTerm}
+      onChange={handleSearchChange}
+    />
+  </div>
+</div>
+           
 
             <div className="overflow-x-auto w-full">
               <table className="is-hoverable w-full text-left">

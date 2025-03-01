@@ -112,7 +112,20 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
   
- 
+  const getFormattedVehicleType = (type : any) => {
+    switch (type) {
+      case 'auto':
+        return 'Auto Rickshaw';
+      case 'lmc':
+        return 'LMV';
+      case 'mc':
+        return 'MC'; // Add more cases as needed
+      case 'lmc_mc':
+        return 'Both';
+      default:
+        return ''; // Return an empty string or a default value
+    }
+  };
   
   
   if (!showModal || !formData) return null;
@@ -156,7 +169,8 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               <label className="block">
                 <span>Vehicle Type</span>
 <input name="vehicle_type"
-             value={formData.vehicle_type}
+            //  value={formData.vehicle_type}
+            value={getFormattedVehicleType(formData.vehicle_type)}
               onChange={handleChange}
                type="text"
                 placeholder="Vehicle Type"
