@@ -95,16 +95,17 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          toast.success('License Class updated successfully');
+          toast.success('Licence Cost updated successfully');
           //togglemodal();
         } else {
-          setError(data.msg || 'Failed to update driver');
+          // toast.info("No changes detected. Please modify the data to update.");
+          toast.error(data.msg || 'Failed to update licence cost');
           console.log('Error Messages:', data.error_msgs);
         }
       }
     } catch (err:any) {
       console.error('Error during API call:', err);
-      toast.error(err.msg || 'An error occurred while updating the License class.');
+      toast.error(err.msg || 'An error occurred while updating the Licence cost.');
 
     } finally {
       setLoading(false);
@@ -125,7 +126,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              Edit License Cost
+              Edit Licence Cost
             </h3>
             <button onClick={togglemodal} className="btn -mr-1.5 size-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 

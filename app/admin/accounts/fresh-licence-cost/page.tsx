@@ -426,10 +426,10 @@ currentEntries.map((item,index) =>(
                 <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                 <span>
                       <div className="flex justify-center space-x-2">
-                        <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                          <i className="fa fa-edit" 
-                          onClick={() => togglemodal('edit', item)}
-                            />
+                        <button 
+                        onClick={() => togglemodal('edit', item)}
+                        className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                          <i className="fa fa-edit"  />
                         </button>
                        
                            <button

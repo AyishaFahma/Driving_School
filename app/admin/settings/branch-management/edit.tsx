@@ -88,15 +88,17 @@ const [loading, setLoading] = useState(false);
   
         console.log('Response Status:', response.status);
         const data = await response.json();
-   toast.success("Branch Updated successfully!");
+  
         console.log('Response Data:', data);
   
         if (data.success) {
+          toast.success("Branch Updated successfully!");
           setSuccess(true);
           onSave(formData);
          // toggleModal();
         } else {
-          setError(data.msg || 'Failed to update driver');
+          toast.error(data.msg || 'Failed to update branch');
+          // toast.info("No changes detected. Please modify the data to update.");
           console.log('Error Messages:', data.error_msgs);
         }
       }

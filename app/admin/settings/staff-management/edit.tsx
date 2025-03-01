@@ -155,13 +155,13 @@ const handleSubmit = async (e: React.FormEvent) => {
           onSave(formData);
           //togglemodal();
         } else {
-          setError(data.msg || 'Failed to update Cost');
+          toast.error(data.msg || 'Failed to update staff');
           console.log('Error Messages:', data.error_msgs);
         }
       }
     } catch (err: any) {
       console.error('Error during API call:', err);
-      setError('An error occurred while updating the Cost.');
+      setError('An error occurred while updating the staff.');
       toast.error(err.message || 'An Error occured');
     } finally {
       setLoading(false);

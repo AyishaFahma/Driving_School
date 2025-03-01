@@ -46,7 +46,8 @@ const page = () => {
   const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
     setModalMode(mode);  // Set the modal mode to either "add" or "edit"
     setSelectedCost(cost);  // Pass the selected driver if in edit mode
-    setShowmodal((prev) => !prev);  // Toggle the modal visibility
+    setShowmodal((prev) => !prev);  
+    fetchlicenseData()
   };
   
   const fetchlicenseData = async () => {
@@ -315,7 +316,7 @@ const page = () => {
         
     <div className="flex items-center space-x-4 py-5 lg:py-6">
     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
-    License Cost
+    Licence Cost
     </h2>
     <div className="hidden h-full py-1 sm:flex">
       <div className="h-full w-px bg-slate-300 dark:bg-navy-600" />
@@ -332,7 +333,7 @@ const page = () => {
       <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
-      <li>License Cost</li>
+      <li>Licence Cost</li>
     </ul>
   </div>
 
@@ -434,13 +435,13 @@ const page = () => {
 
   <div className="flex items-center justify-between py-5 lg:py-6">
                 <span className="text-lg font-medium text-slate-800 dark:text-navy-50">
-                License Cost
+                Licence Cost
                 </span>
                 <button className="px-4 py-2 bg-[#4f46e5] hover:bg-primary-focus text-white rounded-md" 
                 // onClick={togglemodal}
                 onClick={() => togglemodal('add')}
                 >  
-          Add License Cost
+          Add Licence Cost
                 </button>
                 {/* <Add showmodal={showmodal} togglemodal={togglemodal}/> */}
             </div>
@@ -530,9 +531,7 @@ currentEntries.map((item,index) =>(
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.f_cost}
                 </td>
-                {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.m_cost}
-                </td> */}
+                
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                
                  {item.status === "active" && (
@@ -560,11 +559,10 @@ currentEntries.map((item,index) =>(
                 <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                 <span>
                       <div className="flex justify-center space-x-2">
-                        <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                          <i className="fa fa-edit" 
-                          // onClick={() => handleEdit(item)}
-                          onClick={() => togglemodal('edit', item)}
-                          />
+                        <button 
+                           onClick={() => togglemodal('edit', item)}
+                        className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                          <i className="fa fa-edit" />
                         </button>
                         {/* <button className="btn size-8 p-0 text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
                           <i className="fa fa-trash-alt" onClick={() => updateAccountStatus(item.id!, item.status)} />

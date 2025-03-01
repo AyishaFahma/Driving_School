@@ -314,7 +314,7 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
               />
             </svg>
           </li>
-          <li>Settings</li>
+          <li>Master</li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="size-4"
@@ -329,7 +329,7 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <li>Driver Management</li>
+          <li>Driver</li>
         </ul>
       </div>
 

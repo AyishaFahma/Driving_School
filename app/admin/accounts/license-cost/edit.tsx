@@ -1,6 +1,7 @@
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface Cost {
    
@@ -77,9 +78,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
       if (formData) {
         const transformedData = {
           id: formData.id,
-          type: 'cost',
           f_cost: formData.f_cost,
-          m_cost: formData.m_cost,
           service_id: formData.service_id,
           vehicle_type: formData.vehicle_type,
           
@@ -99,21 +98,24 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
   
         console.log('Response Status:', response.status);
         const data = await response.json();
-  
+ 
         console.log('Response Data:', data);
   
         if (data.success) {
+          toast.success('Licence Cost updated successfully');
           setSuccess(true);
           onSave(formData);
-          togglemodal();
+         
         } else {
-          setError(data.msg || 'Failed to update driver');
+          toast.error(data.msg || 'Failed to update licence cost');
+          // toast.info("No changes detected. Please modify the data to update.");
           console.log('Error Messages:', data.error_msgs);
         }
       }
-    } catch (err) {
+    } catch (err:any) {
       console.error('Error during API call:', err);
-      setError('An error occurred while updating the driver.');
+      // setError('An error occurred while updating the driver.');
+      toast.error(err.msg || "An error occurred while updating the Licence Cost.");
     } finally {
       setLoading(false);
     }
@@ -202,7 +204,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         <div className="relative flex w-full max-w-3xl origin-top flex-col  rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              Edit License Cost
+              Edit Licence Cost
             </h3>
             <button onClick={togglemodal} className="btn -mr-1.5 size-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 

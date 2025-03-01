@@ -85,15 +85,17 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Service updated successfully");
+       
         console.log("Response Data:", data);
 
         if (data.success) {
+          toast.success("Service updated successfully");
           setSuccess(true);
           onSave(formData);
         //  toggleModal();
         } else {
-          setError(data.msg || "Failed to update driver");
+          toast.error(data.msg || "Failed to update service");
+          // toast.info("No changes detected. Please modify the data to update.");
           console.log("Error Messages:", data.error_msgs);
         }
       }

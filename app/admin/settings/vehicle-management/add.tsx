@@ -63,7 +63,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
       } else {
         const errorData = await response.json();
         console.error("Error adding vehicle:", errorData);
-        alert(`Error: ${errorData.msg || "Failed to add vehicle"}`);
+        toast.error(`Error: ${errorData.msg || "Failed to add vehicle"}`);
       }
     } catch (error: any) {
       console.error("Error:", error);

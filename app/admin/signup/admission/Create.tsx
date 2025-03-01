@@ -5,6 +5,7 @@
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface Admission {
   user_name: string;
@@ -324,19 +325,24 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
 
       if (!response.ok) {
         console.error("Failed request details:", data);
-        alert(
+        // alert(
+        //   data.msg ||
+        //     "Failed to add Admission. Please check the required fields."
+        // );
+       toast.error(
           data.msg ||
             "Failed to add Admission. Please check the required fields."
         );
         return;
       }
       if (response.ok) {
-        alert("Admission added successfully!");
+        // alert("Admission added successfully!");
+         toast.success('Admission added successfully');
         // togglemodal();
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("An error occurred while adding the Admission.");
+      toast.error("An error occurred while adding the Admission.");
     }
   };
 
@@ -624,6 +630,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
 
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="mb-8">
+
         <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar">
           {/* <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar"> */}
            
@@ -1571,7 +1578,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                 </div> */}
                 <button
                   type="submit"
-                  className="btn bg-primary font-medium text-white hover:bg-primary-focus rounded p-2 w-1/5">
+                  className="btn bg-primary font-medium text-white hover:bg-primary-focus rounded p-2 w-1/5 mt-4">
                    {loading ? 'Adding...' : 'Add'}
                 </button>
               </div>

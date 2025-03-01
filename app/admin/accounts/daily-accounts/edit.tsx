@@ -154,15 +154,16 @@ useEffect(() => {
   
         console.log('Response Status:', response.status);
         const data = await response.json();
-        toast.success('Account updated successfully');
+      
         console.log('Response Data:', data);
   
         if (data.success) {
+          toast.success('Account updated successfully');
           setSuccess(true);
           onSave(formData);
         
         } else {
-          setError(data.msg || 'Failed to update Cost');
+          toast.error(data.msg || 'Failed to update Cost');
           console.log('Error Messages:', data.error_msgs);
         }
       }

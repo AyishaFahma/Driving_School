@@ -297,7 +297,7 @@ const page = () => {
               />
             </svg>
           </li>
-          <li>Settings</li>
+          <li>Master</li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="size-4"
@@ -312,7 +312,7 @@ const page = () => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <li>Service Management</li>
+          <li>Service</li>
         </ul>
       </div>
 

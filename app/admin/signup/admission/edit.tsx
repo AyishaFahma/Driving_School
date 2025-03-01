@@ -649,8 +649,8 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         </div>
 
         {/* Modal Body */}
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 ">
+        <form onSubmit={handleSubmit} className="mb-8">
+          <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar">
             <div className="flex-1 p-4">
              
 
@@ -1505,7 +1505,7 @@ type="checkbox" />
 
 <button
               type="submit"
-              className="bg-primary hover:bg-primary-focus text-white rounded p-2 rounded p-2 w-1/5"
+              className="bg-primary hover:bg-primary-focus text-white rounded p-2 rounded p-2 w-1/5 mt-4"
             >
           {loading ? 'Updating...' : 'Update'}
             </button>

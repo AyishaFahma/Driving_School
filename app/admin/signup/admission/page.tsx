@@ -679,7 +679,7 @@ const Admission = () => {
       </div>
 
       <div className="flex items-center justify-between py-5 lg:py-6">
-        <span className="text-lg font-medium text-slate-800 dark:text-navy-50"></span>
+        <span className="text-lg font-medium text-slate-800 dark:text-navy-50">Admissions</span>
         <button
           className="px-4 py-2 bg-[#4f46e5] hover:bg-primary-focus text-white rounded-md"
           onClick={() => togglemodal("add")}
@@ -849,11 +849,10 @@ const Admission = () => {
                         <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
                           <div className="flex flex-wrap gap-2">
                             
-                            <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                              <i
-                                className="fa fa-edit"
-                                onClick={() => togglemodal("edit", item)}
-                              />
+                            <button 
+                            onClick={() => togglemodal("edit", item)}
+                            className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                              <i className="fa fa-edit"/>
                             </button>
 
                           

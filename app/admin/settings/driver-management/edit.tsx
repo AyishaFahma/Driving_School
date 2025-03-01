@@ -44,12 +44,7 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
     }
   }, [driverData]);
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) =>
-  //     prevData ? { ...prevData, [name]: value } : null
-  //   );
-  // };
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -96,15 +91,16 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Driver updated successfully");
+        
         console.log("Response Data:", data);
         // setTimeout(() => toggleModal(), 2000);
         if (data.success) {
+          toast.success("Driver updated successfully");
           setSuccess(true);
           onSave(formData);
           //toggleModal();
         } else {
-          setError(data.msg || "Failed to update driver");
+          toast.error(data.msg || "Failed to update driver");
           console.log("Error Messages:", data.error_msgs);
         }
       }

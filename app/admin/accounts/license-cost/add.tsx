@@ -22,7 +22,7 @@ type CreateProps = {
 };
 
 type Cost = {
-  id?: string;
+  id: string;
   status: string;
   service_name: string;
   f_cost: string;
@@ -39,6 +39,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
+  const [selectedService_id, setSelectedService_id] = useState<string>("");
   const [searchService, setSearchService] = useState("");
  
    const[searchServiceData,setSearchServiceData] = useState<Cost []>([]);
@@ -49,8 +50,6 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
 
   const [localFormData, setLocalFormData] = useState(formData || {
     f_cost: "",
-    m_cost: "",
-service_id: selectedService,
     vehicle_type: "",
     id:"",
   });
@@ -95,39 +94,37 @@ service_id: selectedService,
     setLocalFormData({ ...localFormData, [name]: value });
   };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
-    setError("All fields are required.");
-    return;
-  }
+
   
-  try {
-    const response = await fetch("/api/admin/accounts/add_license_cost", {
-      method: "POST",
-      headers: {
-        authorizations: state?.accessToken ?? "",
-        api_key: "10f052463f485938d04ac7300de7ec2b",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(localFormData
-      ),
-    });
-
-    console.log(localFormData, "data sent to backend");
-
-    const responseJson = await response.json();
-    console.log("Response from backend:", responseJson);
-
-    togglemodal(); 
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    alert(`An error occurred while adding the license.`);
-  }
-};
-
-  if (!showmodal) return null;
-
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    console.log(formData?.service_id, "service_id");
+    try {
+      // const payload = { ...localFormData, service_id: selectedServiceid };
+      const response = await fetch("/api/admin/accounts/add_license_cost", {
+        method: "POST",
+        headers: {
+          authorizations: state?.accessToken ?? "",
+          api_key: "10f052463f485938d04ac7300de7ec2b",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...localFormData, service_id: selectedService_id }),
+      });
+  
+      console.log(localFormData, "data sent to backend");
+  
+      const responseJson = await response.json();
+      toast.success("Licence Cost added successfully");
+      console.log("Response from backend:", responseJson);
+      togglemodal();
+      
+    } catch (error : any) {
+      console.error("Error submitting form:", error);
+      toast.error(error.msg || "An error occurred while adding the Licence Cost.");
+      alert(`An error occurred while adding the licence.`);
+    }
+  };
 
     const fetchSearchService = async () => {
       try {
@@ -177,7 +174,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     
     const handleSelectService = (service :Cost) => {
       setSelectedService(service.text);
-     
+      setSelectedService_id(service.id);
       setSearchService("");
       setIsDropdownOpen(false); // Close dropdown after selection
     };
@@ -205,7 +202,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         <div className="relative flex w-full max-w-3xl origin-top flex-col  rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              {isEditing ? "Edit License Cost" : "Add License Cost"}
+              {/* {isEditing ? "Edit License Cost" : "Add License Cost"} */}
+              Add Licence Cost
             </h3>
             <button onClick={togglemodal} className="btn -mr-1.5 size-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 

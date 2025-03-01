@@ -99,14 +99,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log(localFormData, "data sent to backend");
 
     const responseJson = await response.json();
+    toast.success('Licence Cost added successfully');
     if(response.ok){
-      toast.success('License Class added successfully');
+     
       console.log("Response from backend:", responseJson);
     }
    
 
     if (!response.ok) {
-      alert(`Failed to add license. Status code: ${response.status}`);
+      alert(`Failed to add licence. Status code: ${response.status}`);
      
       return;
     }
@@ -120,6 +121,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 };
 
 
+
   return (
    
 
@@ -131,7 +133,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
         <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
           <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-            Add License Cost
+            Add Licence Cost
           </h3>
           <button onClick={togglemodal} className="btn -mr-1.5 size-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
             <svg xmlns="http://www.w3.org/2000/svg" className="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

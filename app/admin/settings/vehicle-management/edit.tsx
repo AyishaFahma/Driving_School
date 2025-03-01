@@ -124,14 +124,16 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
 
       const data = await response.json();
       console.log("API Response:", data);
-      toast.success("Vehicle updated successfully");
+     
 
       if (data.success) {
+        toast.success("Vehicle updated successfully");
         setSuccess(true);
         onSave(formData);
         //toggleModal();
       } else {
         setError(data.msg || "Failed to update vehicle");
+        toast.error(data.msg || "failed to update vehicle");
       }
     } catch (err: any) {
       // setError('An error occurred while updating the vehicle.');
