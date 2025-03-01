@@ -98,22 +98,23 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
     console.log(localFormData, "data sent to backend");
 
-    const responseJson = await response.json();
-    toast.success('Licence Cost added successfully');
-    if(response.ok){
-     
-      console.log("Response from backend:", responseJson);
+    const responseData = await response.json();
+   
+    if(responseData.ok){
+      toast.success('Licence Cost added successfully');
+      console.log("Response from backend:", responseData);
+      togglemodal(); 
     }
    
 
     if (!response.ok) {
-      alert(`Failed to add licence. Status code: ${response.status}`);
-     
+      // alert(`Failed to add licence. Status code: ${response.status}`);
+      toast.error(`Failed to add licence. Status code: ${response.status}`);
       return;
     }
 
 
-    togglemodal(); 
+    
   } catch (error : any) {
     console.error("Error submitting form:", error);
     toast.error(error.message || 'An Error occured');

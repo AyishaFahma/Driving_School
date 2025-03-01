@@ -39,8 +39,6 @@ const page = () => {
   const [accountData, setAccountData] = useState<Account[]>([]);
   const [filteredData, setFilteredData] = useState<Account[]>([]);
   const [expenseData, setExpenseData] = useState<Account | null>(null);
-
-  // const [selectedBranches, setSelectedBranches] = useState<string>("");
   const [BranchData, setBranchData] = useState<Account[]>([]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,48 +71,6 @@ const page = () => {
     setShowmodal((prev) => !prev);
     fetchAccountData();
   };
-
-  // const fetchStaffData = async () => {
-  //   try {
-  //     const response = await fetch("/api/admin/accounts/accounts_details", {
-  //       method: "POST",
-  //       headers: {
-  //         authorizations: state?.accessToken ?? "",
-  //         api_key: "10f052463f485938d04ac7300de7ec2b",
-  //       },
-  //       body: JSON.stringify({
-  //         id: null,
-  //         status: null,
-  //         date: filteredDate, // Include the selected date in the request
-  //       }),
-  //     });
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       throw new Error(
-  //         `HTTP error! Status: ${response.status} - ${
-  //           errorData.message || "Unknown error"
-  //         }`
-  //       );
-  //     }
-
-  //     const data = await response.json();
-
-  //     if (data.success) {
-  //       setAccountData(data.data.accounts_details);
-  //       setFilteredData(data.data.accounts_details);
-  //       setExpenseData(data.data.expenses);
-  //     } else {
-  //     }
-  //   } catch (error) {
-  //     console.error("Fetch error:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchStaffData();
-  // }, [filteredDate]);
-
-
-
 
   const fetchAccountData = async () => {
     try {
@@ -261,21 +217,7 @@ const page = () => {
     setIsLoading(false); // Stop loading
   };
 
-  // const handleReset = async () => {
-  //   setIsLoading(true); // Start loading
-
-  //   // delay to show the loader
-  //   await new Promise((resolve) => setTimeout(resolve, 1000));
-  //   setSearchTerm("");
-  //   setdailystatusselected("");
-  //   setSelectedStatus("");
-  //   const today = new Date().toISOString().split("T")[0];
-  //   setSelectedDate(today);
-  //   setFilteredDate(today);
-  //   setFilteredData(accountData);
-  //   setSelectedBranch("");
-  //   setIsLoading(false); // Stop loading
-  // };
+  
   const handleReset = async () => {
     setIsLoading(true); // Start loading
     setSearchTerm("");

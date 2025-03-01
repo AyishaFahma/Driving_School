@@ -121,19 +121,14 @@ const [StaffData, setStaffData] = useState([]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    // if (!branch_id) {
-    //   toast.error("Please Select a Branch.");
-    //   return;
-    // }
-  
-    // if (!amount || isNaN(Number(amount))) {
-    //   toast.error("Please enter a valid amount.");
-    //   return;
-    // }
-  // if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
-  //   setError("All fields are required");
-  //   return;
-  // }
+    if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
+      setError("All fields are required");
+      return;
+    }
+
+
+
+   
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount), 
@@ -164,16 +159,22 @@ const [StaffData, setStaffData] = useState([]);
         toast.error(responseData.message || 'Failed to add account');
         return;
       }
-  
-      console.log('Account added successfully:', responseData);
+      if(responseData.success){
+        console.log('Account added successfully:', responseData);
       
-      toast.success('Account added successfully');
+        toast.success('Account added successfully');
+        togglemodal();
+      }
+  
+      if(!responseData.success){
+        toast.error('An error occurred while adding the account.');
+      }
   
     } catch (error: any) {
       console.error("Network error:", error);
       toast.error(error.message || 'An error occurred while adding the account.');
     } finally {
-      togglemodal(); // Close modal
+   // Close modal
     }
   };
   

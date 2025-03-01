@@ -25,7 +25,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!vehicle_no || !tax_expiry_date || !rc_expiry_date || !pucc_expiry_date || !insurance_expiry_date) {
+    if (!vehicle_no || !tax_expiry_date || !rc_expiry_date || !pucc_expiry_date || !insurance_expiry_date ||!selectedFile) {
       setError("All fields are required.");
       return;
     }

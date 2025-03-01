@@ -99,6 +99,11 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    if ( !localFormData.vehicle_type.trim() || !localFormData.f_cost) {
+      setError("All fields are required.");
+      return;
+    }
+
     console.log(formData?.service_id, "service_id");
     try {
       // const payload = { ...localFormData, service_id: selectedServiceid };
