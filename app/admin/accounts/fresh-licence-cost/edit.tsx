@@ -212,7 +212,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                value={formData.lmc_mc_both_study}
                 onChange={handleChange}
                  type="text"
-                  placeholder="LMV MC both study" 
+                  placeholder="LMV MC both Study" 
                   className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
               </label>
 
@@ -223,7 +223,7 @@ name="lmc_mc_both_licence"
 value={formData.lmc_mc_both_licence}
 onChange={handleChange}
 type="text"
-placeholder="LMV MC both licence" 
+placeholder="LMV MC both Licence" 
 className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
 </label>
 
@@ -235,7 +235,7 @@ name="lmc_study_mc_licence"
 value={formData.lmc_study_mc_licence}
 onChange={handleChange}
 type="text"
-placeholder="LMV study MC licence" 
+placeholder="LMV study MC Licence" 
 className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
 </label>
 

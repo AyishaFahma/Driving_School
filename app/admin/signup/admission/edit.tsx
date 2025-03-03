@@ -823,7 +823,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       </label>
 {/* branch name */}
 <div className="relative w-full mt-2" ref={branchDropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Branch Name
       </label>
 
@@ -1224,7 +1224,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                    {/* <div className="flex"> */}
                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 <div className="relative w-full" ref={serviceDropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Service
       </label>
 

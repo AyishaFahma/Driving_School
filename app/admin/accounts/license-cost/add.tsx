@@ -236,7 +236,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
            
 <div className="relative w-full" ref={dropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" 
+      // className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+      className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
+      >
        Service Name
       </label>
 

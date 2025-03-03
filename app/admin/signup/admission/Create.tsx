@@ -674,7 +674,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                   {selectedOption === "alreadyCreated" && (
                   <>
                     <div className="relative w-full" ref={userDropdownRef}>
-                    <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+                    <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
                     Enter Mobile No / Name
                     </label>
                    
@@ -722,7 +722,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                     </div>
 
 <div className="relative w-full mt-4" ref={admissionDropdownRef}>
-<label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+<label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
 Enter Admission No
 </label>
 
@@ -947,7 +947,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       </label>
 {/* branch name */}
 <div className="relative w-full" ref={branchDropdownRef}>
-      <label htmlFor="mobile" className="block mt-2 text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block mt-2 text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Branch Name
       </label>
 
@@ -1306,7 +1306,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
               
               {/* service name */}
 <div className="relative w-full" ref={serviceDropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Service
       </label>
 

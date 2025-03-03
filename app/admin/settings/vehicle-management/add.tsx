@@ -199,7 +199,9 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   value={insurance_expiry_date}
                   onChange={(e) => setInsurance_expiry_date(e.target.value)}
                   min={today}
+                  // className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+
                   required
                 />
               </label>

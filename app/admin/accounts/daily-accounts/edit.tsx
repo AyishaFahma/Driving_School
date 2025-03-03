@@ -394,7 +394,7 @@ const handleSelectBranch = (branch : Account) => {
   </label>
 </div>
 <div className="relative w-full" ref={dropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Branch Name
       </label>
 
@@ -508,7 +508,7 @@ const handleSelectBranch = (branch : Account) => {
 
 {/* staff */}
 <div className="relative w-full" ref={staffdropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Staff Name
       </label>
 
@@ -558,7 +558,7 @@ const handleSelectBranch = (branch : Account) => {
     </div>
 {/* driver */}
     <div className="relative w-full" ref={driverdropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
        Driver Name
       </label>
 

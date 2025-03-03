@@ -691,7 +691,7 @@ const Admission = () => {
       <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6">
         <div className="card px-4 pb-4 sm:px-5">
           <div className="mt-5">
-            <div className="gridjs-head">
+            {/* <div className="gridjs-head">
               <div className="gridjs-search">
                
                 <input
@@ -701,6 +701,18 @@ const Admission = () => {
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
                   className="text-sm pl-2 form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                />
+              </div>
+            </div> */}
+            <div className="gridjs-head">
+              <div className="gridjs-search">
+                <input
+                  type="search"
+                  placeholder="Type a keyword..."
+                  aria-label="Type a keyword..."
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
                 />
               </div>
             </div>
