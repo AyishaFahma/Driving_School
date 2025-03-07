@@ -169,11 +169,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const responseJson = await response.json();
     console.log("Response from backend:", responseJson);
 
-    if (!responseJson.ok) {
-      toast.error(`${responseJson.status}  Error occured`);
+    if (!response.ok) {
+      toast.error(`${response.status}  Error occured`);
       return;
     }
-    if (responseJson.ok){
+    if (response.ok){
       toast.success('Staff Added successfully');
       setTimeout(() => togglemodal(), 2000);
     }
