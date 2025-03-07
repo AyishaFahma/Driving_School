@@ -126,6 +126,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setError("All fields are required.");
     return;
   }
+  if (!localFormData.email) {
+    setError("All fields are required.");
+    return;
+  }
+  if (!localFormData.place) {
+    setError("All fields are required.");
+    return;
+  }
+  if (!localFormData.name) {
+    setError("All fields are required.");
+    return;
+  }
   if (!localFormData.mobile || !/^\d{10}$/.test(localFormData.mobile)) {
     setError("Mobile number must be a valid 10-digit number.");
     return;
@@ -157,11 +169,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const responseJson = await response.json();
     console.log("Response from backend:", responseJson);
 
-    if (!response.ok) {
-      toast.error(`${response.status} An Error occured`);
+    if (!responseJson.ok) {
+      toast.error(`${responseJson.status}  Error occured`);
       return;
     }
-    if (response.ok){
+    if (responseJson.ok){
       toast.success('Staff Added successfully');
       setTimeout(() => togglemodal(), 2000);
     }
