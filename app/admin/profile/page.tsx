@@ -660,7 +660,7 @@ if (/\s/.test(value)) {
 
                   <div className="mb-4 mt-4">
                     <label className="block mb-2">User Photo</label>
-                    <div className="w-32 h-32">
+                    <div className="w-32 h-32 ">
                       {profileImage ? (
                         <img
                           src={profileImage}

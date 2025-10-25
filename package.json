@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 192.168.1.18",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -25,8 +25,11 @@
     "bcryptjs": "^2.4.3",
     "flowbite": "^2.5.2",
     "flowbite-typography": "^1.0.5",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.12.1",
     "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.3",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.475.0",
     "next": "^15.1.5",

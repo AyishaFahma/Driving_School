@@ -14,7 +14,9 @@ const Login = () => {
 
   const { state, setAuthData, isAuthenticated } = useAuth(); // Destructure state and setAuthData
   const router = useRouter();
-
+  
+  // auto login on refresh 
+  // so if there’s already a token in localStorage, user won’t need to log in again.
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
@@ -25,7 +27,7 @@ const Login = () => {
         staff: "/staff",
        student: "/student",
       };
-      router.push(rolePaths[role as keyof typeof rolePaths] || "/unauthorized");
+      router.push(rolePaths[role as keyof typeof rolePaths] || "/unauthorized"); 
     }
   }, [router]);
 
@@ -57,10 +59,12 @@ const handleLogin = async (e: React.FormEvent) => {
     // Clear the session flag for the admin page
     sessionStorage.removeItem("hasVisitedAdmin");
 
+    // save token and role in localstorage , it is a permenent storage even if the user refresh the browser it stayes there
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
 
-    // Store user data in context (optional)
+    // Store user data in context (optional)  so that other component can acess it without getting from localstorage
+    //update auth context
     if (setAuthData) {
       setAuthData({
         user: data,
@@ -68,7 +72,8 @@ const handleLogin = async (e: React.FormEvent) => {
         refreshToken: data.refreshToken,
       });
     }
-
+     
+    // re-directing depends on role
     const rolePaths = {
       admin: "/admin",
       staff: "/staff",

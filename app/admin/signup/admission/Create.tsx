@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 interface Admission {
   user_name: string;
-  text:string;
+  text: string;
   id: string | number;
 }
 
@@ -43,8 +43,8 @@ type CreateProps = {
     user_photo: File | null;
     service_name: string;
     UserPhoto: File | null;
-    dob:string;
-    address:string;
+    dob: string;
+    address: string;
   };
   isEditing?: boolean;
 };
@@ -79,8 +79,8 @@ const Create: React.FC<CreateProps> = ({
   const [mobileOpen, setmobileOpen] = useState(false);
   // const [selectedService, setSelectedService] = useState("");
   const [selectedAmount, setSelectedAmount] = useState("");
- 
-  const [ admission_no, setadmission_no] = useState("");
+
+  const [admission_no, setadmission_no] = useState("");
   const [app_no, setapp_no] = useState("");
   const [name, setname] = useState("");
   const [mobile, setmobile] = useState("");
@@ -106,39 +106,39 @@ const Create: React.FC<CreateProps> = ({
   const [pucc, setpucc] = useState("");
   const [dob, setdob] = useState("");
   const [address, setaddress] = useState("");
- 
-    const [mobileData, setMobileData] = useState([]);
-    const [filteredMobile, setFilteredMobile] = useState<Admission[]>([]);
-    const [searchMobile, setSearchMobile] = useState("");
-    const [selectedMobile, setSelectedMobile] = useState("");
 
-const [selectedBranch, setSelectedBranch] = useState<string>("");
+  const [mobileData, setMobileData] = useState([]);
+  const [filteredMobile, setFilteredMobile] = useState<Admission[]>([]);
+  const [searchMobile, setSearchMobile] = useState("");
+  const [selectedMobile, setSelectedMobile] = useState("");
+
+  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-  const[searchBranchData,setSearchBranchData] =useState<Admission[]>([]);
-  const[filteredBranch,setFilteredBranch]=useState<Admission[]>([]);
+  const [searchBranchData, setSearchBranchData] = useState<Admission[]>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Admission[]>([]);
 
- const [selectedService, setSelectedService] = useState<string>("");
+  const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
-  const[searchServiceData,setSearchServiceData] =useState<Admission[]>([]);
-  const[filteredService,setFilteredService]=useState<Admission[]>([]);
+  const [searchServiceData, setSearchServiceData] = useState<Admission[]>([]);
+  const [filteredService, setFilteredService] = useState<Admission[]>([]);
 
   const [selectedAdmission, setSelectedAdmission] = useState<string>("");
   const [searchAdmission, setSearchAdmission] = useState("");
-  const[searchAdmissionData,setSearchAdmissionData] =useState<Admission[]>([]);
-  const[filteredAdmission,setFilteredAdmission]=useState<Admission[]>([]);
+  const [searchAdmissionData, setSearchAdmissionData] = useState<Admission[]>([]);
+  const [filteredAdmission, setFilteredAdmission] = useState<Admission[]>([]);
 
 
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
-    const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false);
-    const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false); 
-    const userDropdownRef = useRef<HTMLDivElement>(null);
-    const admissionDropdownRef = useRef<HTMLDivElement>(null);
-    const serviceDropdownRef = useRef<HTMLDivElement>(null);
-    const branchDropdownRef = useRef<HTMLDivElement>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
+  const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false);
+  const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
+  const admissionDropdownRef = useRef<HTMLDivElement>(null);
+  const serviceDropdownRef = useRef<HTMLDivElement>(null);
+  const branchDropdownRef = useRef<HTMLDivElement>(null);
 
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [localFormData, setLocalFormData] = useState(
     formDatas || {
@@ -159,14 +159,14 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
       old_rc: "",
       tax: "",
       pucc: "",
-        dob:'',
-       address:'',
+      dob: '',
+      address: '',
       adhar: "",
       insurence: "",
     }
   );
 
- 
+
   const fetchAdmissionData = async () => {
     try {
       const response = await fetch("/api/admin/report/get_mobile_user_autocomplete", {
@@ -182,8 +182,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
         const errorData = await response.json();
         // console.error('API error:', errorData);
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
@@ -203,7 +202,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
   useEffect(() => {
     fetchAdmissionData();
   }, [state]);
- 
+
 
   const handleSignatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -297,19 +296,19 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
     }
 
     console.log("submitting formdata", Object.fromEntries(formData.entries()));
-    if ( ! localFormData.name) {
+    if (!localFormData.name) {
       setError("Name field is required.");
       return;
     }
-    if ( ! localFormData.mobile) {
+    if (!localFormData.mobile) {
       setError("Mobile field is required.");
       return;
     }
-    if ( !localFormData.service_id ) {
+    if (!localFormData.service_id) {
       setError("Service field is required.");
       return;
     }
-   
+
     try {
       const response = await fetch("/api/admin/signup/admission", {
         method: "POST",
@@ -329,15 +328,15 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
         //   data.msg ||
         //     "Failed to add Admission. Please check the required fields."
         // );
-       toast.error(
+        toast.error(
           data.msg ||
-            "Failed to add Admission. Please check the required fields."
+          "Failed to add Admission. Please check the required fields."
         );
         return;
       }
       if (response.ok) {
         // alert("Admission added successfully!");
-         toast.success('Admission added successfully');
+        toast.success('Admission added successfully');
         // togglemodal();
       }
     } catch (error) {
@@ -346,260 +345,256 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
     }
   };
 
- 
+
 
   const fetchMobileData = async (searchTerm = null) => {
-   try {
-   const response = await fetch("/api/admin/report/get_mobile_user_autocomplete", {
-   method: "POST",
-   headers: {
-   authorizations: state?.accessToken ?? "",
-   api_key: "10f052463f485938d04ac7300de7ec2b",
-   },
-   body: JSON.stringify({ term: searchTerm }),
-   });
-  
-   if (!response.ok) {
-   const errorData = await response.json();
-   throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
-   }
-  
-   const data = await response.json();
-  // console.log("Search mobile data", data.data);
-  
-   if (data.success) {
-   setMobileData(data.data.mobile_details || []);
-   setFilteredMobile(data.data.mobile_details || []);
-   }
-   } catch (error) {
-   console.error("Fetch error:", error);
-   }
+    try {
+      const response = await fetch("/api/admin/report/get_mobile_user_autocomplete", {
+        method: "POST",
+        headers: {
+          authorizations: state?.accessToken ?? "",
+          api_key: "10f052463f485938d04ac7300de7ec2b",
+        },
+        body: JSON.stringify({ term: searchTerm }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+      }
+
+      const data = await response.json();
+      // console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setMobileData(data.data.mobile_details || []);
+        setFilteredMobile(data.data.mobile_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
   };
-  
+
   // Fetch default mobile data on load
   useEffect(() => {
-   fetchMobileData();
+    fetchMobileData();
   }, [state]);
-  
+
   // Handle search input change
-  const handleSearchMobile = (e : any) => {
-   const value = e.target.value;
-   setSearchMobile(value);
-   fetchMobileData(value); 
-  };
-  
-  const handleSelectMobile = (mobile:Admission) => {
-   setSelectedMobile(mobile.text);
-   setIsDropdownOpen(false);
-   setSearchMobile(""); 
+  const handleSearchMobile = (e: any) => {
+    const value = e.target.value;
+    setSearchMobile(value);
+    fetchMobileData(value);
   };
 
+  const handleSelectMobile = (mobile: Admission) => {
+    setSelectedMobile(mobile.text);
+    setIsDropdownOpen(false);
+    setSearchMobile("");
+  };
 
-    const fetchSearchBranch = async () => {
-         try {
-           const response = await fetch("/api/admin/report/get_branch_autocomplete", {
-             method: "POST",
-             headers: {
-               authorizations: state?.accessToken ?? "",
-               api_key: "10f052463f485938d04ac7300de7ec2b",
-             },
-             body: JSON.stringify({}),
-           });
-     
-           if (!response.ok) {
-             const errorData = await response.json();
-             throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
-           }
-     
-           const data = await response.json();
-          // console.log("Search mobile data", data.data);
-     
-           if (data.success) {
-             setSearchBranchData(data.data.branch_details || []);
-             setFilteredBranch(data.data.branch_details || []);
-           }
-         } catch (error) {
-           console.error("Fetch error:", error);
-         }
-       };
-     
-       useEffect(() => {
-         fetchSearchBranch();
-       }, [state]);
-     
-       const handleSearchBranch = (e : any) => {
-         const value = e.target.value;
-         setSearchBranch(value);
-     
-         const searchData = searchBranchData.filter(
-           (item) =>
-             item.text.toLowerCase().includes(value.toLowerCase())
-         );
-     
-         setFilteredBranch(searchData);
-       };
-     
-       
-       const handleSelectBranch = (branch:Admission) => {
-         setSelectedBranch(branch.text);
-         setSearchBranch("");
-         setIsbranchDropdownOpen(false); 
-       };
-       const fetchSearchService = async () => {
-           try {
-             const response = await fetch("/api/admin/report/get_service_autocomplete", {
-               method: "POST",
-               headers: {
-                 authorizations: state?.accessToken ?? "",
-                 api_key: "10f052463f485938d04ac7300de7ec2b",
-               },
-               body: JSON.stringify({}),
-             });
-       
-             if (!response.ok) {
-               const errorData = await response.json();
-               throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
-             }
-       
-             const data = await response.json();
-             console.log("Search mobile data", data.data);
-       
-             if (data.success) {
-               setSearchServiceData(data.data.service_details || []);
-               setFilteredService(data.data.service_details || []);
-             }
-           } catch (error) {
-             console.error("Fetch error:", error);
-           }
-         };
-       
-         useEffect(() => {
-           fetchSearchService();
-         }, [state]);
-       
-         const handleSearchService = (e : any) => {
-           const value = e.target.value;
-           setSearchService(value);
-       
-           const searchData = searchServiceData.filter(
-             (item) =>
-               item.text.toLowerCase().includes(value.toLowerCase())
-           );
-       
-           setFilteredService(searchData);
-         };
-       
-         
-        const handleSelectService = (service: any) => {
-          setSelectedService(service.text); // Set selected service
-        
-          // Reset dependent fields
-          setSelectedOption("");
-          settype("");
-       
-          setSelectedAmount("");
-        
-          setIsserviceDropdownOpen(false); // Close dropdown
-        };
 
-        const fetchSearchAdmission = async () => {
-          try {
-            const response = await fetch("/api/admin/report/get_branch_autocomplete", {
-              method: "POST",
-              headers: {
-                authorizations: state?.accessToken ?? "",
-                api_key: "10f052463f485938d04ac7300de7ec2b",
-              },
-              body: JSON.stringify({}),
-            });
-      
-            if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
-            }
-      
-            const data = await response.json();
-           // console.log("Search mobile data", data.data);
-      
-            if (data.success) {
-              setSearchAdmissionData(data.data.admission_details || []);
-              setFilteredAdmission(data.data.admission_details || []);
-            }
-          } catch (error) {
-            console.error("Fetch error:", error);
+  const fetchSearchBranch = async () => {
+    try {
+      const response = await fetch("/api/admin/report/get_branch_autocomplete", {
+        method: "POST",
+        headers: {
+          authorizations: state?.accessToken ?? "",
+          api_key: "10f052463f485938d04ac7300de7ec2b",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+      }
+
+      const data = await response.json();
+      // console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setSearchBranchData(data.data.branch_details || []);
+        setFilteredBranch(data.data.branch_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchBranch();
+  }, [state]);
+
+  const handleSearchBranch = (e: any) => {
+    const value = e.target.value;
+    setSearchBranch(value);
+
+    const searchData = searchBranchData.filter(
+      (item) =>
+        item.text.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredBranch(searchData);
+  };
+
+
+  const handleSelectBranch = (branch: Admission) => {
+    setSelectedBranch(branch.text);
+    setSearchBranch("");
+    setIsbranchDropdownOpen(false);
+  };
+  const fetchSearchService = async () => {
+    try {
+      const response = await fetch("/api/admin/report/get_service_autocomplete", {
+        method: "POST",
+        headers: {
+          authorizations: state?.accessToken ?? "",
+          api_key: "10f052463f485938d04ac7300de7ec2b",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+      }
+
+      const data = await response.json();
+      console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setSearchServiceData(data.data.service_details || []);
+        setFilteredService(data.data.service_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchService();
+  }, [state]);
+
+  const handleSearchService = (e: any) => {
+    const value = e.target.value;
+    setSearchService(value);
+
+    const searchData = searchServiceData.filter(
+      (item) =>
+        item.text.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredService(searchData);
+  };
+
+
+  const handleSelectService = (service: any) => {
+    setSelectedService(service.text); // Set selected service
+
+    // Reset dependent fields
+    setSelectedOption("");
+    settype("");
+
+    setSelectedAmount("");
+
+    setIsserviceDropdownOpen(false); // Close dropdown
+  };
+
+  const fetchSearchAdmission = async () => {
+    try {
+      const response = await fetch("/api/admin/report/get_branch_autocomplete", {
+        method: "POST",
+        headers: {
+          authorizations: state?.accessToken ?? "",
+          api_key: "10f052463f485938d04ac7300de7ec2b",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+      }
+
+      const data = await response.json();
+      // console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setSearchAdmissionData(data.data.admission_details || []);
+        setFilteredAdmission(data.data.admission_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchAdmission();
+  }, [state]);
+
+  const handleSearchAdmission = (e: any) => {
+    const value = e.target.value;
+    setSearchAdmission(value);
+
+    const searchData = searchAdmissionData.filter(
+      (item) =>
+        item.text.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredAdmission(searchData);
+  };
+
+
+  const handleSelectAdmission = (admission: Admission) => {
+    setSelectedAdmission(admission.text);
+    setSearchAdmission("");
+    setIsadmissionDropdownOpen(false);
+  };
+
+
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && globalThis.document) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (userDropdownRef.current && event.target instanceof Node) {
+          if (!userDropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
           }
-        };
-      
-        useEffect(() => {
-          fetchSearchAdmission();
-        }, [state]);
-      
-        const handleSearchAdmission = (e : any) => {
-          const value = e.target.value;
-          setSearchAdmission(value);
-      
-          const searchData = searchAdmissionData.filter(
-            (item) =>
-              item.text.toLowerCase().includes(value.toLowerCase())
-          );
-      
-          setFilteredAdmission(searchData);
-        };
-      
-        
-        const handleSelectAdmission = (admission:Admission) => {
-          setSelectedAdmission(admission.text);
-          setSearchAdmission("");
-          setIsadmissionDropdownOpen(false); 
-        };
+        }
 
-
-
-
-
-
-         useEffect(() => {
-          if (typeof window !== "undefined" && globalThis.document) {
-            const handleClickOutside = (event: MouseEvent) => {
-              if (userDropdownRef.current && event.target instanceof Node) {
-                if (!userDropdownRef.current.contains(event.target)) {
-                  setIsDropdownOpen(false);
-                }
-              }
-        
-              if (admissionDropdownRef.current && event.target instanceof Node) {
-                if (!admissionDropdownRef.current.contains(event.target)) {
-                  setIsadmissionDropdownOpen(false);
-                }
-              }
-
-              if (branchDropdownRef.current && event.target instanceof Node) {
-                if (!branchDropdownRef.current.contains(event.target)) {
-                  setIsbranchDropdownOpen(false);
-                }
-              }
-
-              if (serviceDropdownRef.current && event.target instanceof Node) {
-                if (!serviceDropdownRef.current.contains(event.target)) {
-                  setIsserviceDropdownOpen(false);
-                }
-              }
-            };
-        
-            globalThis.document.addEventListener("mousedown", handleClickOutside);
-            return () => globalThis.document.removeEventListener("mousedown", handleClickOutside);
+        if (admissionDropdownRef.current && event.target instanceof Node) {
+          if (!admissionDropdownRef.current.contains(event.target)) {
+            setIsadmissionDropdownOpen(false);
           }
-        }, []);
-        
+        }
+
+        if (branchDropdownRef.current && event.target instanceof Node) {
+          if (!branchDropdownRef.current.contains(event.target)) {
+            setIsbranchDropdownOpen(false);
+          }
+        }
+
+        if (serviceDropdownRef.current && event.target instanceof Node) {
+          if (!serviceDropdownRef.current.contains(event.target)) {
+            setIsserviceDropdownOpen(false);
+          }
+        }
+      };
+
+      globalThis.document.addEventListener("mousedown", handleClickOutside);
+      return () => globalThis.document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, []);
+
   return (
     <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
-      role="dialog"
-    >
+      role="dialog">
       <div
         className="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"
-        onClick={togglemodal}
-      ></div>
+        onClick={togglemodal}>
+      </div>
 
       <div className="relative flex w-full max-w-6xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
         <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
@@ -617,13 +612,11 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth="2"
-            >
+              strokeWidth="2">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
+                d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
@@ -631,16 +624,16 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="mb-8">
 
-        <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar">
-          {/* <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar"> */}
-           
+          <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar">
+            {/* <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar"> */}
+
             {/* <div className="flex-1 p-4 "> */}
             <div className="flex-[4] p-4">
               {/* <div className="p-4 border border-gray-300 shadow-md rounded-lg space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2"> */}
-              <div className="p-4 border border-gray-300 shadow-md rounded-lg space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2 "> 
-              <label className="ml-6 block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
-                Profile Information
-              </label>
+              <div className="p-4 border border-gray-300 shadow-md rounded-lg space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2 ">
+                <label className="ml-6 block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+                  Profile Information
+                </label>
                 <div>
                   {/* Radio Buttons */}
                   <div className="flex items-center space-x-4 mb-4 ml-6 mt-4">
@@ -672,113 +665,113 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
 
                   {/* Conditional Input Field */}
                   {selectedOption === "alreadyCreated" && (
-                  <>
-                    <div className="relative w-full" ref={userDropdownRef}>
-                    <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
-                    Enter Mobile No / Name
-                    </label>
-                   
-                    {/* Dropdown Button */}
-                    <div
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                    >
-                    {selectedMobile || "Select a Mobile / Name"}
-                    <span className="ml-2 dark:text-slate-400/70">
-                              <FaChevronDown />
-                            </span>
-                    </div>
-                   
-                    {/* Dropdown Content */}
-                    {isDropdownOpen && (
-                    <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-                    {/* Search Bar Inside Dropdown */}
-                    <input
-                    type="text"
-                    value={searchMobile}
-                    onChange={handleSearchMobile}
-                    placeholder="Search..."
-                    className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                    />
-                   
-                    {/* Dropdown Options */}
-                    <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-                    {filteredMobile.length > 0 ? (
-                    filteredMobile.map((mobile) => (
-                    <li
-                    key={mobile.id}
-                    onClick={() => handleSelectMobile(mobile)}
-                    className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                    >
-                    {mobile.text}
-                    </li>
-                    ))
-                    ) : (
-                    <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-                    )}
-                    </ul>
-                    </div>
-                    )}
-                    </div>
+                    <>
+                      <div className="relative w-full" ref={userDropdownRef}>
+                        <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
+                          Enter Mobile No / Name
+                        </label>
 
-<div className="relative w-full mt-4" ref={admissionDropdownRef}>
-<label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
-Enter Admission No
-</label>
+                        {/* Dropdown Button */}
+                        <div
+                          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                        >
+                          {selectedMobile || "Select a Mobile / Name"}
+                          <span className="ml-2 dark:text-slate-400/70">
+                            <FaChevronDown />
+                          </span>
+                        </div>
 
-{/* Dropdown Button */}
-<div
-onClick={() => setIsadmissionDropdownOpen(!isadmissionDropdownOpen)}
-className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
->
-{selectedAdmission || "Select an Admission No"}
-<span className="ml-2 dark:text-slate-400/70">
-          <FaChevronDown />
-        </span>
-</div>
+                        {/* Dropdown Content */}
+                        {isDropdownOpen && (
+                          <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                            {/* Search Bar Inside Dropdown */}
+                            <input
+                              type="text"
+                              value={searchMobile}
+                              onChange={handleSearchMobile}
+                              placeholder="Search..."
+                              className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                            />
 
-{/* Dropdown Content */}
-{isadmissionDropdownOpen && (
-<div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-{/* Search Bar Inside Dropdown */}
-<input
-type="text"
-value={searchAdmission}
-onChange={handleSearchAdmission}
-placeholder="Search..."
-className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-/>
+                            {/* Dropdown Options */}
+                            <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                              {filteredMobile.length > 0 ? (
+                                filteredMobile.map((mobile) => (
+                                  <li
+                                    key={mobile.id}
+                                    onClick={() => handleSelectMobile(mobile)}
+                                    className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                                  >
+                                    {mobile.text}
+                                  </li>
+                                ))
+                              ) : (
+                                <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
 
-{/* Dropdown Options */}
-<ul className="max-h-48 overflow-y-auto hide-scrollbar">
-{filteredAdmission.length > 0 ? (
-filteredAdmission.map((admission) => (
-<li
-key={admission.id}
-onClick={() => handleSelectAdmission(admission)}
-className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
->
-{admission.text}
-</li>
-))
-) : (
-<li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-)}
-</ul>
-</div>
-)}
-</div>
-</>
+                      <div className="relative w-full mt-4" ref={admissionDropdownRef}>
+                        <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
+                          Enter Admission No
+                        </label>
+
+                        {/* Dropdown Button */}
+                        <div
+                          onClick={() => setIsadmissionDropdownOpen(!isadmissionDropdownOpen)}
+                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                        >
+                          {selectedAdmission || "Select an Admission No"}
+                          <span className="ml-2 dark:text-slate-400/70">
+                            <FaChevronDown />
+                          </span>
+                        </div>
+
+                        {/* Dropdown Content */}
+                        {isadmissionDropdownOpen && (
+                          <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                            {/* Search Bar Inside Dropdown */}
+                            <input
+                              type="text"
+                              value={searchAdmission}
+                              onChange={handleSearchAdmission}
+                              placeholder="Search..."
+                              className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                            />
+
+                            {/* Dropdown Options */}
+                            <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                              {filteredAdmission.length > 0 ? (
+                                filteredAdmission.map((admission) => (
+                                  <li
+                                    key={admission.id}
+                                    onClick={() => handleSelectAdmission(admission)}
+                                    className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                                  >
+                                    {admission.text}
+                                  </li>
+                                ))
+                              ) : (
+                                <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </>
                   )}
 
                   {/* Profile Information */}
                   <div className="mb-4 mt-4 ">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                   {/* admission no */}
-                     <label className="block mt-2">
-                         <span>Admission No:</span>
-                          <span className="relative mt-1 flex">
-                            <input
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                      {/* admission no */}
+                      <label className="block mt-2">
+                        <span>Admission No:</span>
+                        <span className="relative mt-1 flex">
+                          <input
                             name="admission_no"
                             value={admission_no}
                             onChange={(e) => setadmission_no(e.target.value)}
@@ -788,8 +781,8 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           />
                         </span>
                       </label>
- {/*app no */}
-                  <label className="block mt-2">
+                      {/*app no */}
+                      <label className="block mt-2">
                         <span>Application No:</span>
                         <span className="relative mt-1 flex">
                           <input
@@ -802,12 +795,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           />
                         </span>
                       </label>
-                      </div>
+                    </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                       {/* name */}
+                      {/* name */}
                       <label className="block mt-2">
-                        <span>Name*</span>
+                        <span>Name <span className="text-red-500 text-lg">*</span></span>
                         <span className="relative mt-1 flex">
                           <input
                             name="name"
@@ -820,9 +813,9 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           />
                         </span>
                       </label>
-                       {/* mobile */}
+                      {/* mobile */}
                       <label className="block mt-2">
-                        <span>Mobile*</span>
+                        <span>Mobile <span className="text-red-500 text-lg">*</span></span>
                         <span className="relative mt-1 flex">
                           <input
                             name="mobile"
@@ -844,7 +837,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-                       {/* dob */}
+                      {/* dob */}
                       <label className="block mt-2">
                         <span>D-O-B</span>
                         <span className="relative mt-1 flex">
@@ -862,13 +855,13 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       <label className="block mt-2">
                         <span>Address</span>
                         <span className="relative mt-1 flex">
-                          <textarea 
-                          rows={2}
+                          <textarea
+                            rows={2}
                             name="address"
                             value={address}
                             onChange={(e) => setaddress(e.target.value)}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            placeholder="Address" 
+                            placeholder="Address"
                           />
                         </span>
                       </label>
@@ -890,8 +883,8 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           />
                         </span>
                       </label> */}
-                       {/*DL No: */}
-                       <label className="block mt-2">
+                      {/*DL No: */}
+                      <label className="block mt-2">
                         <span>DL No:</span>
                         <span className="relative mt-1 flex">
                           <input
@@ -945,70 +938,69 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           </select>
                         </span>
                       </label>
-{/* branch name */}
-<div className="relative w-full" ref={branchDropdownRef}>
-      <label htmlFor="mobile" className="block mt-2 text-sm text-[#64748B] dark:text-[#A3ADC2]">
-       Branch Name
-      </label>
+                      {/* branch name */}
+                      <div className="relative w-full" ref={branchDropdownRef}>
+                        <label htmlFor="mobile" className="block mt-2 text-sm text-[#64748B] dark:text-[#A3ADC2]">
+                          Branch Name
+                        </label>
 
-      {/* Dropdown Button */}
-      <div
-        onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
-        className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-      >
-        {selectedBranch || "Select a Branch"}
-        <span className="ml-2 dark:text-slate-400/70">
-                  <FaChevronDown />
-                </span>
-      </div>
+                        {/* Dropdown Button */}
+                        <div
+                          onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
+                          className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                        >
+                          {selectedBranch || "Select a Branch"}
+                          <span className="ml-2 dark:text-slate-400/70">
+                            <FaChevronDown />
+                          </span>
+                        </div>
 
-      {/* Dropdown Content */}
-      {isbranchDropdownOpen && (
-        <div className="absolute z-10 mt-1.5 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-          {/* Search Bar Inside Dropdown */}
-          <input
-            type="text"
-            value={searchBranch}
-            onChange={handleSearchBranch}
-            placeholder="Search..."
-            className=" w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          />
+                        {/* Dropdown Content */}
+                        {isbranchDropdownOpen && (
+                          <div className="absolute z-10 mt-1.5 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                            {/* Search Bar Inside Dropdown */}
+                            <input
+                              type="text"
+                              value={searchBranch}
+                              onChange={handleSearchBranch}
+                              placeholder="Search..."
+                              className=" w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                            />
 
-          {/* Dropdown Options */}
-          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-            {filteredBranch.length > 0 ? (
-              filteredBranch.map((branch) => (
-                <li
-                  key={branch.id}
-                  onClick={() => handleSelectBranch(branch)}
-                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                >
-                   {branch.text}
-                </li>
-              ))
-            ) : (
-              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
+                            {/* Dropdown Options */}
+                            <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                              {filteredBranch.length > 0 ? (
+                                filteredBranch.map((branch) => (
+                                  <li
+                                    key={branch.id}
+                                    onClick={() => handleSelectBranch(branch)}
+                                    className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                                  >
+                                    {branch.text}
+                                  </li>
+                                ))
+                              ) : (
+                                <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
 
                     </div>
 
 
                     <div className="w-full max-w-3xl mx-auto space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      
-{/* Upload user photo*/}
+
+                        {/* Upload user photo*/}
                         <div>
                           <label className="block mb-2 mt-4">User Photo</label>
                           <div
-                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${
-                              imagePreview
-                                ? "border-gray-300"
-                                : "border-blue-500"
-                            }`}
+                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${imagePreview
+                              ? "border-gray-300"
+                              : "border-blue-500"
+                              }`}
                           >
 
                             {imagePreview ? (
@@ -1063,11 +1055,10 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                         <div>
                           <label className="block mb-2 mt-4">Signature</label>
                           <div
-                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${
-                              signaturePreview
-                                ? "border-gray-300"
-                                : "border-blue-500"
-                            }`}
+                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${signaturePreview
+                              ? "border-gray-300"
+                              : "border-blue-500"
+                              }`}
                           >
                             {signaturePreview ? (
                               <img
@@ -1119,38 +1110,37 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
-<div className="block">
-{/* document */}
-<label className="block mt-2">
-                      <span>Choose Document</span>
-                      <span className="relative mt-1 flex">
-                        <select
-                          name="document_type"
-                          value={document_type}
-                          onChange={(e) => setdocument_type(e.target.value)}
-                          className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        >
-                          <option>Choose a Document</option>
-                          <option value="sslc">SSLC</option>
-                          <option value="aadhaar">Aadhaar</option>
-                          <option value="birthcertificate">
-                            Birth Certificate
-                          </option>
-                          <option value="passport">Passport</option>
-                        </select>
-                      </span>
-                    </label>
-                      {/* Upload Document Proof Image Section */}
-                      <div>
+                      <div className="block">
+                        {/* document */}
+                        <label className="block mt-2">
+                          <span>Choose Document</span>
+                          <span className="relative mt-1 flex">
+                            <select
+                              name="document_type"
+                              value={document_type}
+                              onChange={(e) => setdocument_type(e.target.value)}
+                              className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            >
+                              <option>Choose a Document</option>
+                              <option value="sslc">SSLC</option>
+                              <option value="aadhaar">Aadhaar</option>
+                              <option value="birthcertificate">
+                                Birth Certificate
+                              </option>
+                              <option value="passport">Passport</option>
+                            </select>
+                          </span>
+                        </label>
+                        {/* Upload Document Proof Image Section */}
+                        <div>
                           <label className="block mb-2 mt-4">
                             Document Proof
                           </label>
                           <div
-                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${
-                              documentPreview
-                                ? "border-gray-300"
-                                : "border-blue-500"
-                            }`}
+                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${documentPreview
+                              ? "border-gray-300"
+                              : "border-blue-500"
+                              }`}
                           >
                             {documentPreview ? (
                               <img
@@ -1199,39 +1189,38 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             )}
                           </div>
                         </div>
-  </div>
-  <div className="block">
-{/* document */}
-<label className="block mt-2">
-                      <span>Choose Document</span>
-                      <span className="relative mt-1 flex">
-                        <select
-                          name="document_type"
-                          value={document_type}
-                          onChange={(e) => setdocument_type(e.target.value)}
-                          className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        >
-                          <option>Choose a Document</option>
-                          <option value="sslc">SSLC</option>
-                          <option value="aadhaar">Aadhaar</option>
-                          <option value="birthcertificate">
-                            Birth Certificate
-                          </option>
-                          <option value="passport">Passport</option>
-                        </select>
-                      </span>
-                    </label>
-                      {/* Upload Document Proof Image Section */}
-                      <div>
+                      </div>
+                      <div className="block">
+                        {/* document */}
+                        <label className="block mt-2">
+                          <span>Choose Document</span>
+                          <span className="relative mt-1 flex">
+                            <select
+                              name="document_type"
+                              value={document_type}
+                              onChange={(e) => setdocument_type(e.target.value)}
+                              className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            >
+                              <option>Choose a Document</option>
+                              <option value="sslc">SSLC</option>
+                              <option value="aadhaar">Aadhaar</option>
+                              <option value="birthcertificate">
+                                Birth Certificate
+                              </option>
+                              <option value="passport">Passport</option>
+                            </select>
+                          </span>
+                        </label>
+                        {/* Upload Document Proof Image Section */}
+                        <div>
                           <label className="block mb-2 mt-4">
                             Document Proof
                           </label>
                           <div
-                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${
-                              documentPreview
-                                ? "border-gray-300"
-                                : "border-blue-500"
-                            }`}
+                            className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${documentPreview
+                              ? "border-gray-300"
+                              : "border-blue-500"
+                              }`}
                           >
                             {documentPreview ? (
                               <img
@@ -1280,14 +1269,14 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             )}
                           </div>
                         </div>
-  </div>
+                      </div>
 
-                        </div>
+                    </div>
                   </div>
 
                 </div>
               </div>
-         
+
             </div>
 
 
@@ -1295,191 +1284,229 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
             {/* <div className="flex-1 mt-4 sm:mt-0 p-4"> */}
             <div className="flex-[3] mt-4 sm:mt-0 p-4">
-          {/* <div className="flex-1 mt-4 sm:mt-0 p-4 border border-gray-300 shadow-md rounded-lg"> */}
-             
-              <div className="space-y-5 p-4 sm:p-5 border mb-4 mt-2 border-gray-300 shadow-md rounded-lg"> 
-              
-              <label className="block mb-2 text-lg  font-medium text-slate-700 dark:text-navy-100 mt-1">
-                Service Information
-              </label>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              
-              {/* service name */}
-<div className="relative w-full" ref={serviceDropdownRef}>
-      <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
-       Service
-      </label>
+              {/* <div className="flex-1 mt-4 sm:mt-0 p-4 border border-gray-300 shadow-md rounded-lg"> */}
 
-      {/* Dropdown Button */}
-      <div
-        onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
-        className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-      >
-        {selectedService || "Select a Service"}
-        <span className="ml-2 dark:text-slate-400/70">
-                  <FaChevronDown />
-                </span>
-      </div>
+              <div className="space-y-5 p-4 sm:p-5 border mb-4 mt-2 border-gray-300 shadow-md rounded-lg">
 
-      {/* Dropdown Content */}
-      {isserviceDropdownOpen && (
-        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-          {/* Search Bar Inside Dropdown */}
-          <input
-            type="text"
-            value={searchService}
-            onChange={handleSearchService}
-            placeholder="Search..."
-            required
-            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          />
+                <label className="block mb-2 text-lg  font-medium text-slate-700 dark:text-navy-100 mt-1">
+                  Service Information
+                </label>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-          {/* Dropdown Options */}
-          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-            {filteredService.length > 0 ? (
-              filteredService.map((service) => (
-                <li
-                  key={service.id}
-                  onClick={() => handleSelectService(service)}
-                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                >
-                   {service.text}
-                </li>
-              ))
-            ) : (
-              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
+                  {/* service name */}
+                  <div className="relative w-full" ref={serviceDropdownRef}>
+                    <label htmlFor="mobile" className="block text-sm text-[#64748B] dark:text-[#A3ADC2]">
+                      Service
+                    </label>
 
-               {/* bill no*/}
-                <label className="block">
-                        <span>Bill No:</span>
-                        <span className="relative  flex">
-                          <input
-                            name="name"
-                            value={name}
-                            onChange={(e) => setname(e.target.value)}
-                            className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            placeholder="Bill No:"
-                            type="text"
-                          />
-                        </span>
-                      </label>
+                    {/* Dropdown Button */}
+                    <div
+                      onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
+                      className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                    >
+                      {selectedService || "Select a Service"}
+                      <span className="ml-2 dark:text-slate-400/70">
+                        <FaChevronDown />
+                      </span>
+                    </div>
+
+                    {/* Dropdown Content */}
+                    {isserviceDropdownOpen && (
+                      <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                        {/* Search Bar Inside Dropdown */}
+                        <input
+                          type="text"
+                          value={searchService}
+                          onChange={handleSearchService}
+                          placeholder="Search..."
+                          required
+                          className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                        />
+
+                        {/* Dropdown Options */}
+                        <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                          {filteredService.length > 0 ? (
+                            filteredService.map((service) => (
+                              <li
+                                key={service.id}
+                                onClick={() => handleSelectService(service)}
+                                className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                              >
+                                {service.text}
+                              </li>
+                            ))
+                          ) : (
+                            <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+                          )}
+                        </ul>
                       </div>
+                    )}
+                  </div>
 
-                        {/* check box */}
-<div>
-                      {(type === "lmv" ||
-                      type === "mc" ||
-                      type === "auto")&& (
-                       
-                    <>   
-                
-                <label className="inline-flex items-center space-x-2">
-  <input 
-  className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
-  type="checkbox" />
-  <span>Study</span>
-</label>
- <label className="inline-flex items-center space-x-2 ml-6">
- <input 
- className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
- type="checkbox" />
- <span>Licence</span>
-</label>
-</>        
-                      )}
-                     
-                      {/* LMV Trial */}
-                      {selectedService === "licence fresh" && (
-         <label className="inline-flex items-center space-x-2 ml-6">
-         <input
-           value="lmv_trial"
-           checked={selectedOption === "lmv_trial"}
-           onChange={(e) => setSelectedOption(e.target.value)}
-           className="form-radio is-basic size-4 rounded-full border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
-           // name="basic"
-           name="lmv_trial"
-           type="radio"
-         />
-         <span>LMV Trial</span>
-       </label>
-      )}
-      </div>
-    
+                  {/* bill no*/}
+                  <label className="block">
+                    <span>Bill No:</span>
+                    <span className="relative  flex">
+                      <input
+                        name="name"
+                        value={name}
+                        onChange={(e) => setname(e.target.value)}
+                        className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        placeholder="Bill No:"
+                        type="text"
+                      />
+                    </span>
+                  </label>
+                </div>
 
 
-                        {/* both dropdown */}
-  {type === "both" && (
-     <label className="block ">
-     <span>Both Type</span>
-    <span className="relative mt-1 flex">
-      <select
-        // value={type}
-        // onChange={(e) => settype(e.target.value)}
-        className="text-sm pl-2 dark:bg-navy-700 form-input peer  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-      >
-        <option>Choose Type</option>
-        <option value="lmv">LMV MC both Study</option>
-        <option value="mc">LMV MC both Licence</option>
-        <option value="both">LMV Study MC Licence</option>
-        <option value="both">LMV Licence MC Study</option>
-        <option value="auto">Both Licence Study</option>
-      </select>
-    </span>
-  </label>
-  )}
- 
+                {/* if selected service == renewal to licence re entry */}
 
-       {/*Trial Amount */}
-       {selectedOption === "lmv_trial" && (
-         
-           <label className="block">
-           <span>Trial Amount</span>
-           <span className="relative mt-1 flex">
-             <input
-               type="text"
-               placeholder="Trial Amount"
-               value={selectedAmount}
-               className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-             />
-           </span>
-         </label>
+                {(selectedService === 'Renewal Licence' || selectedService === 'Duplicate Licence' || selectedService === 'Licence Re-Entry' ) &&
+                  (<label className="block">
+                    <span>Licence Number:</span>
+                    <span className="relative  flex">
+                      <input
+                        value=""
+                        className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        placeholder="Licence No:"
+                        type="text"
+                      />
+                    </span>
+                  </label>
+                  )}
 
-      )}
 
- {/* type */}
+
+                {/* vehicle number for insurence related data */}
+
+                {(  selectedService === 'Insurance Renewal' || selectedService === 'Fresh Insurance' || selectedService === 'RC Renewal' || selectedService === 'RC Transfer' || selectedService === 'RC HP' || selectedService === 'CF' || selectedService === 'CF Renewal'  ) && 
+                (<label className="block">
+                  <span>Vehicle Number:</span>
+                  <span className="relative  flex">
+                    <input
+                      value=""
+                      className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      placeholder="Vehicle No:"
+                      type="text"
+                    />
+                  </span>
+                </label>
+                )}
+
+
+
+                {/* check box */}
+                <div>
+                  {(type === "lmv" ||
+                    type === "mc" ||
+                    type === "auto") && (
+
+                      <>
+
+                        <label className="inline-flex items-center space-x-2">
+                          <input
+                            className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
+                            type="checkbox" />
+                          <span>Study</span>
+                        </label>
+                        <label className="inline-flex items-center space-x-2 ml-6">
+                          <input
+                            className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
+                            type="checkbox" />
+                          <span>Licence</span>
+                        </label>
+                      </>
+                    )}
+
+                  {/* LMV Trial */}
+                  {selectedService === "licence fresh" && (
+                    <label className="inline-flex items-center space-x-2 ml-6">
+                      <input
+                        value="lmv_trial"
+                        checked={selectedOption === "lmv_trial"}
+                        onChange={(e) => setSelectedOption(e.target.value)}
+                        className="form-radio is-basic size-4 rounded-full border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
+                        // name="basic"
+                        name="lmv_trial"
+                        type="radio"
+                      />
+                      <span>LMV Trial</span>
+                    </label>
+                  )}
+
+                </div>
+
+
+
+                {/* both dropdown */}
+                {type === "both" && (
+                  <label className="block ">
+                    <span>Both Type</span>
+                    <span className="relative mt-1 flex">
+                      <select
+                        // value={type}
+                        // onChange={(e) => settype(e.target.value)}
+                        className="text-sm pl-2 dark:bg-navy-700 form-input peer  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      >
+                        <option>Choose Type</option>
+                        <option value="lmv">LMV MC both Study</option>
+                        <option value="mc">LMV MC both Licence</option>
+                        <option value="both">LMV Study MC Licence</option>
+                        <option value="both">LMV Licence MC Study</option>
+                        <option value="auto">Both Licence Study</option>
+                      </select>
+                    </span>
+                  </label>
+                )}
+
+
+                {/*Trial Amount */}
+                {selectedOption === "lmv_trial" && (
+
+                  <label className="block">
+                    <span>Trial Amount</span>
+                    <span className="relative mt-1 flex">
+                      <input
+                        type="text"
+                        placeholder="Trial Amount"
+                        value={selectedAmount}
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label>
+
+                )}
+
+                {/* type */}
                 {(selectedService === "licence fresh" ||
                   selectedService === "renewal licence" ||
                   selectedService === "duplicate licence" ||
                   selectedService === "licence reentry" ||
                   selectedService === "rc transfer") && (
                     // type
-                  <label className="block">
-                     <span>Type</span>
-                    <span className="relative mt-1 flex">
-                      <select
-                        value={type}
-                        onChange={(e) => settype(e.target.value)}
-                        className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                      >
-                        <option>Select Type</option>
-                        <option value="lmv">LMV</option>
-                        <option value="mc">MC</option>
-                        <option value="both">BOTH</option>
-                        <option value="auto">Auto Rickshaw</option>
-                      </select>
-                    </span>
-                  </label>
-                )}
+                    <label className="block">
+                      <span>Type</span>
+                      <span className="relative mt-1 flex">
+                        <select
+                          value={type}
+                          onChange={(e) => settype(e.target.value)}
+                          className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        >
+                          <option>Select Type</option>
+                          <option value="lmv">LMV</option>
+                          <option value="mc">MC</option>
+                          <option value="both">BOTH</option>
+                          <option value="auto">Auto Rickshaw</option>
+                        </select>
+                      </span>
+                    </label>
+                  )}
 
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-                   {/* Payment Method */}
+                  {/* Payment Method */}
                   <label className="block">
                     <span>Payment Method</span>
                     <span className="relative mt-1 flex">
@@ -1494,8 +1521,8 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       </select>
                     </span>
                   </label>
-                        {/* Service Amount */}
-                        {/* <label className="block">
+                  {/* Service Amount */}
+                  {/* <label className="block">
                     <span>Service Amount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -1506,11 +1533,11 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label> */}
-                     
-                       </div>
-                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                               {/* Total Amount */}
-                      <label className="block">
+
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {/* Total Amount */}
+                  <label className="block">
                     <span>Total Amount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -1521,8 +1548,8 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                    {/* Discount */}
-                       <label className="block">
+                  {/* Discount */}
+                  <label className="block">
                     <span>Discount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -1533,7 +1560,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                     {/*Pay Amount */}
+                  {/*Pay Amount */}
                   <label className="block">
                     <span>Pay Amount</span>
                     <span className="relative mt-1 flex">
@@ -1545,8 +1572,8 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                   {/* Paying Amount */}
-                   <label className="block ">
+                  {/* Paying Amount */}
+                  <label className="block ">
                     <span>Paying Amount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -1558,20 +1585,20 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                   {/* Remarks*/}
-                   <label className="block ">
-                        <span>Remarks</span>
-                        <span className="relative mt-1 flex">
-                          <textarea 
-                          rows={2}
-                            name="address"
-                            value={address}
-                            onChange={(e) => setaddress(e.target.value)}
-                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            // placeholder="Address" 
-                          />
-                        </span>
-                      </label>
+                  {/* Remarks*/}
+                  <label className="block ">
+                    <span>Remarks</span>
+                    <span className="relative mt-1 flex">
+                      <textarea
+                        rows={2}
+                        name="address"
+                        value={address}
+                        onChange={(e) => setaddress(e.target.value)}
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      // placeholder="Address" 
+                      />
+                    </span>
+                  </label>
                 </div>
                 {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                  
@@ -1579,10 +1606,10 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                 <button
                   type="submit"
                   className="btn bg-primary font-medium text-white hover:bg-primary-focus rounded p-2 w-1/5 mt-4">
-                   {loading ? 'Adding...' : 'Add'}
+                  {loading ? 'Adding...' : 'Add'}
                 </button>
               </div>
-           
+
             </div>
 
           </div>

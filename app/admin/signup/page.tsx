@@ -345,8 +345,7 @@ const router = useRouter();
               />
               <span
                 className="absolute right-3 flex items-center justify-center text-slate-400 cursor-pointer mt-3"
-                onClick={toggleConfirmPasswordVisibility}
-              >
+                onClick={toggleConfirmPasswordVisibility}>
                 {showConfirmPassword ? <IoEye /> : <IoEyeOff />}
               </span>
             </label>

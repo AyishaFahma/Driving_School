@@ -4,7 +4,7 @@
 
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { FaChevronDown, FaEdit, FaSpinner } from "react-icons/fa";
+import { FaChevronDown, FaEdit, FaEye, FaSpinner } from "react-icons/fa";
 import Create from "./Create";
 
 import { useAuth } from "@/app/context/AuthContext";
@@ -14,6 +14,7 @@ import Payment from "./payment";
 import { FiClock } from "react-icons/fi";
 import { IoMdCheckmark } from "react-icons/io";
 import Edit from "./edit";
+import View from "./View";
 
 type Admission = {
   id?: string;
@@ -111,6 +112,31 @@ const Admission = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // state for view modal
+  const [showViewModal, setshowViewModal] = useState(false)
+
+  //state to store single data
+  const [singleData, setsingleData] = useState<any>(null)
+
+  // Function to open modal with data
+  const openViewModal = (item: any) => {
+    console.log(item);
+    setsingleData(item);
+    setshowViewModal(true);
+  }
+  console.log(singleData);
+  
+
+  // Function to close modal
+  const closeViewModal = () => {
+    setshowViewModal(false);
+    setsingleData(null);
+  }
+
+
+
+
+
   const togglemodal = (
     mode: "add" | "edit",
     admission: Admission | null = null
@@ -123,6 +149,7 @@ const Admission = () => {
   const togglemodals = () => {
     setShowmodals((prev) => !prev);
   };
+
   const fetchAdmissionData = async () => {
     try {
       const response = await fetch("/api/admin/signup/get_admission_details", {
@@ -138,17 +165,22 @@ const Admission = () => {
         const errorData = await response.json();
 
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
 
+      // console.log(`response ${response}`);
+
+
       const data = await response.json();
+      // console.log(data);
+
 
       if (data.success) {
         setAdmissionData(data.data || []);
         setFilteredData(data.data || []);
+        // setsingleData(data)
       } else {
         // console.error("API error:", data.msg || "Unknown error");
       }
@@ -179,8 +211,7 @@ const Admission = () => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
@@ -235,8 +266,7 @@ const Admission = () => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
@@ -317,12 +347,12 @@ const Admission = () => {
     setFilteredData(searchFilteredData); // Update filtered data in real-time
   };
 
-  
+
 
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
-  
+
     // Simulate a delay to show the loader (you can remove this in production)
     await new Promise(resolve => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
@@ -333,9 +363,9 @@ const Admission = () => {
 
   const handleReset = async () => {
     setIsLoading(true); // Start loading
-   
-     // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
 
     setSelectedBranch("");
@@ -351,7 +381,7 @@ const Admission = () => {
     indexOfFirstEntry,
     indexOfLastEntry
   );
- 
+
   const totalEntries = filteredData.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
@@ -372,8 +402,7 @@ const Admission = () => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
@@ -417,7 +446,7 @@ const Admission = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-   
+
       if (admissionDropdownRef.current && event.target instanceof Node) {
         if (!admissionDropdownRef.current.contains(event.target)) {
           setIsadmissionDropdownOpen(false);
@@ -500,8 +529,8 @@ const Admission = () => {
                   >
                     {selectedMobile || "Select a Mobile / Name"}
                     <span className="ml-2 dark:text-slate-400/70">
-                              <FaChevronDown />
-                            </span>
+                      <FaChevronDown />
+                    </span>
                   </div>
 
                   {/* Dropdown Content */}
@@ -554,9 +583,9 @@ const Admission = () => {
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
                     {selectedBranch || "Select an Admission No:"}
-                   <span className="ml-2 dark:text-slate-400/70">
-                             <FaChevronDown />
-                           </span>
+                    <span className="ml-2 dark:text-slate-400/70">
+                      <FaChevronDown />
+                    </span>
                   </div>
 
                   {/* Dropdown Content */}
@@ -610,9 +639,9 @@ const Admission = () => {
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
                     {selectedBranch || "Select a Branch"}
-                   <span className="ml-2 dark:text-slate-400/70">
-                             <FaChevronDown />
-                           </span>
+                    <span className="ml-2 dark:text-slate-400/70">
+                      <FaChevronDown />
+                    </span>
                   </div>
 
                   {/* Dropdown Content */}
@@ -747,173 +776,172 @@ const Admission = () => {
                     </th>
                   </tr>
                 </thead>
+                {/*  */}
                 <tbody>
-                {isLoading ? (
-    <tr>
-      <td colSpan={7} className="text-center py-10">
-        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-      </td>
-    </tr>
-  ) : (
-    <>
-                  {currentEntries.length > 0 ? (
-                    currentEntries.map((item, index) => (
-                      <tr
-                        // key={item.id}
-                        className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-                      >
-                        <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                          {indexOfFirstEntry + index + 1}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {item.user_name}
-                          <p className="text-slate-400 dark:text-navy-300">
-                            Name: {item.first_name}
-                           
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                          
-                            Admission No:{item.admission_no}
-                          </p>
-                        </td>
-                        {/* <td className="max-w-[550px] px-4 py-3"> */}
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              D-O-B:
-                            </span>
-                            {item.dob ? item.dob : "null"}
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              Address:
-                            </span>{" "}
-                            {item.address ? item.address : "null"}
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              Email:{" "}
-                            </span>
-                            {item.email}
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              Blood Group:
-                            </span>
-                            {item.blood_group}
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              Gender:
-                            </span>
-                            {item.gender}
-                          </p>
-                          <p className="text-slate-400 dark:text-navy-300">
-                            <span className="font-bold mr-2 dark:text-navy-100">
-                              Branch:
-                            </span>
-                            {item.branch_name}
-                          </p>
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {item.service_name}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {item.due_amount}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {item.pay_status === "completed" && (
-                            <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-                              <span className="badge bg-orange-transparent">
-                                <IoMdCheckmark className="mr-2" />
-                                Fully Paid
-                              </span>
-                            </div>
-                          )}
-                          {item.pay_status === "pending" && (
-                            <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
-                              <span className="badge bg-orange-transparent">
-                                <FiClock className="mr-2" />
-                                Pending
-                              </span>
-                            </div>
-                          )}
-                          {item.pay_status === "remaining" && (
-                            <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
-                              <span className="badge bg-orange-transparent">
-                                <CgNotes className="mr-2" />
-                                Partially Paid
-                              </span>
-                            </div>
-                          )}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {/* {item.added_date} */}
-                          <div className="flex flex-col">
-                            <span>{item.added_date.split(" ")[0]}</span>{" "}
-                            {/* Date */}
-                            <span>{item.added_date.split(" ")[1]}</span>{" "}
-                            {/* Time */}
-                          </div>
-                        </td>
-
-                     
-                        <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
-                          <div className="flex flex-wrap gap-2">
-                            
-                            <button 
-                            onClick={() => togglemodal("edit", item)}
-                            className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                              <i className="fa fa-edit"/>
-                            </button>
-
-                          
-                            {item.pay_status !== "completed" && (
-                              <button className="btn size-7 p-0 text-error focus:bg-error/20 active:bg-error/25 border border-error rounded"
-                                onClick={() => handleEdit(item)} >
-                                <RiCurrencyLine />
-                              </button>
-                            )}
-
-                      
-                            {/* <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
-                              onClick={() =>
-                                window.open(
-                                  `/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`,
-                                  "_blank"
-                                )
-                              } >
-                        
-                              <RiBillFill className="w-4 h-4" />
-                            </button> */}
-                            <button
-  onClick={() => {
-    sessionStorage.setItem('viewPaymentData', JSON.stringify({
-      user_id: item.customer_id,
-      cus_service_id: item.id
-    }));
-    window.open(`/admin/report/view-payment`, '_blank');
-  }}
-  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
->
-  <RiBillFill />
-</button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
+                  {isLoading ? (
                     <tr>
-                      <td
-                        colSpan={7}
-                        className="text-center py-4 text-gray-500"
-                      >
-                        No data available
+                      <td colSpan={7} className="text-center py-10">
+                        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
                       </td>
                     </tr>
+                  ) : (
+                    <>
+                      {currentEntries.length > 0 ? (
+                        currentEntries.map((item, index) => (
+                          <tr
+                            // key={item.id}
+                            className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+                          >
+                            <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+                              {indexOfFirstEntry + index + 1}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.user_name}
+                              <p className="text-slate-400 dark:text-navy-300">
+                                Name: {item.first_name}
+
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+
+                                Admission No:{item.admission_no}
+                              </p>
+                            </td>
+                            {/* <td className="max-w-[550px] px-4 py-3"> */}
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  D-O-B:
+                                </span>
+                                {item.dob ? item.dob : "null"}
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  Address:
+                                </span>{" "}
+                                {item.address ? item.address : "null"}
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  Email:{" "}
+                                </span>
+                                {item.email}
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  Blood Group:
+                                </span>
+                                {item.blood_group}
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  Gender:
+                                </span>
+                                {item.gender}
+                              </p>
+                              <p className="text-slate-400 dark:text-navy-300">
+                                <span className="font-bold mr-2 dark:text-navy-100">
+                                  Branch:
+                                </span>
+                                {item.branch_name}
+                              </p>
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.service_name}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.due_amount}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.pay_status === "completed" && (
+                                <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+                                  <span className="badge bg-orange-transparent">
+                                    <IoMdCheckmark className="mr-2" />
+                                    Fully Paid
+                                  </span>
+                                </div>
+                              )}
+                              {item.pay_status === "pending" && (
+                                <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
+                                  <span className="badge bg-orange-transparent">
+                                    <FiClock className="mr-2" />
+                                    Pending
+                                  </span>
+                                </div>
+                              )}
+                              {item.pay_status === "remaining" && (
+                                <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
+                                  <span className="badge bg-orange-transparent">
+                                    <CgNotes className="mr-2" />
+                                    Partially Paid
+                                  </span>
+                                </div>
+                              )}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {/* {item.added_date} */}
+                              <div className="flex flex-col">
+                                <span>{item.added_date.split(" ")[0]}</span>{" "}
+                                {/* Date */}
+                                <span>{item.added_date.split(" ")[1]}</span>{" "}
+                                {/* Time */}
+                              </div>
+                            </td>
+
+                            {/* action button column */}
+                            <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
+                              <div className="flex flex-wrap gap-2 justify-evenly">
+
+                                <button
+                                  onClick={() => togglemodal("edit", item)}
+                                  className="btn  p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                                  <i className="fa fa-edit" />
+                                </button>
+
+                                {item.pay_status !== "completed" && (
+                                  <button className="btn  p-0 text-error focus:bg-error/20 active:bg-error/25 border border-error rounded"
+                                    onClick={() => handleEdit(item)} >
+                                    <RiCurrencyLine />
+                                  </button>
+                                )}
+
+
+                                {/* view modal for download*/}
+
+                                <button onClick={() => openViewModal(item)} className="text-lg text-blue-500 p-0">
+                                  <FaEye />
+                                </button>
+
+
+
+                                <button
+                                  onClick={() => {
+                                    sessionStorage.setItem('viewPaymentData', JSON.stringify({
+                                      user_id: item.customer_id,
+                                      cus_service_id: item.id
+                                    }));
+                                    window.open(`/admin/report/view-payment`, '_blank');
+                                  }}
+                                  className="btn  p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                                >
+                                  <RiBillFill />
+                                </button>
+
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td
+                            colSpan={7}
+                            className="text-center py-4 text-gray-500"
+                          >
+                            No data available
+                          </td>
+                        </tr>
+                      )}
+                    </>
                   )}
-                  </>
-  )}
                 </tbody>
               </table>
             </div>
@@ -931,9 +959,8 @@ const Admission = () => {
                 <button
                   onClick={() => setCurrentPage(1)}
                   disabled={currentPage === 1}
-                  className={`px-3 py-2 border rounded-md ${
-                    currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
-                  }`}
+                  className={`px-3 py-2 border rounded-md ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+                    }`}
                 >
                   First
                 </button>
@@ -942,9 +969,8 @@ const Admission = () => {
                     setCurrentPage((prev) => Math.max(prev - 1, 1))
                   }
                   disabled={currentPage === 1}
-                  className={`px-3 py-2 border rounded-md ${
-                    currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
-                  }`}
+                  className={`px-3 py-2 border rounded-md ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+                    }`}
                 >
                   Previous
                 </button>
@@ -952,9 +978,8 @@ const Admission = () => {
                   <button
                     key={i + 1}
                     onClick={() => setCurrentPage(i + 1)}
-                    className={`px-3 py-2 border rounded-md ${
-                      currentPage === i + 1 ? "bg-[#4f46e5] text-white" : ""
-                    }`}
+                    className={`px-3 py-2 border rounded-md ${currentPage === i + 1 ? "bg-[#4f46e5] text-white" : ""
+                      }`}
                   >
                     {i + 1}
                   </button>
@@ -964,22 +989,20 @@ const Admission = () => {
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                   }
                   disabled={currentPage === totalPages}
-                  className={`px-4 py-2 border rounded-md ${
-                    currentPage === totalPages
-                      ? "cursor-not-allowed opacity-50"
-                      : ""
-                  }`}
+                  className={`px-4 py-2 border rounded-md ${currentPage === totalPages
+                    ? "cursor-not-allowed opacity-50"
+                    : ""
+                    }`}
                 >
                   Next
                 </button>
                 <button
                   onClick={() => setCurrentPage(totalPages)}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-2 border rounded-md ${
-                    currentPage === totalPages
-                      ? "cursor-not-allowed opacity-50"
-                      : ""
-                  }`}
+                  className={`px-3 py-2 border rounded-md ${currentPage === totalPages
+                    ? "cursor-not-allowed opacity-50"
+                    : ""
+                    }`}
                 >
                   Last
                 </button>
@@ -995,19 +1018,19 @@ const Admission = () => {
         formData={
           selectedCost
             ? {
-                pay_amount: selectedCost.pay_amount,
-                payed_amount: selectedCost.payed_amount,
-                due_amount: selectedCost.due_amount,
-                customer_id: selectedCost.customer_id,
-                service_id: selectedCost.service_id,
-                type: selectedCost.type,
-                amount: selectedCost.amount,
-                service_name: selectedCost.service_name,
-                payment_method: selectedCost.payment_method ?? "",
-                total_amount: selectedCost.total_amount ?? "",
-                id: selectedCost.id || "",
-                billno: selectedCost.billno || "",
-              }
+              pay_amount: selectedCost.pay_amount,
+              payed_amount: selectedCost.payed_amount,
+              due_amount: selectedCost.due_amount,
+              customer_id: selectedCost.customer_id,
+              service_id: selectedCost.service_id,
+              type: selectedCost.type,
+              amount: selectedCost.amount,
+              service_name: selectedCost.service_name,
+              payment_method: selectedCost.payment_method ?? "",
+              total_amount: selectedCost.total_amount ?? "",
+              id: selectedCost.id || "",
+              billno: selectedCost.billno || "",
+            }
             : undefined
         }
         isEditing={!!selectedCost}
@@ -1035,6 +1058,19 @@ const Admission = () => {
             togglemodal={() => togglemodal("add")}
           />
         ))}
+
+
+      {showViewModal && (
+        <View
+
+          showViewModal={showViewModal}
+          toggleViewModal={closeViewModal}
+          singleData={singleData}
+
+        />
+
+      )}
+
     </div>
   );
 };
