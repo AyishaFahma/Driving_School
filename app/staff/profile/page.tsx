@@ -770,3 +770,4 @@ const StaffProfile = () => {
 
 // export default AdminProfile;
 export default withAuth(StaffProfile, ["staff"]);
+//only users with staff role and a valid token can access this page

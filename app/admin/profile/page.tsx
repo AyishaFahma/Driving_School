@@ -814,4 +814,5 @@ if (/\s/.test(value)) {
 };
 
 // export default AdminProfile;
-export default withAuth(AdminProfile, ["admin"]);
+export default withAuth(AdminProfile, ["admin"]); // this came from hoc
+//only users with the admin role and a valid token can aceess this page

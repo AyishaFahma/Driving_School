@@ -257,4 +257,5 @@ if (response.ok){
 };
 
 // export default Add;
-export default withAuth(Add, ["admin"]);
+export default withAuth(Add, ["admin"]); // this from hoc
+//only users with the admin role and valid token can acess this page

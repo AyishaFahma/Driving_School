@@ -751,4 +751,5 @@ useEffect(() => {
 };
 
 // export default page
-export default withAuth(AdminPage, ["admin"]);
+export default withAuth(AdminPage, ["admin"]); // this is came from hoc - withAuth
+//only users with a admin role and valid token can access this page

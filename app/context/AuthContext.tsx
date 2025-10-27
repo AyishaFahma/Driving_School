@@ -9,7 +9,7 @@ import { createContext, useContext, useReducer, useEffect, ReactNode } from "rea
 type User = { name: string; email: string }; 
 
 interface AuthState {
-  user: User | null; // logined user data
+  user: User | null; // logined user data or null if logged out
   accessToken: string | null; // used for authorized api calls
   refreshToken: string | null; // used to refresh expired token
 }
@@ -48,7 +48,7 @@ const initialState: AuthState = {
 
 
 //The reducer is like a mini state manager:
-//It listens for actions (SET_USER, CLEAR_USER)
+//It listens for actions (SET_USER, CLEAR_USER) // action function to update the state
 //Updates the state accordingly
 //Returns a new state object
 //This is what useReducer will use.

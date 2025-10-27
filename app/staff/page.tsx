@@ -707,3 +707,4 @@ const StaffPage = () => {
 
 // export default page
 export default withAuth(StaffPage, ["staff"]);
+//only users with staff role and valid token can acess this page
