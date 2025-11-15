@@ -19,29 +19,29 @@ export default function RootLayout({ children }: Props) {
 
   return (
     <html lang="en">
-      <body  x-data x-bind="$store.global.documentBody"
-  className="is-header-blur">
+      <body x-data x-bind="$store.global.documentBody"
+        className="is-header-blur">
 
-      <AuthProvider>
-      <DrawerProvider>
-        <ToastContainer position="top-right" autoClose={3000}/>
-          {/* Conditional rendering based on the pathname */}
-          {pathname.startsWith("/admin") ? (
-            
-            <DashboardLayout>
-              {children}
-             
+        <AuthProvider>
+          <DrawerProvider>
+            <ToastContainer position="top-right" autoClose={3000} />
+            {/* Conditional rendering based on the pathname */}
+            {pathname.startsWith("/admin") ? (
+
+              <DashboardLayout>
+                {children}
+
               </DashboardLayout>
-            
-          ) : (
-            children
-          )}
+
+            ) : (
+              children
+            )}
           </DrawerProvider>
-          </AuthProvider>
+        </AuthProvider>
       </body>
-      
+
     </html>
-      
+
   );
 }
 

@@ -691,8 +691,8 @@ type Site = {
  
 };
 
-      const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
-      const searchParams = useSearchParams();
+  const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
+  const searchParams = useSearchParams();
    
   const { state } = useAuth();
 

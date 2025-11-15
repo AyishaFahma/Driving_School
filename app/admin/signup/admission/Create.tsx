@@ -81,13 +81,20 @@ const Create: React.FC<CreateProps> = ({
   const [selectedAmount, setSelectedAmount] = useState("");
 
   const [admission_no, setadmission_no] = useState("");
+
+  // application number  
   const [app_no, setapp_no] = useState("");
+
   const [name, setname] = useState("");
   const [mobile, setmobile] = useState("");
   const [email, setemail] = useState("");
   const [blood_group, setblood_group] = useState("");
-  const [gender, setgender] = useState("");
+  const [ gender, setgender] = useState("");
   const [branch_id, setbranch_id] = useState("");
+
+  // bill no
+  const [bill_no, setbill_no] = useState("")
+
 
   const [signature, setsignature] = useState<File | null>(null);
   const [userfile, setuserfile] = useState<File | null>(null);
@@ -139,6 +146,8 @@ const Create: React.FC<CreateProps> = ({
   const branchDropdownRef = useRef<HTMLDivElement>(null);
 
   const [loading, setLoading] = useState(false);
+
+  
 
   const [localFormData, setLocalFormData] = useState(
     formDatas || {
@@ -264,6 +273,28 @@ const Create: React.FC<CreateProps> = ({
     setImage(null);
   };
 
+ // // test for branches data
+  // const bf = async ()=>{
+  //     const branchesResponse = await fetch('/api/admin/report/get_branch_autocomplete', {
+  //               method: 'POST',
+  //               headers: {
+  //                   authorizations: state?.accessToken ?? "",
+  //                   api_key: "10f052463f485938d04ac7300de7ec2b",
+  //               },
+  //               body : JSON.stringify( {})
+  //           });
+  //           const branchesData = await branchesResponse.json()
+  //           console.log('all branches api' , branchesData.data.branch_details); 
+  //           const data =  branchesData.data.branch_details          
+  //           setBranches(data)
+            
+  //   }
+  //   console.log('all branches' , branches);
+ 
+  // useEffect( ()=>{
+  //   bf()
+  // },[])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -296,6 +327,12 @@ const Create: React.FC<CreateProps> = ({
     }
 
     console.log("submitting formdata", Object.fromEntries(formData.entries()));
+
+     // Debug what's actually being sent
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value, typeof value , "this is the submitted formdata");
+    }
+
     if (!localFormData.name) {
       setError("Name field is required.");
       return;
@@ -309,6 +346,7 @@ const Create: React.FC<CreateProps> = ({
       return;
     }
 
+    
     try {
       const response = await fetch("/api/admin/signup/admission", {
         method: "POST",
@@ -356,6 +394,7 @@ const Create: React.FC<CreateProps> = ({
           api_key: "10f052463f485938d04ac7300de7ec2b",
         },
         body: JSON.stringify({ term: searchTerm }),
+        
       });
 
       if (!response.ok) {
@@ -444,6 +483,7 @@ const Create: React.FC<CreateProps> = ({
     setSearchBranch("");
     setIsbranchDropdownOpen(false);
   };
+
   const fetchSearchService = async () => {
     try {
       const response = await fetch("/api/admin/report/get_service_autocomplete", {
@@ -501,6 +541,7 @@ const Create: React.FC<CreateProps> = ({
     setIsserviceDropdownOpen(false); // Close dropdown
   };
 
+  //grt admission number
   const fetchSearchAdmission = async () => {
     try {
       const response = await fetch("/api/admin/report/get_branch_autocomplete", {
@@ -525,13 +566,13 @@ const Create: React.FC<CreateProps> = ({
         setFilteredAdmission(data.data.admission_details || []);
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      console.error("Fetch error:", error);   
     }
   };
 
   useEffect(() => {
     fetchSearchAdmission();
-  }, [state]);
+  }, [state , searchAdmissionData , filteredAdmission]);
 
   const handleSearchAdmission = (e: any) => {
     const value = e.target.value;
@@ -616,7 +657,7 @@ const Create: React.FC<CreateProps> = ({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"/>
+                d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
@@ -628,15 +669,15 @@ const Create: React.FC<CreateProps> = ({
             {/* <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 hide-scrollbar"> */}
 
             {/* <div className="flex-1 p-4 "> */}
-            <div className="flex-[4] p-4">
+            <div className="flex-[3] mt-4 sm:mt-0 md:px-5">
               {/* <div className="p-4 border border-gray-300 shadow-md rounded-lg space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2"> */}
-              <div className="p-4 border border-gray-300 shadow-md rounded-lg space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2 ">
-                <label className="ml-6 block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+              <div className="space-y-5 p-4 sm:p-5 border mb-4 mt-2 border-gray-300 shadow-md rounded-lg">
+                <label className="ml-4 block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
                   Profile Information
                 </label>
                 <div>
                   {/* Radio Buttons */}
-                  <div className="flex items-center space-x-4 mb-4 ml-6 mt-4">
+                  <div className="flex items-center space-x-4 mb-4  mt-4">
                     <label className="inline-flex items-center space-x-2">
                       <input
                         value="create"
@@ -787,8 +828,8 @@ const Create: React.FC<CreateProps> = ({
                         <span className="relative mt-1 flex">
                           <input
                             name="name"
-                            value={name}
-                            onChange={(e) => setname(e.target.value)}
+                            value={app_no}
+                            onChange={(e) => setapp_no(e.target.value)}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Application No"
                             type="text"
@@ -1000,8 +1041,7 @@ const Create: React.FC<CreateProps> = ({
                             className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${imagePreview
                               ? "border-gray-300"
                               : "border-blue-500"
-                              }`}
-                          >
+                              }`}>
 
                             {imagePreview ? (
                               <img
@@ -1107,6 +1147,7 @@ const Create: React.FC<CreateProps> = ({
                             )}
                           </div>
                         </div>
+
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
@@ -1283,7 +1324,7 @@ const Create: React.FC<CreateProps> = ({
 
 
             {/* <div className="flex-1 mt-4 sm:mt-0 p-4"> */}
-            <div className="flex-[3] mt-4 sm:mt-0 p-4">
+            <div className="flex-[3] mt-4 sm:mt-0 md:p-4 ">
               {/* <div className="flex-1 mt-4 sm:mt-0 p-4 border border-gray-300 shadow-md rounded-lg"> */}
 
               <div className="space-y-5 p-4 sm:p-5 border mb-4 mt-2 border-gray-300 shadow-md rounded-lg">
@@ -1349,8 +1390,8 @@ const Create: React.FC<CreateProps> = ({
                     <span className="relative  flex">
                       <input
                         name="name"
-                        value={name}
-                        onChange={(e) => setname(e.target.value)}
+                        value={bill_no}
+                        onChange={(e) => setbill_no(e.target.value)}
                         className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Bill No:"
                         type="text"
@@ -1362,7 +1403,7 @@ const Create: React.FC<CreateProps> = ({
 
                 {/* if selected service == renewal to licence re entry */}
 
-                {(selectedService === 'Renewal Licence' || selectedService === 'Duplicate Licence' || selectedService === 'Licence Re-Entry' ) &&
+                {(selectedService === 'Renewal Licence' || selectedService === 'Duplicate Licence' || selectedService === 'Licence Re-Entry') &&
                   (<label className="block">
                     <span>Licence Number:</span>
                     <span className="relative  flex">
@@ -1380,22 +1421,23 @@ const Create: React.FC<CreateProps> = ({
 
                 {/* vehicle number for insurence related data */}
 
-                {(  selectedService === 'Insurance Renewal' || selectedService === 'Fresh Insurance' || selectedService === 'RC Renewal' || selectedService === 'RC Transfer' || selectedService === 'RC HP' || selectedService === 'CF' || selectedService === 'CF Renewal'  ) && 
-                (<label className="block">
-                  <span>Vehicle Number:</span>
-                  <span className="relative  flex">
-                    <input
-                      value=""
-                      className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                      placeholder="Vehicle No:"
-                      type="text"
-                    />
-                  </span>
-                </label>
-                )}
+                {(selectedService === 'Insurance Renewal' || selectedService === 'Fresh Insurance' || selectedService === 'RC Renewal' || selectedService === 'RC Transfer' || selectedService === 'RC HP' || selectedService === 'CF' || selectedService === 'CF Renewal') &&
+                  (<label className="block">
+                    <span>Vehicle Number:</span>
+                    <span className="relative  flex">
+                      <input
+                        value=""
+                        className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        placeholder="Vehicle No:"
+                        type="text"
+                      />
+                    </span>
+                  </label>
+                  )}
 
 
 
+                {/* this need to check with values */}
                 {/* check box */}
                 <div>
                   {(type === "lmv" ||
@@ -1503,6 +1545,8 @@ const Create: React.FC<CreateProps> = ({
                     </label>
                   )}
 
+                {/* this is the end we want to check */}
+
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
@@ -1585,7 +1629,8 @@ const Create: React.FC<CreateProps> = ({
                       />
                     </span>
                   </label>
-                  {/* Remarks*/}
+
+                  {/* Remarks this field values are same in address*/}
                   <label className="block ">
                     <span>Remarks</span>
                     <span className="relative mt-1 flex">

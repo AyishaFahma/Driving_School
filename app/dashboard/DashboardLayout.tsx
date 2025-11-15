@@ -238,7 +238,10 @@ export default function DashboardLayout({
     // Simulate loading on route change
     setLoading(true);
     const timeout = setTimeout(() => setLoading(false), 500); // Adjust the delay as needed
+    // Cleanup if component unmounts before timeout finishes
+    //If the user changes pages again before the 500 ms timer finishes,this cancels the previous timer
     return () => clearTimeout(timeout);
+    //runs effect every time rote/path changes
   }, [pathname]);
 
   return (
@@ -278,9 +281,7 @@ export default function DashboardLayout({
 
           <main
             className={`main-content px-[var(--margin-x)] pb-8 transition-opacity duration-300 ${
-              loading ? "pointer-events-none opacity-50" : "opacity-100"
-            }`}
-          >
+              loading ? "pointer-events-none opacity-50" : "opacity-100" }`}>
              {/* <div className="app-preloader-inner"> */}
             {children}
             {/* </div> */}
